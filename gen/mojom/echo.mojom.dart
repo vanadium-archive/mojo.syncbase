@@ -1,0 +1,1 @@
+gen/dart-gen/mojom/lib/mojo/examples/echo.mojom.dart
