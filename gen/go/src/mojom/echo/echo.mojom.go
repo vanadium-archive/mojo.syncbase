@@ -35,7 +35,7 @@ func (p *Echo_Pointer) Name() string {
 	return echo_Name
 }
 
-type Echo_ServiceFactory struct{
+type Echo_ServiceFactory struct {
 	Delegate Echo_Factory
 }
 
@@ -55,15 +55,15 @@ func (f *Echo_ServiceFactory) Create(messagePipe system.MessagePipeHandle) {
 // CreateMessagePipeForEcho creates a message pipe for use with the
 // Echo interface with a Echo_Request on one end and a Echo_Pointer on the other.
 func CreateMessagePipeForEcho() (Echo_Request, Echo_Pointer) {
-        r, p := bindings.CreateMessagePipeForMojoInterface()
-        return Echo_Request(r), Echo_Pointer(p)
+	r, p := bindings.CreateMessagePipeForMojoInterface()
+	return Echo_Request(r), Echo_Pointer(p)
 }
 
 const echo_EchoString_Name uint32 = 0
 
 type Echo_Proxy struct {
 	router *bindings.Router
-	ids bindings.Counter
+	ids    bindings.Counter
 }
 
 func NewEchoProxy(p Echo_Pointer, waiter bindings.AsyncWaiter) *Echo_Proxy {
@@ -216,8 +216,8 @@ func (p *Echo_Proxy) EchoString(inValue *string) (outValue *string, err error) {
 		inValue,
 	}
 	header := bindings.MessageHeader{
-		Type: echo_EchoString_Name,
-		Flags: bindings.MessageExpectsResponseFlag,
+		Type:      echo_EchoString_Name,
+		Flags:     bindings.MessageExpectsResponseFlag,
 		RequestId: p.ids.Count(),
 	}
 	var message *bindings.Message
@@ -254,7 +254,7 @@ func (p *Echo_Proxy) EchoString(inValue *string) (outValue *string, err error) {
 
 type echo_Stub struct {
 	connector *bindings.Connector
-	impl Echo
+	impl      Echo
 }
 
 func NewEchoStub(r Echo_Request, impl Echo, waiter bindings.AsyncWaiter) *bindings.Stub {
@@ -280,8 +280,8 @@ func (s *echo_Stub) Accept(message *bindings.Message) (err error) {
 			return
 		}
 		header := bindings.MessageHeader{
-			Type: echo_EchoString_Name,
-			Flags: bindings.MessageIsResponseFlag,
+			Type:      echo_EchoString_Name,
+			Flags:     bindings.MessageIsResponseFlag,
 			RequestId: message.Header.RequestId,
 		}
 		message, err = bindings.EncodeMessage(header, &response)
@@ -297,4 +297,3 @@ func (s *echo_Stub) Accept(message *bindings.Message) (err error) {
 	}
 	return
 }
-

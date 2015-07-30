@@ -1,0 +1,122 @@
+// TODO(sadovsky): Copy struct and interface comments from VDL files.
+module mojo.syncbase;
+
+// TODO(sadovsky): Put structs in a separate types.mojom file.
+// TODO(sadovsky): Loose representation of verror. Improve this.
+struct Error {
+  string id;
+  uint32 action_code;
+  string msg;
+};
+
+// TODO(sadovsky): Decide how to represent perms.
+struct Perms {
+  string json;
+};
+
+struct BatchOptions {
+  string hint;
+  bool read_only;
+};
+
+struct PrefixPerms {
+  string prefix;
+  Perms perms;
+};
+
+struct SyncGroupSpec {
+  string description;
+  Perms perms;
+  array<string> prefixes;
+  array<string> mount_tables;
+  bool is_private;
+};
+
+struct SyncGroupMemberInfo {
+  uint8 sync_priority;
+};
+
+// TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
+// All 'name' params are service-relative object names.
+
+// Error handling modeled after:
+// https://github.com/domokit/mojo/blob/master/mojo/services/files/public/interfaces/file.mojom
+interface Syncbase {
+  ////////////////////////////////////////
+  // Service
+
+  ServiceGetPermissions() => (Error err, Perms perms, string version);
+  ServiceSetPermissions(Perms perms, string version) => (Error err);
+
+  ////////////////////////////////////////
+  // App
+
+  AppCreate(string name, Perms perms) => (Error err);
+  AppDelete(string name) => (Error err);
+  AppExists(string name) => (Error err, bool exists);
+  AppGetPermissions(string name) => (Error err, Perms perms, string version);
+  AppSetPermissions(string name, Perms perms, string version) => (Error err);
+
+  ////////////////////////////////////////
+  // Database
+
+  // TODO(sadovsky): Add SchemaMetadata argument.
+  DbCreate(string name, Perms perms) => (Error err);
+  DbDelete(string name) => (Error err);
+  DbExists(string name) => (Error err, bool exists);
+  // TODO(sadovsky): Figure out how to stream back replies.
+  DbExec(string query) => (Error err);
+  DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_dn);
+  DbCommit(string name) => (Error err);
+  DbAbort(string name) => (Error err);
+  DbGetPermissions(string name) => (Error err, Perms perms, string version);
+  DbSetPermissions(string name, Perms perms, string version) => (Error err);
+
+  // TODO(sadovsky): Add DatabaseWatcher, BlobManager, and SchemaManager
+  // methods.
+
+  ////////////////////////////////////////
+  // nosql.Database:SyncGroupManager
+
+  DbGetSyncGroupNames(string name) => (Error err, array<string> names);
+  DbCreateSyncGroup(
+      string name, string sg_name, SyncGroupSpec spec,
+      SyncGroupMemberInfo my_info)
+      => (Error err);
+  DbJoinSyncGroup(string name, string sg_name, SyncGroupMemberInfo my_info)
+      => (Error err);
+  DbLeaveSyncGroup(string name, string sg_name) => (Error err);
+  DbDestroySyncGroup(string name, string sg_name) => (Error err);
+  DbEjectFromSyncGroup(string name, string sg_name, string member)
+      => (Error err);
+  DbGetSyncGroupSpec(string name, string sg_name)
+      => (Error err, SyncGroupSpec spec, string version);
+  DbSetSyncGroupSpec(
+      string name, string sg_name, SyncGroupSpec spec, string version)
+      => (Error err);
+  DbGetSyncGroupMembers(string name, string sg_name)
+      => (Error err, map<string, SyncGroupMemberInfo> infos);
+
+  ////////////////////////////////////////
+  // nosql.Table
+
+  TableCreate(string name, Perms perms) => (Error err);
+  TableDelete(string name) => (Error err);
+  TableExists(string name) => (Error err, bool exists);
+  TableDeleteRowRange(string name, array<uint8> start, array<uint8> limit)
+      => (Error err);
+  // TODO(sadovsky): Figure out how to stream back replies.
+  TableScan(string name, array<uint8> start, array<uint8> limit) => (Error err);
+  TableGetPermissions(string name, string key)
+      => (Error err, array<PrefixPerms> perms_arr);
+  TableSetPermissions(string name, string prefix, Perms perms) => (Error err);
+  TableDeletePermissions(string name, string prefix) => (Error err);
+
+  ////////////////////////////////////////
+  // nosql.Row
+
+  RowExists(string name) => (Error err, bool exists);
+  RowGet(string name) => (Error err, array<uint8> value);
+  RowPut(string name, array<uint8> value) => (Error err);
+  RowDelete(string name) => (Error err);
+};

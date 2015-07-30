@@ -24,7 +24,8 @@ endif
 # Compiles a Go program and links against the Mojo C shared library.
 # $1 is input filename.
 # $2 is output filename.
-# See $(MOJO_DIR)/mojo/go/go.py for description of arguments to go.py (aka MOGO_BIN).
+# See $(MOJO_DIR)/mojo/go/go.py for description of arguments to go.py (aka
+# MOGO_BIN).
 #
 # MOJO_GOPATH must be exported so it can be picked up by MOGO_BIN.
 #
@@ -65,13 +66,21 @@ endif
 	mkdir -p $(dir $@)
 	ar rcs $@ $(MOJO_BUILD_DIR)/obj/mojo/public/platform/native/system.system_thunks.o
 
-gen: gen/dart-pkg/mojom/lib/mojo/examples/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
+gen: gen/dart-pkg/mojom/lib/mojo/examples/echo.mojom.dart gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/echo/echo.mojom.go gen/go/src/mojom/syncbase/syncbase.mojom.go
 
 gen/dart-pkg/mojom/lib/mojo/examples/echo.mojom.dart: mojom/echo.mojom
 	$(call MOJOM_GEN,$<,gen,dart)
 
+gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
+	$(call MOJOM_GEN,$<,gen,dart)
+
 gen/go/src/mojom/echo/echo.mojom.go: mojom/echo.mojom
 	$(call MOJOM_GEN,$<,gen,go)
+	gofmt -w $@
+
+gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
+	$(call MOJOM_GEN,$<,gen,go)
+	gofmt -w $@
 
 .PHONY: clean
 clean:
