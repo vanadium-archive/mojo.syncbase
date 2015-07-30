@@ -6,6 +6,11 @@ ifndef MOJO_DIR
 endif
 
 ifdef ANDROID
+	# TODO(nlacasse): Once mojo issue #349 is fixed, start using the
+	# --map-origin flag and refernce .mojo files by an http:// url and not
+	# file:// url, since the latter will never work on android.
+	$(error Android compilation is currently not supported.  Blocked by https://github.com/domokit/mojo/issues/349)
+
 	# Configure compiler and linker for Android.
 	GO_BIN=$(MOJO_DIR)/src/third_party/go/tool/android_arm/bin/go
 	GO_FLAGS=-ldflags=-shared
@@ -28,9 +33,6 @@ endif
 # MOGO_BIN).
 #
 # MOJO_GOPATH must be exported so it can be picked up by MOGO_BIN.
-#
-# TODO(nlacasse): Add make task to build syncbase service using this MOGO_BUILD
-# function.
 export MOJO_GOPATH=$(V23_GOPATH):$(PWD)/gen/go:$(PWD)/go:$(MOJO_BUILD_DIR)/gen/go
 MOGO_BIN=$(MOJO_DIR)/src/mojo/go/go.py
 define MOGO_BUILD
@@ -66,9 +68,12 @@ endif
 	mkdir -p $(dir $@)
 	ar rcs $@ $(MOJO_BUILD_DIR)/obj/mojo/public/platform/native/system.system_thunks.o
 
-gen: gen/dart-pkg/mojom/lib/mojo/examples/echo.mojom.dart gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/echo/echo.mojom.go gen/go/src/mojom/syncbase/syncbase.mojom.go
+# TODO(nlacasse): The echo_client and echo_server are currently used to test
+# compilation and mojom binding generation.  We should remove them once they
+# are no longer needed.
+gen: gen/mojo gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
 
-gen/dart-pkg/mojom/lib/mojo/examples/echo.mojom.dart: mojom/echo.mojom
+gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart: mojom/echo.mojom
 	$(call MOJOM_GEN,$<,gen,dart)
 
 gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
@@ -81,6 +86,18 @@ gen/go/src/mojom/echo/echo.mojom.go: mojom/echo.mojom
 gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
 	$(call MOJOM_GEN,$<,gen,go)
 	gofmt -w $@
+
+gen/mojo: gen/mojo/echo_client.mojo gen/mojo/echo_server.mojo
+
+gen/mojo/echo_client.mojo: go/src/echo_client.go $(MOJO_SHARED_LIB)
+	$(call MOGO_BUILD,$<,$@)
+
+gen/mojo/echo_server.mojo: go/src/echo_server.go $(MOJO_SHARED_LIB)
+	$(call MOGO_BUILD,$<,$@)
+
+.PHONY: run-echo-app
+run-echo-app: gen
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/gen/mojo/echo_client.mojo
 
 .PHONY: clean
 clean:

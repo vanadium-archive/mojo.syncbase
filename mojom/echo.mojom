@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-[JavaPackage="org.chromium.mojo.examples.echo"]
-module mojo.examples;
+[JavaPackage="org.chromium.mojom.echo"]
+module mojo;
 
 interface Echo {
   EchoString(string? value) => (string? value);
