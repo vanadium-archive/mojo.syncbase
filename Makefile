@@ -1,5 +1,5 @@
 PWD=$(shell pwd)
-DART_FILES = $(shell find $(PWD)/dart -name *.dart ! -name *.part.dart)
+DART_FILES=$(shell find $(PWD)/dart -name *.dart ! -name *.part.dart)
 V23_GOPATH=$(shell echo `v23 run env | grep GOPATH | cut -d\= -f2`)
 
 ifndef MOJO_DIR
@@ -90,7 +90,7 @@ gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
 	$(call MOJOM_GEN,$<,gen,go)
 	gofmt -w $@
 
-gen/mojo/echo_server.mojo: go/src/echo_server.go $(MOJO_SHARED_LIB)
+gen/mojo/echo_server.mojo: go/src/echo_server.go gen-mojom $(MOJO_SHARED_LIB)
 	$(call MOGO_BUILD,$<,$@)
 
 # Check that the dart-style is being met. Note: Comments are ignored when

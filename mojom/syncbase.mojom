@@ -4,7 +4,7 @@ module mojo.syncbase;
 // TODO(sadovsky): Put structs in a separate types.mojom file.
 // TODO(sadovsky): Loose representation of verror. Improve this.
 struct Error {
-  string id;
+  string id;  // empty string means no error
   uint32 action_code;
   string msg;
 };
@@ -36,6 +36,25 @@ struct SyncGroupMemberInfo {
   uint8 sync_priority;
 };
 
+struct Result {
+  array<array<uint8>> values;
+};
+
+interface ExecStream {
+  OnResult(Result result);
+  OnDone(Error err);
+};
+
+struct KeyValue {
+  string key;
+  array<uint8> value;
+};
+
+interface ScanStream {
+  OnKeyValue(KeyValue key_value);
+  OnDone(Error err);
+};
+
 // TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
 // All 'name' params are service-relative object names.
 
@@ -64,8 +83,7 @@ interface Syncbase {
   DbCreate(string name, Perms perms) => (Error err);
   DbDelete(string name) => (Error err);
   DbExists(string name) => (Error err, bool exists);
-  // TODO(sadovsky): Figure out how to stream back replies.
-  DbExec(string query) => (Error err);
+  DbExec(string query, ExecStream& stream) => (Error err);
   DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_dn);
   DbCommit(string name) => (Error err);
   DbAbort(string name) => (Error err);
@@ -105,8 +123,9 @@ interface Syncbase {
   TableExists(string name) => (Error err, bool exists);
   TableDeleteRowRange(string name, array<uint8> start, array<uint8> limit)
       => (Error err);
-  // TODO(sadovsky): Figure out how to stream back replies.
-  TableScan(string name, array<uint8> start, array<uint8> limit) => (Error err);
+  TableScan(
+      string name, array<uint8> start, array<uint8> limit, ScanStream& stream)
+      => (Error err);
   TableGetPermissions(string name, string key)
       => (Error err, array<PrefixPerms> perms_arr);
   TableSetPermissions(string name, string prefix, Perms perms) => (Error err);

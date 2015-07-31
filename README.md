@@ -6,23 +6,23 @@ Read the [architecture proposal].
 
 ## Initial Mojo setup
 
-You must have the Mojo repo in $MOJO_DIR.
+You must have the Mojo repo in `$MOJO_DIR`.
 
 This section only needs to be run once.
 
-See the [mojo readme] for more comprehensive instructions.
+See the [Mojo readme] for more comprehensive instructions.
 
 ### Install Mojo prereqs
 
 1. Install [depot tools].
 2. Install [Goma][goma].
-3. Put the following in your .bashrc:
+3. Put the following in your `.bashrc`:
 
-    # NOTE: Actual locations depend on where you installed depot_tools and goma.
-    export PATH=${PATH}:${HOME}/dev/depot_tools
-    export GOMA_DIR=${HOME}/goma
-
-    export MOJO_DIR=${HOME}/mojo
+       # NOTE: Actual locations depend on where you installed depot_tools and
+       # goma.
+       export PATH=${PATH}:${HOME}/dev/depot_tools
+       export GOMA_DIR=${HOME}/goma
+       export MOJO_DIR=${HOME}/mojo
 
 ### Download Mojo repo
 
@@ -33,6 +33,9 @@ See the [mojo readme] for more comprehensive instructions.
 
     # NOTE: This step also takes about 10 min.  Furthermore, the script uses
     # 'sudo', so you will need to enter your password.
+    $ cd src && ./build/install-build-deps.sh
+
+    # Or, to include Android deps as well:
     $ cd src && ./build/install-build-deps-android.sh
 
 ## Update Mojo and compile resources
@@ -44,20 +47,28 @@ Run this while you grab your morning coffee.
 
 1. Start by updating the repo.
 
-    $ cd $MOJO_DIR/src
-    $ git checkout master
-    $ git pull
-    $ gclient sync
+       $ cd $MOJO_DIR/src
+       $ git checkout master
+       $ git pull
+       $ gclient sync
 
-2. Compile for Linux.  Built resources will be in $MOJO_DIR/src/out/Debug
+2. Compile for Linux.  Built resources will be in `$MOJO_DIR/src/out/Debug`
 
-    $ ./mojo/tools/mojob.py gn
-    $ ./mojo/tools/mojob.py build # NOTE: This can take up to 10 minutes.
+       $ ./mojo/tools/mojob.py gn
+       $ ./mojo/tools/mojob.py build # NOTE: This can take up to 10 minutes.
 
-3. Compile for Android.  Built resources will be in $MOJO_DIR/src/out/android_Debug
+3. Compile for Android.  Built resources will be in
+   `$MOJO_DIR/src/out/android_Debug`
 
-    $ ./mojo/tools/mojob.py gn --android
-    $ ./mojo/tools/mojob.py build --android # NOTE: This can take up to 10 minutes.
+       $ ./mojo/tools/mojob.py gn --android
+       $ ./mojo/tools/mojob.py build --android # NOTE: This can take up to 10 minutes.
+
+## Install Dart SDK
+
+To run Dart apps, you must install the Dart SDK.
+
+Googlers: http://go/install-dart
+External: https://www.dartlang.org/downloads/
 
 [architecture proposal]: https://docs.google.com/document/d/1TyxPYIhj9VBCtY7eAXu_MEV9y0dtRx7n7UY4jm76Qq4/edit
 [depot tools]: http://www.chromium.org/developers/how-tos/install-depot-tools
