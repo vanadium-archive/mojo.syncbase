@@ -1,1 +1,7 @@
+# Build artifacts
 /gen
+
+# Dart dependencies
+/dart/.packages
+/dart/pubspec.lock
+/dart/**/packages

@@ -1,4 +1,5 @@
 PWD=$(shell pwd)
+DART_FILES = $(shell find $(PWD)/dart -name *.dart ! -name *.part.dart)
 V23_GOPATH=$(shell echo `v23 run env | grep GOPATH | cut -d\= -f2`)
 
 ifndef MOJO_DIR
@@ -6,10 +7,10 @@ ifndef MOJO_DIR
 endif
 
 ifdef ANDROID
-	# TODO(nlacasse): Once mojo issue #349 is fixed, start using the
-	# --map-origin flag and refernce .mojo files by an http:// url and not
-	# file:// url, since the latter will never work on android.
-	$(error Android compilation is currently not supported.  Blocked by https://github.com/domokit/mojo/issues/349)
+	# TODO(nlacasse): Serve mojo resources over HTTP so they are accessible to
+	# Android.  Currently everything is served off the local filesystem, which
+	# will not work on Android.  Until then, Android support is disabled.
+	$(error Android is currently not supported.)
 
 	# Configure compiler and linker for Android.
 	GO_BIN=$(MOJO_DIR)/src/third_party/go/tool/android_arm/bin/go
@@ -58,7 +59,7 @@ define MOJOM_GEN
 	$(MOJOM_BIN) $1 -d . -o $2 -g $3
 endef
 
-all: gen
+all: run-echo-app
 
 # Builds the shared library that Mojo services must be linked with.
 $(MOJO_SHARED_LIB):
@@ -68,10 +69,12 @@ endif
 	mkdir -p $(dir $@)
 	ar rcs $@ $(MOJO_BUILD_DIR)/obj/mojo/public/platform/native/system.system_thunks.o
 
+.PHONY: gen-mojom
 # TODO(nlacasse): The echo_client and echo_server are currently used to test
 # compilation and mojom binding generation.  We should remove them once they
 # are no longer needed.
-gen: gen/mojo gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
+gen-mojom: gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
+gen-mojom: gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
 gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart: mojom/echo.mojom
 	$(call MOJOM_GEN,$<,gen,dart)
@@ -87,18 +90,33 @@ gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
 	$(call MOJOM_GEN,$<,gen,go)
 	gofmt -w $@
 
-gen/mojo: gen/mojo/echo_client.mojo gen/mojo/echo_server.mojo
-
-gen/mojo/echo_client.mojo: go/src/echo_client.go $(MOJO_SHARED_LIB)
-	$(call MOGO_BUILD,$<,$@)
-
 gen/mojo/echo_server.mojo: go/src/echo_server.go $(MOJO_SHARED_LIB)
 	$(call MOGO_BUILD,$<,$@)
 
+# Check that the dart-style is being met. Note: Comments are ignored when
+# checking whitespace.
+.PHONY: check-fmt
+check-fmt:
+	dartfmt -n $(DART_FILES)
+
+# Lint src and test files with dartanalyzer. This takes a few seconds.
+.PHONY: dartanalyzer
+dartanalyzer: dart/packages gen-mojom
+	cd dart && dartanalyzer $(DART_FILES)
+
+# Installs dart dependencies.
+dart/packages: dart/pubspec.yaml
+	cd dart && pub get
+
 .PHONY: run-echo-app
-run-echo-app: gen
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/gen/mojo/echo_client.mojo
+run-echo-app: gen/mojo/echo_server.mojo gen-mojom dart/packages
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/echo_client.dart
+
+# TODO(nlacasse): This should run real tests once we have them.
+.PHONY: test
+test: dartanalyzer
 
 .PHONY: clean
 clean:
 	rm -rf gen
+	rm -rf dart/{packages,.packages,pubspec.lock}

@@ -1,0 +1,3 @@
+name: Ether
+dependencies:
+    mojo: any
