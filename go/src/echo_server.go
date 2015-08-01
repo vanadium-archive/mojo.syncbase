@@ -22,27 +22,28 @@ import (
 //#include "mojo/public/c/system/types.h"
 import "C"
 
-type EchoImpl struct{}
+type echoImpl struct{}
 
-func (echo *EchoImpl) EchoString(inValue *string) (outValue *string, err error) {
-	log.Printf("server: %s\n", *inValue)
-	return inValue, nil
+func (e *echoImpl) EchoString(in *string) (out *string, err error) {
+	log.Printf("server: %s\n", *in)
+	return in, nil
 }
 
-type EchoServerDelegate struct {
+type delegate struct {
 	stubs []*bindings.Stub
 }
 
-func (delegate *EchoServerDelegate) Initialize(context application.Context) {}
+func (d *delegate) Initialize(ctx application.Context) {}
 
-func (delegate *EchoServerDelegate) Create(request echo.Echo_Request) {
-	stub := echo.NewEchoStub(request, &EchoImpl{}, bindings.GetAsyncWaiter())
-	delegate.stubs = append(delegate.stubs, stub)
+func (d *delegate) Create(req echo.Echo_Request) {
+	impl := &echoImpl{}
+	stub := echo.NewEchoStub(req, impl, bindings.GetAsyncWaiter())
+	d.stubs = append(d.stubs, stub)
 	go func() {
 		for {
 			if err := stub.ServeRequest(); err != nil {
-				connectionError, ok := err.(*bindings.ConnectionError)
-				if !ok || !connectionError.Closed() {
+				connErr, ok := err.(*bindings.ConnectionError)
+				if !ok || !connErr.Closed() {
 					log.Println(err)
 				}
 				break
@@ -51,19 +52,19 @@ func (delegate *EchoServerDelegate) Create(request echo.Echo_Request) {
 	}()
 }
 
-func (delegate *EchoServerDelegate) AcceptConnection(connection *application.Connection) {
-	connection.ProvideServices(&echo.Echo_ServiceFactory{delegate})
+func (d *delegate) AcceptConnection(conn *application.Connection) {
+	conn.ProvideServices(&echo.Echo_ServiceFactory{d})
 }
 
-func (delegate *EchoServerDelegate) Quit() {
-	for _, stub := range delegate.stubs {
+func (d *delegate) Quit() {
+	for _, stub := range d.stubs {
 		stub.Close()
 	}
 }
 
 //export MojoMain
 func MojoMain(handle C.MojoHandle) C.MojoResult {
-	application.Run(&EchoServerDelegate{}, system.MojoHandle(handle))
+	application.Run(&delegate{}, system.MojoHandle(handle))
 	return C.MOJO_RESULT_OK
 }
 

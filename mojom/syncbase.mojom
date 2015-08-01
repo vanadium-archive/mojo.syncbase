@@ -1,5 +1,7 @@
 // TODO(sadovsky): Copy struct and interface comments from VDL files.
-module mojo.syncbase;
+
+// TODO(sadovsky): This should probably be something else.
+module mojo;
 
 // TODO(sadovsky): Put structs in a separate types.mojom file.
 // TODO(sadovsky): Loose representation of verror. Improve this.
@@ -77,7 +79,7 @@ interface Syncbase {
   AppSetPermissions(string name, Perms perms, string version) => (Error err);
 
   ////////////////////////////////////////
-  // Database
+  // nosql.Database
 
   // TODO(sadovsky): Add SchemaMetadata argument.
   DbCreate(string name, Perms perms) => (Error err);
