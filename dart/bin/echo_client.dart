@@ -30,7 +30,7 @@ class Client extends Application {
     String input = 'foobee';
 
     print('calling echoString($input)');
-    ep.ptr.echoString(input).then((EchoEchoStringResponseParams v) {
+    p.ptr.echoString(input).then((EchoEchoStringResponseParams v) {
       String output = v.value;
       print('got echo result: $output');
 

@@ -1,3 +1,4 @@
 name: Ether
 dependencies:
     mojo: any
+    test: any

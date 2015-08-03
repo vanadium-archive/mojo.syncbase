@@ -70,6 +70,15 @@ To run Dart apps, you must install the Dart SDK.
 Googlers: http://go/install-dart
 External: https://www.dartlang.org/downloads/
 
+## Testing
+
+Run the tests:
+
+    make test
+
+This will run all tests listed in the `tests` file in the root directory of
+this repo.
+
 [architecture proposal]: https://docs.google.com/document/d/1TyxPYIhj9VBCtY7eAXu_MEV9y0dtRx7n7UY4jm76Qq4/edit
 [depot tools]: http://www.chromium.org/developers/how-tos/install-depot-tools
 [goma]: https://sites.google.com/a/google.com/goma/how-to-use-goma/how-to-use-goma-for-chrome-team

@@ -122,9 +122,14 @@ run-echo-app: gen/mojo/echo_server.mojo gen-mojom dart/packages
 run-syncbase-app: gen/mojo/syncbase_server.mojo gen-mojom dart/packages
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase_client.dart
 
-# TODO(nlacasse): This should run real tests once we have them.
 .PHONY: test
-test: dartanalyzer
+test: dartanalyzer gen-mojom gen/mojo/echo_server.mojo
+	# TODO(nlacasse): We should be passing "--enable-multiprocess" here, since
+	# that is usually needed for Go Mojo services.  However, using that flag
+	# causes the test runner to crash on exit with "Connection error to the
+	# shell".  The tests somehow run and pass without that flag, so maybe it's
+	# not necessary?
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test $(MOJO_FLAGS) -v --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell tests
 
 .PHONY: clean
 clean:
