@@ -1,5 +1,4 @@
-// See $MOJO_DIR/src/mojo/devtools/common/mojo_test for the format of this
-// file.
+# See $MOJO_DIR/src/mojo/devtools/common/mojo_test for the format of this file.
 
 tests = [
 	{
