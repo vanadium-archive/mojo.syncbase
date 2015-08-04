@@ -4,5 +4,6 @@
 # Dart dependencies
 /dart/.packages
 /dart/.pub
+/dart/lib/gen
 /dart/pubspec.lock
 /dart/**/packages

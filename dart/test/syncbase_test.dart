@@ -1,11 +1,9 @@
 #!mojo mojo:dart_content_handler
 
-import 'dart:async';
-
 import 'package:mojo/core.dart' show MojoHandle;
 import 'package:test/test.dart';
 
-import '../lib/echo_client.dart' show EchoClient;
+import '../lib/syncbase_client.dart' show SyncbaseClient;
 
 main(List args) async {
   // args[0] is the mojo handle.
@@ -13,21 +11,13 @@ main(List args) async {
 
   // TODO(nlacasse): Switch to serving these files over http rather than
   // directly from the filesystem, so they can be accessed by Android.
-  String serviceUrl = 'file://' + args[1].replaceFirst('dart/test/echo_test.dart', 'gen/mojo/echo_server.mojo');
+  String serviceUrl = 'file://' + args[1].replaceFirst('dart/test/syncbase_test.dart', 'gen/mojo/synbase_server.mojo');
 
-  EchoClient c = new EchoClient(handle, serviceUrl);
+  SyncbaseClient c = new SyncbaseClient(handle, serviceUrl);
   c.connect();
 
-  test('echo string returns correct response', () {
-    String input = 'foobee';
-    Future<String> got = c.echo(input);
-    expect(got, completion(equals(input)));
-  });
-
-  test('echo empty string returns correct response', () {
-    String input = '';
-    Future<String> got = c.echo(input);
-    expect(got, completion(equals(input)));
+  test('appExists(foo) should be false', () {
+    expect(c.appExists, completion(isFalse));
   });
 
   // Append a final test to terminate shell connection.

@@ -62,7 +62,7 @@ define MOJOM_GEN
 	$(MOJOM_BIN) $1 -d . -o $2 -g $3
 endef
 
-all: run-echo-app
+all: test
 
 # Builds the shared library that Mojo services must be linked with.
 $(MOJO_SHARED_LIB):
@@ -76,14 +76,20 @@ endif
 # TODO(nlacasse): The echo_client and echo_server are currently used to test
 # compilation and mojom binding generation.  We should remove them once they
 # are no longer needed.
-gen-mojom: gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
-gen-mojom: gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
+gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
+gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
-gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart: mojom/echo.mojom
-	$(call MOJOM_GEN,$<,gen,dart)
+dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart: mojom/echo.mojom
+	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
+	# TODO(nlacasse): Figure out why mojom_bindings_generator creates these bad
+	# symlinks on dart files.
+	rm -f dart/lib/gen/mojom/echo.mojom.dart
 
-gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
-	$(call MOJOM_GEN,$<,gen,dart)
+dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
+	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
+	# TODO(nlacasse): Figure out why mojom_bindings_generator creates these bad
+	# symlinks on dart files.
+	rm -f dart/lib/gen/mojom/syncbase.mojom.dart
 
 gen/go/src/mojom/echo/echo.mojom.go: mojom/echo.mojom
 	$(call MOJOM_GEN,$<,gen,go)
@@ -108,22 +114,25 @@ check-fmt:
 # Lint src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
 dartanalyzer: dart/packages gen-mojom
-	cd dart && dartanalyzer $(DART_FILES)
+	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
+	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
+	# warnings from *.mojom.dart files.
+	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v '\.mojom\.dart'
 
 # Installs dart dependencies.
 dart/packages: dart/pubspec.yaml
 	cd dart && pub get
 
-.PHONY: run-echo-app
-run-echo-app: gen/mojo/echo_server.mojo gen-mojom dart/packages
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/echo_client.dart
-
+# TODO(nlacasse): Remove this task and dart/bin/syncbase.dart when the tests
+# are stable enough to reliably test syncbase.
 .PHONY: run-syncbase-app
 run-syncbase-app: gen/mojo/syncbase_server.mojo gen-mojom dart/packages
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase_client.dart
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase.dart
 
 .PHONY: test
-test: dartanalyzer gen-mojom gen/mojo/echo_server.mojo
+test: dart/packages gen-mojom gen/mojo/echo_server.mojo
+	# TODO(nlacasse): These tests sometimes hang.  I suspect some connection is
+	# not getting closed properly.  More debugging is necessary.
 	# TODO(nlacasse): We should be passing "--enable-multiprocess" here, since
 	# that is usually needed for Go Mojo services.  However, using that flag
 	# causes the test runner to crash on exit with "Connection error to the
@@ -134,4 +143,4 @@ test: dartanalyzer gen-mojom gen/mojo/echo_server.mojo
 .PHONY: clean
 clean:
 	rm -rf gen
-	rm -rf dart/{packages,.packages,pubspec.lock}
+	rm -rf dart/{lib/gen,packages,.packages,pubspec.lock}

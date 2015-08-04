@@ -4,5 +4,11 @@ tests = [
 	{
 		"test": "dart/test/echo_test.dart",
 		"type": "dart"
-	}
+	},
+# TODO(nlacasse,sadovsky): Enable these tests once syncbase runs in a mojo
+# service.
+#	{
+#		"test": "dart/test/syncbase_test.dart",
+#		"type": "dart"
+#	}
 ]
