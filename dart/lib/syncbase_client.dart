@@ -21,7 +21,7 @@ class SyncbaseClient extends ClientBase {
   // TODO(nlacasse): Test this function with working syncbase mojo service.
   Future<bool> appExists(String name) async {
     mojom.SyncbaseAppExistsResponseParams v = await _proxy.ptr.appExists(name);
-    if (v.err != null) {
+    if (v.err.id != '') {
       throw v.err;
     }
     return v.exists;

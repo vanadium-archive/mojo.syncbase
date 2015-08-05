@@ -5,6 +5,13 @@ DART_FILES := $(shell find $(PWD)/dart -name *.dart ! -name *.part.dart)
 GO_FILES := $(shell find go/src -name "*.go")
 V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 
+# Flags for Syncbase service running as Mojo service.
+# See v.io/x/ref/runtime/internal/mojo_util.go for the wonderful magic that
+# makes this work.
+MOUNTTABLE_ADDR := 127.0.0.1:4001
+SYNCBASED_ADDR := 127.0.0.1:4002
+V23_MOJO_FLAGS := '--v=5 --alsologtostderr=false --root-dir=/tmp/syncbase_mojo --name=syncbase_mojo --v23.namespace.root=/$(MOUNTTABLE_ADDR) --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={"Admin":{"In":["..."]},"Write":{"In":["..."]},"Read":{"In":["..."]},"Resolve":{"In":["..."]},"Debug":{"In":["..."]}} --v23.credentials=$(V23_ROOT)/experimental/projects/ether/creds'
+
 ifndef MOJO_DIR
 	$(error MOJO_DIR is not set: $(MOJO_DIR))
 endif
@@ -62,7 +69,21 @@ define MOJOM_GEN
 	$(MOJOM_BIN) $1 -d . -o $2 -g $3
 endef
 
+.DELETE_ON_ERROR:
+
 all: test
+
+# Builds mounttabled, principal, and syncbased.
+bin: $(V23_GO_FILES)
+	v23 go build -a -o $@/mounttabled v.io/x/ref/services/mounttable/mounttabled
+	v23 go build -a -o $@/principal v.io/x/ref/cmd/principal
+	v23 go build -a -o $@/syncbased v.io/syncbase/x/ref/services/syncbase/syncbased
+	touch $@
+
+# Mints credentials.
+creds: bin
+	./bin/principal seekblessings --v23.credentials creds
+	touch $@
 
 # Builds the shared library that Mojo services must be linked with.
 $(MOJO_SHARED_LIB):
@@ -105,7 +126,7 @@ gen/mojo/echo_server.mojo: $(GO_FILES) gen-mojom $(MOJO_SHARED_LIB)
 gen/mojo/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) gen-mojom $(MOJO_SHARED_LIB)
 	$(call MOGO_BUILD,v.io/syncbase/x/ref/services/syncbase/syncbased,$@)
 
-# Check that the dart-style is being met. Note: Comments are ignored when
+# Checks that the dart-style is being met. Note: Comments are ignored when
 # checking whitespace.
 .PHONY: check-fmt
 check-fmt:
@@ -127,7 +148,7 @@ dart/packages: dart/pubspec.yaml
 # are stable enough to reliably test syncbase.
 .PHONY: run-syncbase-app
 run-syncbase-app: gen/mojo/syncbase_server.mojo gen-mojom dart/packages
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase.dart
+	V23_MOJO_FLAGS=$(V23_MOJO_FLAGS) $(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase.dart
 
 .PHONY: test
 test: dart/packages gen-mojom gen/mojo/echo_server.mojo
