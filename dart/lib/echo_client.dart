@@ -10,9 +10,9 @@ import 'src/client_base.dart' show ClientBase;
 class EchoClient extends ClientBase {
   final mojom.EchoProxy _proxy;
 
-  EchoClient(MojoHandle handle, String url) :
-    _proxy = new mojom.EchoProxy.unbound(),
-    super(handle, url);
+  EchoClient(MojoHandle handle, String url)
+      : _proxy = new mojom.EchoProxy.unbound(),
+        super(handle, url);
 
   Future connect() {
     return connectWithProxy(_proxy);

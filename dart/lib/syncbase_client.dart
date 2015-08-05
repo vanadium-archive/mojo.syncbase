@@ -10,9 +10,9 @@ import 'src/client_base.dart' show ClientBase;
 class SyncbaseClient extends ClientBase {
   final mojom.SyncbaseProxy _proxy;
 
-  SyncbaseClient(MojoHandle handle, String url) :
-    _proxy = new mojom.SyncbaseProxy.unbound(),
-    super(handle, url);
+  SyncbaseClient(MojoHandle handle, String url)
+      : _proxy = new mojom.SyncbaseProxy.unbound(),
+        super(handle, url);
 
   Future connect() async {
     return connectWithProxy(_proxy);

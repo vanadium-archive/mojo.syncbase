@@ -1,7 +1,7 @@
 SHELL := /bin/bash -euo pipefail
 PWD := $(shell pwd)
 V23_GOPATH := $(shell echo `v23 run env | grep GOPATH | cut -d\= -f2`)
-DART_FILES := $(shell find $(PWD)/dart -name *.dart ! -name *.part.dart)
+DART_FILES := $(shell find dart/bin dart/lib dart/test -name "*.dart" -not -path "dart/lib/gen/*")
 GO_FILES := $(shell find go/src -name "*.go")
 V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 
@@ -126,13 +126,12 @@ gen/mojo/echo_server.mojo: $(GO_FILES) gen-mojom $(MOJO_SHARED_LIB)
 gen/mojo/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) gen-mojom $(MOJO_SHARED_LIB)
 	$(call MOGO_BUILD,v.io/syncbase/x/ref/services/syncbase/syncbased,$@)
 
-# Checks that the dart-style is being met. Note: Comments are ignored when
-# checking whitespace.
-.PHONY: check-fmt
-check-fmt:
-	dartfmt -n $(DART_FILES)
+# Formats dart files to follow dart style conventions.
+.PHONY: dartfmt
+dartfmt:
+	dartfmt --overwrite --line-length 120 $(DART_FILES)
 
-# Lint src and test files with dartanalyzer. This takes a few seconds.
+# Lints src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
 dartanalyzer: dart/packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce

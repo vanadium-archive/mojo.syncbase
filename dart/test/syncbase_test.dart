@@ -1,5 +1,4 @@
 #!mojo mojo:dart_content_handler
-
 import 'package:mojo/core.dart' show MojoHandle;
 import 'package:test/test.dart';
 

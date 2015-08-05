@@ -1,5 +1,4 @@
 #!mojo mojo:dart_content_handler
-
 import 'dart:async';
 
 import 'package:mojo/core.dart' show MojoHandle;

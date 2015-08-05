@@ -14,8 +14,7 @@ class InitializedApplication extends Application {
   final _initializeCompleter = new Completer();
   Future get initialized => _initializeCompleter.future;
 
-  InitializedApplication.fromHandle(MojoHandle handle) :
-    super.fromHandle(handle);
+  InitializedApplication.fromHandle(MojoHandle handle) : super.fromHandle(handle);
 
   void initialize(List<String> args, String url) {
     _initializeCompleter.complete();
@@ -31,8 +30,7 @@ abstract class ClientBase {
   final String url;
   final InitializedApplication _app;
 
-  ClientBase(MojoHandle handle, this.url) :
-    this._app = new InitializedApplication.fromHandle(handle);
+  ClientBase(MojoHandle handle, this.url) : this._app = new InitializedApplication.fromHandle(handle);
 
   Future connectWithProxy(ProxyBase p) async {
     await _app.initialized;
