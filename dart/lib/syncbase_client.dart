@@ -3,10 +3,9 @@ library syncbase_client;
 import 'dart:async';
 import 'dart:typed_data' show Uint8List;
 
-import 'package:mojo/core.dart' show MojoHandle;
+import 'package:mojo/application.dart' show Application;
 
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
-import 'src/client_base.dart' show ClientBase;
 
 // Export struct types from syncbase.mojom.
 export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
@@ -16,18 +15,15 @@ bool isError(mojom.Error err) {
   return err != null && err.id != '';
 }
 
-class SyncbaseClient extends ClientBase {
+class SyncbaseClient {
+  final Application _app;
   final mojom.SyncbaseProxy _proxy;
+  final String url;
 
-  // TODO(nlacasse): This should take an integer and convert to MojoHandle
-  // internally.
-  SyncbaseClient(MojoHandle handle, String url)
-      : _proxy = new mojom.SyncbaseProxy.unbound(),
-        super(handle, url);
-
-  // TODO(nlacasse): Consider connecting lazily.
-  Future connect() async {
-    return connectWithProxy(_proxy);
+  SyncbaseClient(this._app, this.url) : _proxy = new mojom.SyncbaseProxy.unbound() {
+    print('connecting to $url');
+    _app.connectToService(url, _proxy);
+    print('connected');
   }
 
   // TODO(nlacasse): Break this SyncbaseClient class into multiple classes, one

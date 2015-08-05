@@ -120,10 +120,10 @@ gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
 	$(call MOJOM_GEN,$<,gen,go)
 	gofmt -w $@
 
-gen/mojo/echo_server.mojo: $(GO_FILES) gen-mojom $(MOJO_SHARED_LIB)
+gen/mojo/echo_server.mojo: $(GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/echo/echo.mojom.go
 	$(call MOGO_BUILD,$(PWD)/go/src/echo_server.go,$@)
 
-gen/mojo/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) gen-mojom $(MOJO_SHARED_LIB)
+gen/mojo/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go
 	$(call MOGO_BUILD,v.io/syncbase/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
@@ -146,11 +146,11 @@ dart/packages: dart/pubspec.yaml
 # TODO(nlacasse): Remove this task and dart/bin/syncbase.dart when the tests
 # are stable enough to reliably test syncbase.
 .PHONY: run-syncbase-app
-run-syncbase-app: gen/mojo/syncbase_server.mojo gen-mojom dart/packages
+run-syncbase-app: gen/mojo/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart
 	V23_MOJO_FLAGS=$(V23_MOJO_FLAGS) $(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase.dart
 
 .PHONY: test
-test: dart/packages gen-mojom gen/mojo/echo_server.mojo
+test: dart/packages gen/mojo/echo_server.mojo gen-mojom
 	# TODO(nlacasse): These tests sometimes hang.  I suspect some connection is
 	# not getting closed properly.  More debugging is necessary.
 	# TODO(nlacasse): We should be passing "--enable-multiprocess" here, since

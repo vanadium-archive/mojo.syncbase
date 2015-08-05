@@ -2,20 +2,19 @@ library echo_client;
 
 import 'dart:async';
 
-import 'package:mojo/core.dart' show MojoHandle;
+import 'package:mojo/application.dart' show Application;
 
 import 'gen/dart-gen/mojom/lib/mojo/echo.mojom.dart' as mojom;
-import 'src/client_base.dart' show ClientBase;
 
-class EchoClient extends ClientBase {
+class EchoClient {
+  final Application _app;
   final mojom.EchoProxy _proxy;
+  final String url;
 
-  EchoClient(MojoHandle handle, String url)
-      : _proxy = new mojom.EchoProxy.unbound(),
-        super(handle, url);
-
-  Future connect() {
-    return connectWithProxy(_proxy);
+  EchoClient(this._app, this.url) : _proxy = new mojom.EchoProxy.unbound() {
+    print('connecting to $url');
+    _app.connectToService(url, _proxy);
+    print('connected');
   }
 
   Future<String> echo(String s) async {
