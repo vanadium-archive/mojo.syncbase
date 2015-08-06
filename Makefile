@@ -25,16 +25,26 @@ ifdef ANDROID
 	# Configure compiler and linker for Android.
 	GO_BIN := $(MOJO_DIR)/src/third_party/go/tool/android_arm/bin/go
 	GO_FLAGS := -tags=mojo -ldflags=-shared
+
 	MOJO_BUILD_DIR := $(MOJO_DIR)/src/out/android_Debug
 	MOJO_FLAGS := --android
 	MOJO_SHARED_LIB := $(PWD)/gen/lib/android/libsystem_thunk.a
+
+	SYNCBASE_LEVELDB_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/leveldb
+	SYNCBASE_SNAPPY_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/snappy
 else
 	# Configure compiler and linker for Linux.
 	GO_BIN := $(MOJO_DIR)/src/third_party/go/tool/linux_amd64/bin/go
 	GO_FLAGS := -tags=mojo -ldflags=-shared -buildmode=c-shared
+
 	MOJO_FLAGS :=
 	MOJO_BUILD_DIR := $(MOJO_DIR)/src/out/Debug
 	MOJO_SHARED_LIB := $(PWD)/gen/lib/linux_amd64/libsystem_thunk.a
+
+	# TODO(nlacasse): Build leveldb and snappy libs for android, and put the
+	# correct paths below.
+	SYNCBASE_LEVELDB_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/leveldb
+	SYNCBASE_SNAPPY_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/snappy
 endif
 
 # Compiles a Go program and links against the Mojo C shared library.
@@ -45,17 +55,21 @@ endif
 #
 # MOJO_GOPATH must be exported so it can be picked up by MOGO_BIN.
 export MOJO_GOPATH := $(V23_GOPATH):$(PWD)/gen/go:$(PWD)/go:$(MOJO_BUILD_DIR)/gen/go
+# TODO(nlacasse): It's strange that go.py takes CGO_CFLAGS and CGO_LDFLAGS as
+# arguments, but other cgo settings (like CGO_CXXFLAGS) must be set with env
+# variables.  I think these should all be env variables.
+export CGO_CXXFLAGS := -I$(SYNCBASE_LEVELDB_DIR)/include -I$(SYNCBASE_SNAPPY_DIR)/include
 MOGO_BIN := $(MOJO_DIR)/src/mojo/go/go.py
 define MOGO_BUILD
 	mkdir -p $(dir $2)
 	$(MOGO_BIN) $(MOJO_FLAGS) -- \
-		$(GO_BIN) \
-		$(shell mktemp -d) \
-		$(PWD)/$(2) \
-		$(MOJO_DIR)/src \
-		$(PWD)/gen \
-		"-I$(MOJO_DIR)/src" \
-		"-L$(dir $(MOJO_SHARED_LIB)) -lsystem_thunk" \
+		"$(GO_BIN)" \
+		"$(shell mktemp -d)" \
+		"$(PWD)/$(2)" \
+		"$(MOJO_DIR)/src" \
+		"$(PWD)/gen" \
+		"-I$(MOJO_DIR)/src -I$(SYNCBASE_LEVELDB_DIR)/include -I$(SYNCBASE_SNAPPY_DIR)/include" \
+		"-L$(dir $(MOJO_SHARED_LIB)) -lsystem_thunk -L$(SYNCBASE_LEVELDB_DIR)/lib -L$(SYNCBASE_SNAPPY_DIR)/lib" \
 		build $(GO_FLAGS) $1
 endef
 
