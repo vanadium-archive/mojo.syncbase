@@ -26,6 +26,10 @@ class SyncbaseClient {
     print('connected');
   }
 
+  Future close({bool immediate: false}) {
+    return _proxy.close();
+  }
+
   // TODO(nlacasse): Break this SyncbaseClient class into multiple classes, one
   // for each level.
 

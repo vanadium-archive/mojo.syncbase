@@ -11,6 +11,10 @@ class EchoClient {
   final mojom.EchoProxy _proxy;
   final String url;
 
+  Future close({bool immediate: false}) {
+    return _proxy.close();
+  }
+
   EchoClient(this._app, this.url) : _proxy = new mojom.EchoProxy.unbound() {
     print('connecting to $url');
     _app.connectToService(url, _proxy);

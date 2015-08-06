@@ -4,14 +4,11 @@ tests = [
 	{
 		"test": "dart/test/echo_test.dart",
 		"type": "dart",
-		"timeout":5
+		"timeout": 10
 	},
-	# TODO(nlacasse): The syncbase tests run and pass, but then mojo_shell does
-	# not exit.  I suspect some connection is not getting closed properly.
-	# More debugging is necessary.
-	#{
-	#	"test": "dart/test/syncbase_test.dart",
-	#	"type": "dart",
-	#	"timeout": 5
-	#}
+	{
+		"test": "dart/test/syncbase_test.dart",
+		"type": "dart",
+		"timeout": 10
+	}
 ]

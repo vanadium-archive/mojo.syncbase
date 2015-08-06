@@ -23,17 +23,11 @@ import (
 import "C"
 
 type echoImpl struct {
-	stub *bindings.Stub
 }
 
 func (e *echoImpl) EchoString(in *string) (out *string, err error) {
 	log.Printf("server: %s\n", *in)
 	return in, nil
-}
-
-func (echo *echoImpl) Quit() error {
-	echo.stub.Close()
-	return nil
 }
 
 type delegate struct {
@@ -43,9 +37,7 @@ type delegate struct {
 func (d *delegate) Initialize(ctx application.Context) {}
 
 func (d *delegate) Create(req echo.Echo_Request) {
-	impl := &echoImpl{}
-	stub := echo.NewEchoStub(req, impl, bindings.GetAsyncWaiter())
-	impl.stub = stub
+	stub := echo.NewEchoStub(req, &echoImpl{}, bindings.GetAsyncWaiter())
 	d.stubs = append(d.stubs, stub)
 	go func() {
 		for {

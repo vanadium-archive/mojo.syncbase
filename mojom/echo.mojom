@@ -6,21 +6,4 @@ module mojo;
 
 interface Echo {
   EchoString(string? value) => (string? value);
-
-  // TODO(nlacasse): The test runner currently needs this Quit method to tell
-  // the echo service to quit, otherwise the tests hang because the echo
-  // service never stops running and listening for connections.
-  //
-  // The Mojo dart tests that this is based on do essentially the same thing.
-  // See $MOJO_DIR/src/services/dart/dart_apptests/echo_apptests.dart
-  //
-  // The "Quitting Mojo Apps" document
-  // (https://drive.google.com/a/google.com/folderview?id=0B-WCZkfLIXQTajI4WWZhdGhjNnM)
-  // says that Mojo applications should gracefully quit when Mojo shell
-  // terminates (see Condition C in that doc), but that does not appear to be
-  // implemented yet.
-  //
-  // Once the Mojo app can gracefully terminate on shell exit, we should get
-  // rid of this method.
-  Quit();
 };

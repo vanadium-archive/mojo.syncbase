@@ -82,7 +82,7 @@ this repo.
 The following command will run a single test file.  This is useful when the
 full test suite hangs with no output.
 
-    $(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell dart/test/<filename>
+    $(MOJO_DIR)/src/mojo/devtools/common/mojo_run -v --enable-multiprocess --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell dart/test/<filename>
 
 [architecture proposal]: https://docs.google.com/document/d/1TyxPYIhj9VBCtY7eAXu_MEV9y0dtRx7n7UY4jm76Qq4/edit
 [depot tools]: http://www.chromium.org/developers/how-tos/install-depot-tools

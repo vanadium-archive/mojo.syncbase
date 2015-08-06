@@ -37,7 +37,15 @@ main(List args) async {
   // TODO(nlacasse): Remove this once package 'test' supports a global tearDown
   // callback.  See https://github.com/dart-lang/test/issues/18.
   test('terminate shell connection', () async {
-    await app.close();
+    await c.close();
     expect(MojoHandle.reportLeakedHandles(), isTrue);
+
+    // TODO(nlacasse): When running mojo_shell with --enable-multiprocess,
+    // closing the application causes a non-graceful shutdown.  To avoid this,
+    // we sleep for a second so the test reporter can finish and print the
+    // results before we close the app.  Once mojo_shell can shut down more
+    // gracefully, we should call app.close directly in the test and not in
+    // this Timer.
+    new Timer(new Duration(seconds: 1), app.close);
   });
 }

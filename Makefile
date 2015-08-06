@@ -8,13 +8,27 @@ V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 # Flags for Syncbase service running as Mojo service.
 # See v.io/x/ref/runtime/internal/mojo_util.go for the wonderful magic that
 # makes this work.
-MOUNTTABLE_ADDR := 127.0.0.1:4001
+# TODO(nlacasse): The --name flag was causing the tests to take a long time to
+# exit because the server was trying to resolve a mounttable that doesn't
+# exist.  I ripped the --name flag out.  Adam is fixing this the right way in a
+# forthcoming CL.
+MOUNTABLE_ADDR := 127.0.0.1:4001
 SYNCBASED_ADDR := 127.0.0.1:4002
-V23_MOJO_FLAGS := '--v=5 --alsologtostderr=false --root-dir=/tmp/syncbase_mojo --name=syncbase_mojo --v23.namespace.root=/$(MOUNTTABLE_ADDR) --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={"Admin":{"In":["..."]},"Write":{"In":["..."]},"Read":{"In":["..."]},"Resolve":{"In":["..."]},"Debug":{"In":["..."]}} --v23.credentials=$(V23_ROOT)/experimental/projects/ether/creds'
+V23_MOJO_FLAGS := '--v=5 --alsologtostderr=false --root-dir=/tmp/syncbase_mojo --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={"Admin":{"In":["..."]},"Write":{"In":["..."]},"Read":{"In":["..."]},"Resolve":{"In":["..."]},"Debug":{"In":["..."]}} --v23.credentials=$(V23_ROOT)/experimental/projects/ether/creds'
 
 ifndef MOJO_DIR
-	$(error MOJO_DIR is not set: $(MOJO_DIR))
+	$(error MOJO_DIR is not set)
 endif
+
+ifndef V23_ROOT
+	$(error V23_ROOT is not set)
+endif
+
+# NOTE(nlacasse): Running Go Mojo services requires passing the
+# --enable-multiprocess flag to mojo_shell.  This is because the Go runtime is
+#  very large, and can interfere with C++ memory if they are in the same
+#  process.
+MOJO_SHELL_FLAGS := -v --enable-multiprocess
 
 ifdef ANDROID
 	# TODO(nlacasse): Serve mojo resources over HTTP so they are accessible to
@@ -26,8 +40,8 @@ ifdef ANDROID
 	GO_BIN := $(MOJO_DIR)/src/third_party/go/tool/android_arm/bin/go
 	GO_FLAGS := -tags=mojo -ldflags=-shared
 
+	MOJO_ANDROID_FLAGS := --android
 	MOJO_BUILD_DIR := $(MOJO_DIR)/src/out/android_Debug
-	MOJO_FLAGS := --android
 	MOJO_SHARED_LIB := $(PWD)/gen/lib/android/libsystem_thunk.a
 
 	SYNCBASE_LEVELDB_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/leveldb
@@ -37,7 +51,6 @@ else
 	GO_BIN := $(MOJO_DIR)/src/third_party/go/tool/linux_amd64/bin/go
 	GO_FLAGS := -tags=mojo -ldflags=-shared -buildmode=c-shared
 
-	MOJO_FLAGS :=
 	MOJO_BUILD_DIR := $(MOJO_DIR)/src/out/Debug
 	MOJO_SHARED_LIB := $(PWD)/gen/lib/linux_amd64/libsystem_thunk.a
 
@@ -62,7 +75,7 @@ export CGO_CXXFLAGS := -I$(SYNCBASE_LEVELDB_DIR)/include -I$(SYNCBASE_SNAPPY_DIR
 MOGO_BIN := $(MOJO_DIR)/src/mojo/go/go.py
 define MOGO_BUILD
 	mkdir -p $(dir $2)
-	$(MOGO_BIN) $(MOJO_FLAGS) -- \
+	$(MOGO_BIN) $(MOJO_ANDROID_FLAGS) -- \
 		"$(GO_BIN)" \
 		"$(shell mktemp -d)" \
 		"$(PWD)/$(2)" \
@@ -161,18 +174,11 @@ dart/packages: dart/pubspec.yaml
 # are stable enough to reliably test syncbase.
 .PHONY: run-syncbase-app
 run-syncbase-app: gen/mojo/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart
-	V23_MOJO_FLAGS=$(V23_MOJO_FLAGS) $(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_FLAGS) -v --enable-multiprocess $(PWD)/dart/bin/syncbase.dart
+	V23_MOJO_FLAGS=$(V23_MOJO_FLAGS) $(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) $(PWD)/dart/bin/syncbase.dart
 
 .PHONY: test
-test: dart/packages gen/mojo/echo_server.mojo gen-mojom
-	# TODO(nlacasse): These tests sometimes hang.  I suspect some connection is
-	# not getting closed properly.  More debugging is necessary.
-	# TODO(nlacasse): We should be passing "--enable-multiprocess" here, since
-	# that is usually needed for Go Mojo services.  However, using that flag
-	# causes the test runner to crash on exit with "Connection error to the
-	# shell".  The tests somehow run and pass without that flag, so maybe it's
-	# not necessary?
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test $(MOJO_FLAGS) -v --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell tests
+test: dart/packages gen/mojo/echo_server.mojo gen/mojo/syncbase_server.mojo gen-mojom
+	V23_MOJO_FLAGS=$(V23_MOJO_FLAGS) $(MOJO_DIR)/src/mojo/devtools/common/mojo_test $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell tests
 
 .PHONY: clean
 clean:
