@@ -10,8 +10,6 @@ package main
 import (
 	"log"
 
-	"golang.org/x/mobile/app"
-
 	"mojo/public/go/application"
 	"mojo/public/go/bindings"
 	"mojo/public/go/system"
@@ -68,6 +66,4 @@ func MojoMain(handle C.MojoHandle) C.MojoResult {
 	return C.MOJO_RESULT_OK
 }
 
-func main() {
-	app.Run(app.Callbacks{})
-}
+func main() {}
