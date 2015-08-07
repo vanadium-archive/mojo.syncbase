@@ -8,13 +8,17 @@ V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 # Flags for Syncbase service running as Mojo service.
 # See v.io/x/ref/runtime/internal/mojo_util.go for the wonderful magic that
 # makes this work.
-# TODO(nlacasse): The --name flag was causing the tests to take a long time to
-# exit because the server was trying to resolve a mounttable that doesn't
-# exist.  I ripped the --name flag out.  Adam is fixing this the right way in a
-# forthcoming CL.
-MOUNTABLE_ADDR := 127.0.0.1:4001
 SYNCBASED_ADDR := 127.0.0.1:4002
-V23_MOJO_FLAGS := '--v=5 --alsologtostderr=false --root-dir=/tmp/syncbase_mojo --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={"Admin":{"In":["..."]},"Write":{"In":["..."]},"Read":{"In":["..."]},"Resolve":{"In":["..."]},"Debug":{"In":["..."]}} --v23.credentials=$(V23_ROOT)/experimental/projects/ether/creds'
+V23_MOJO_FLAGS := --v=5 --alsologtostderr=false --root-dir=/tmp/syncbase_mojo --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={"Admin":{"In":["..."]},"Write":{"In":["..."]},"Read":{"In":["..."]},"Resolve":{"In":["..."]},"Debug":{"In":["..."]}} --v23.credentials=$(V23_ROOT)/experimental/projects/ether/creds
+
+#MOUNTTABLE_ADDR := 127.0.0.1:4001
+ifdef MOUNTTABLE_ADDR
+	V23_MOJO_FLAGS += --name=syncbase_mojo --v23.namespace.root=/$(MOUNTTABLE_ADDR)
+endif
+
+# Wrap the env var value in single quotes. Note, shell parsing works correctly
+# because the value itself does not contain single quotes.
+V23_MOJO_FLAGS := '$(V23_MOJO_FLAGS)'
 
 ifndef MOJO_DIR
 	$(error MOJO_DIR is not set)
