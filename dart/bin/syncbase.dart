@@ -12,9 +12,11 @@ main(List args) async {
 
   // TODO(nlacasse): Switch to serving these files over http rather than
   // directly from the filesystem, so they can be accessed by Android.
-  String url = 'file://' + args[1].replaceFirst('dart/bin/syncbase.dart', 'gen/mojo/syncbase_server.mojo');
+  String url = 'file://' +
+      args[1].replaceFirst(
+          'dart/bin/syncbase.dart', 'gen/mojo/syncbase_server.mojo');
 
   SyncbaseClient c = new SyncbaseClient(app, url);
-  bool exists = await c.appExists('foo');
-  print('appExists(foo): $exists');
+  bool exists = await c.app('foo').exists();
+  print('app(foo).exists(): $exists');
 }

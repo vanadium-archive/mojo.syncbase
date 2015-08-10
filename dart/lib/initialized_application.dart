@@ -11,7 +11,8 @@ class InitializedApplication extends Application {
   final _initializeCompleter = new Completer();
   Future get initialized => _initializeCompleter.future;
 
-  InitializedApplication.fromHandle(int handle) : super.fromHandle(new MojoHandle(handle));
+  InitializedApplication.fromHandle(int handle)
+      : super.fromHandle(new MojoHandle(handle));
 
   void initialize(List<String> args, String url) {
     _initializeCompleter.complete();

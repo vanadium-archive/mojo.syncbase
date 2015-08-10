@@ -1,5 +1,4 @@
 #!mojo mojo:dart_content_handler
-
 import 'dart:async';
 
 import 'package:mojo/core.dart' show MojoHandle;
@@ -14,7 +13,9 @@ main(List args) async {
 
   // TODO(nlacasse): Switch to serving these files over http rather than
   // directly from the filesystem, so they can be accessed by Android.
-  String url = 'file://' + args[1].replaceFirst('dart/test/syncbase_test.dart', 'gen/mojo/syncbase_server.mojo');
+  String url = 'file://' +
+      args[1].replaceFirst(
+          'dart/test/syncbase_test.dart', 'gen/mojo/syncbase_server.mojo');
 
   SyncbaseClient c = new SyncbaseClient(app, url);
 
@@ -22,8 +23,8 @@ main(List args) async {
     app.resetConnections();
   });
 
-  test('appExists(foo) should be false', () {
-    expect(c.appExists('foo'), completion(isFalse));
+  test('app(foo).exists() should be false', () {
+    expect(c.app('foo').exists(), completion(isFalse));
   });
 
   // Append a final test to terminate shell connection.

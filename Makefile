@@ -160,7 +160,7 @@ gen/mojo/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) ge
 # Formats dart files to follow dart style conventions.
 .PHONY: dartfmt
 dartfmt:
-	dartfmt --overwrite --line-length 120 $(DART_FILES)
+	dartfmt --overwrite $(DART_FILES)
 
 # Lints src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
