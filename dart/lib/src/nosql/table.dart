@@ -26,13 +26,13 @@ class SyncbaseTable extends NamedResource {
     return v.exists;
   }
 
-  Future deleteRowRange(Uint8List start, Uint8List limit) async {
+  Future deleteRowRange(List<int> start, List<int> limit) async {
     var v = await _proxy.ptr.tableDeleteRowRange(fullName, start, limit);
     if (isError(v.err)) throw v.err;
     return;
   }
 
-  Stream<mojom.KeyValue> scan(Uint8List start, Uint8List limit) {
+  Stream<mojom.KeyValue> scan(List<int> start, List<int> limit) {
     StreamController<mojom.KeyValue> sc = new StreamController();
     mojom.ScanStream scanStream = new ScanStreamImpl._fromStreamController(sc);
 

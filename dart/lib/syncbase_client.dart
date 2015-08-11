@@ -1,13 +1,15 @@
 library syncbase_client;
 
 import 'dart:async';
-import 'dart:typed_data' show Uint8List;
 
 import 'package:mojo/application.dart' show Application;
 
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 
 // Export struct types from syncbase.mojom.
+// TODO(nlacasse): Create wrapper around Perms, and possibly other struct
+// constructors, since the default constructors are not user-friendly.  They
+// take zero arguments, so all fields must be populated with assignments.
 export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
     show BatchOptions, Perms, SyncGroupMemberInfo, SyncGroupSpec;
 
@@ -21,9 +23,6 @@ part 'src/nosql/table.dart';
 bool isError(mojom.Error err) {
   return err != null && err.id != '';
 }
-
-// TODO(nlacasse): Write some tests for this interface now that syncbase runs
-// as a mojo service.  Currently we rely on dartanalyzer for correctness.
 
 class SyncbaseClient {
   final Application _mojoApp;

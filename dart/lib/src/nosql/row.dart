@@ -10,13 +10,13 @@ class SyncbaseRow extends NamedResource {
     return v.exists;
   }
 
-  Future<Uint8List> get() async {
+  Future<List<int>> get() async {
     var v = await _proxy.ptr.rowGet(fullName);
     if (isError(v.err)) throw v.err;
     return v.value;
   }
 
-  Future put(Uint8List value) async {
+  Future put(List<int> value) async {
     var v = await _proxy.ptr.rowPut(fullName, value);
     if (isError(v.err)) throw v.err;
     return;

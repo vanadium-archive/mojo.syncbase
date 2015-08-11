@@ -2,7 +2,7 @@ part of syncbase_client;
 
 class SyncbaseApp extends NamedResource {
   SyncbaseApp._internal(_proxy, fullName)
-      : super._internal(_proxy, '', fullName);
+      : super._internal(_proxy, null, fullName);
 
   // noSqlDatabase returns the noSqlDatabase with the given relativeName.
   // relativeName must not contain slashes.

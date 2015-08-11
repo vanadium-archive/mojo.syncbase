@@ -7,6 +7,12 @@ import 'package:test/test.dart';
 import 'package:ether/initialized_application.dart' show InitializedApplication;
 import 'package:ether/syncbase_client.dart' show SyncbaseClient;
 
+// Import other test files.
+import './syncbase_app_test.dart' show runAppTests;
+import './syncbase_database_test.dart' show runDatabaseTests;
+import './syncbase_row_test.dart' show runRowTests;
+import './syncbase_table_test.dart' show runTableTests;
+
 main(List args) async {
   InitializedApplication app = new InitializedApplication.fromHandle(args[0]);
   await app.initialized;
@@ -23,9 +29,11 @@ main(List args) async {
     app.resetConnections();
   });
 
-  test('app(foo).exists() should be false', () {
-    expect(c.app('foo').exists(), completion(isFalse));
-  });
+  // Run imported tests.
+  runAppTests(c);
+  runDatabaseTests(c);
+  runTableTests(c);
+  runRowTests(c);
 
   // Append a final test to terminate shell connection.
   // TODO(nlacasse): Remove this once package 'test' supports a global tearDown
