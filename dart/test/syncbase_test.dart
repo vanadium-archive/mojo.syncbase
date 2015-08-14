@@ -17,11 +17,7 @@ main(List args) async {
   InitializedApplication app = new InitializedApplication.fromHandle(args[0]);
   await app.initialized;
 
-  // TODO(nlacasse): Switch to serving these files over http rather than
-  // directly from the filesystem, so they can be accessed by Android.
-  String url = 'file://' +
-      args[1].replaceFirst(
-          'dart/test/syncbase_test.dart', 'gen/mojo/syncbase_server.mojo');
+  String url = 'https://mojo.v.io/syncbase_server.mojo';
 
   SyncbaseClient c = new SyncbaseClient(app, url);
 

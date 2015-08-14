@@ -1,0 +1,45 @@
+# NOTE(nlacasse): This file was taken from $MOJO_DIR/mojoconfig and modified to
+# serve "https://mojo.v.io" assets from ETHER_DIR and ETHER_BUILD_DIR.
+
+# This is a configuration file for devtools (`mojo_run`, `mojo_test) running
+# within a Mojo checkout.
+
+# The content has to parse to a Python dictionary literal. Strings of the form
+# '@{ABC}' are aliases that will be substituted for their values before
+# evaluation:
+#  '@{BUILD_DIR}': path to the mojo output directory
+#  '@{ETHER_DIR}': path to root of ether project
+#  '@{ETHER_BUILD_DIR}': path to directory of built ether mojo files
+
+{
+  # Each dev server will be configured as specified and mapped for the
+  # indicated host using --map-origin.
+  'dev_servers': [
+    {
+      'host': 'https://core.mojoapps.io/',
+      # First matching prefix will apply. Within the directiories specified for
+      # a prefix, first location that contains the requested path will apply.
+      'mappings': [
+        ('packages/', [
+          '@{BUILD_DIR}/gen/dart-pkg/packages',
+          '@{ETHER_DIR}/dart/lib/gen/dart-pkg/packages'
+        ]),
+        ('', [
+          # We map two directiories, so that both exploded dart apps under
+          # checkout root and built apps in the build directory are available.
+          # For example, one could refer to the apps of either type using urls:
+          #  - https://core.mojoapps.io/spinning_cube.mojo
+          #  - https://core.mojoapps.io/examples/dart/device_info/main.dart
+          '@{BUILD_DIR}',
+          '.'
+        ]),
+      ],
+    },
+    {
+      'host': 'https://mojo.v.io',
+      'mappings': [
+        ('', ['@{ETHER_BUILD_DIR}', '@{ETHER_DIR}/dart/bin']),
+      ],
+    },
+  ],
+}

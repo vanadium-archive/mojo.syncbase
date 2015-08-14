@@ -11,11 +11,7 @@ main(List args) async {
   InitializedApplication app = new InitializedApplication.fromHandle(args[0]);
   await app.initialized;
 
-  // TODO(nlacasse): Switch to serving these files over http rather than
-  // directly from the filesystem, so they can be accessed by Android.
-  String url = 'file://' +
-      args[1].replaceFirst(
-          'dart/test/echo_test.dart', 'gen/mojo/echo_server.mojo');
+  String url = 'https://mojo.v.io/echo_server.mojo';
 
   EchoClient c = new EchoClient(app, url);
 
