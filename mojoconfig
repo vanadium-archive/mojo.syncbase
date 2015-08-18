@@ -41,5 +41,11 @@
         ('', ['@{ETHER_BUILD_DIR}', '@{ETHER_DIR}/dart/bin']),
       ],
     },
+    {
+      'host': 'https://test.mojo.v.io',
+      'mappings': [
+        ('', ['@{ETHER_DIR}/dart/test']),
+      ],
+    },
   ],
 }
