@@ -214,9 +214,6 @@ run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen
 # "!consumer_in_two_phase_read()", ignore and re-run the tests.
 .PHONY: test
 test: dart/packages $(ETHER_BUILD_DIR)/echo_server.mojo $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | env-check
-ifdef ANDROID
-	@echo "NOTE: Running the tests with ANDROID=1 requires a *rooted* Android phone with developer mode enabled connected via USB.  See https://github.com/domokit/mojo/issues/385"
-endif
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
 
 .PHONY: env-check
