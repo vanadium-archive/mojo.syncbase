@@ -100,6 +100,9 @@ endef
 
 all: test
 
+.PHONY: build
+build: $(ETHER_BUILD_DIR)/echo_server.mojo  $(ETHER_BUILD_DIR)/syncbase_server.mojo
+
 # Builds mounttabled, principal, and syncbased.
 bin: $(V23_GO_FILES) | env-check
 	v23 go build -a -o $@/mounttabled v.io/x/ref/services/mounttable/mounttabled
