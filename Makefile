@@ -16,8 +16,6 @@ ifdef MOUNTTABLE_ADDR
 	V23_MOJO_FLAGS += --name=syncbase_mojo --v23.namespace.root=/$(MOUNTTABLE_ADDR)
 endif
 
-GO_BUILD_TAGS := mojo
-
 ifdef ANDROID
 	# Configure compiler and linker for Android.
 	export GOROOT := $(MOJO_DIR)/src/third_party/go/tool/android_arm
@@ -25,7 +23,6 @@ ifdef ANDROID
 	export GOOS := android
 	export GOARCH := arm
 	export GOARM := 7
-	GO_BUILD_TAGS += android
 
 	ANDROID_NDK := $(V23_ROOT)/third_party/android/ndk-toolchain
 
@@ -39,8 +36,7 @@ ifdef ANDROID
 
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/android
 
-	LEVELDB_OUT_DIR := $(PWD)/gen/lib/android/leveldb
-	SNAPPY_OUT_DIR := $(PWD)/gen/lib/android/snappy
+	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/android_arm
 
 	# NOTE(nlacasse): Trying to write to a directory that the app does not have
 	# permission to causes a crash with no stack trace.  Because of this, we
@@ -60,16 +56,12 @@ else
 
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 
-	LEVELDB_OUT_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/leveldb
-	SNAPPY_OUT_DIR := $(V23_ROOT)/third_party/cout/linux_amd64/snappy
+	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/linux_amd64
 
 	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data
 endif
 
 GOPATH := $(V23_GOPATH):$(MOJO_DIR):$(MOJO_DIR)/third_party/go:$(MOJO_BUILD_DIR)/gen/go:$(PWD)/go:$(PWD)/gen/go
-CGO_CFLAGS := -I$(MOJO_DIR)/src
-CGO_CXXFLAGS := -I$(MOJO_DIR)/src
-CGO_LDFLAGS := -L$(dir $(MOJO_SHARED_LIB)) -lsystem_thunk
 
 # NOTE(nlacasse): Running Go Mojo services requires passing the
 # --enable-multiprocess flag to mojo_shell.  This is because the Go runtime is
@@ -80,9 +72,6 @@ MOJO_SHELL_FLAGS := -v --enable-multiprocess \
 	--config-alias ETHER_DIR=$(PWD) \
 	--config-alias ETHER_BUILD_DIR=$(ETHER_BUILD_DIR)
 
-LEVELDB_SRC_DIR := $(V23_ROOT)/third_party/csrc/leveldb
-SNAPPY_SRC_DIR := $(V23_ROOT)/third_party/csrc/snappy-1.1.2
-
 LDFLAGS := -shared
 
 # Compiles a Go program and links against the Mojo C library.
@@ -91,10 +80,10 @@ LDFLAGS := -shared
 define MOGO_BUILD
 	mkdir -p $(dir $2)
 	GOPATH="$(GOPATH)" \
-	CGO_CFLAGS="$(CGO_CFLAGS)" \
-	CGO_CXXFLAGS="$(CGO_CXXFLAGS)" \
-	CGO_LDFLAGS="$(CGO_LDFLAGS)" \
-	$(GOROOT)/bin/go build -o $2 -tags="$(GO_BUILD_TAGS)" -ldflags="$(LDFLAGS)" -buildmode=c-shared $1
+	CGO_CFLAGS="-I$(MOJO_DIR)/src $(CGO_CFLAGS)" \
+	CGO_CXXFLAGS="-I$(MOJO_DIR)/src $(CGO_CXXFLAGS)" \
+	CGO_LDFLAGS="-L$(dir $(MOJO_SHARED_LIB)) -lsystem_thunk $(CGO_LDFLAGS)" \
+	$(GOROOT)/bin/go build -o $2 -tags=mojo -ldflags="$(LDFLAGS)" -buildmode=c-shared $1
 	rm -f $(basename $2).h
 endef
 
@@ -128,30 +117,7 @@ $(MOJO_SHARED_LIB): | env-check
 	mkdir -p $(dir $@)
 	ar rcs $@ $(MOJO_BUILD_DIR)/obj/mojo/public/platform/native/system.system_thunks.o
 
-ifdef ANDROID
-# Builds leveldb library for Android.
-$(LEVELDB_OUT_DIR)/lib/libleveldb.a: export TARGET_OS := OS_ANDROID_CROSSCOMPILE
-$(LEVELDB_OUT_DIR)/lib/libleveldb.a: export PREFIX := $(LEVELDB_OUT_DIR)/lib
-$(LEVELDB_OUT_DIR)/lib/libleveldb.a: | env-check
-	mkdir -p $(dir $@)
-	cd $(LEVELDB_SRC_DIR) && make clean && make all
-	# Delete the dynamic libraries, to prevent ld from linking leveldb
-	# dynamically.
-	rm $(LEVELDB_OUT_DIR)/lib/*.so*
-
-# Builds snappy library for Android.
-$(SNAPPY_OUT_DIR)/lib/libsnappy.a: | env-check
-	mkdir -p $(dir $@)
-	cd $(SNAPPY_SRC_DIR) && make clean && ./configure --prefix=$(SNAPPY_OUT_DIR) --build=x86_64-unknown-linux-gnu --host=arm-linux-androideabi --target=arm-linux-androideabi && make install
-	# Delete the dynamic libraries, to prevent ld from linking snappy
-	# dynamically.
-	rm $(SNAPPY_OUT_DIR)/lib/*.so*
-endif
-
 .PHONY: gen-mojom
-# TODO(nlacasse): The echo_client and echo_server are currently used to test
-# compilation and mojom binding generation.  We should remove them once they
-# are no longer needed.
 gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
 gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
@@ -159,8 +125,9 @@ dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart: mojom/echo.mojom
 dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
 dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: | env-check
 	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
-	# TODO(nlacasse): Figure out why mojom_bindings_generator creates these bad
-	# symlinks on dart files.
+	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
+	# files, so we delete them.  Stop doing this once the generator is fixed.
+	# See https://github.com/domokit/mojo/issues/386
 	rm -f dart/lib/gen/mojom/$(notdir $@)
 
 gen/go/src/mojom/echo/echo.mojom.go: mojom/echo.mojom
@@ -177,11 +144,11 @@ $(ETHER_BUILD_DIR)/echo_server.mojo: $(GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/m
 # variables have their original value, so everything works.  Once we have a
 # prereq that requires the original value, we will need to re-work these
 # variables.
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS += -I$(LEVELDB_SRC_DIR)/include -I$(SNAPPY_SRC_DIR)/include
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS += -I$(LEVELDB_SRC_DIR)/include -I$(SNAPPY_SRC_DIR)/include
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS += -lsystem_thunk -L$(LEVELDB_OUT_DIR)/lib -lleveldb -L$(SNAPPY_OUT_DIR)/lib -lsnappy
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: LDFLAGS += -X v.io/x/ref/runtime/internal.commandLineFlags '$(V23_MOJO_FLAGS)'
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) $(LEVELDB_OUT_DIR)/lib/libleveldb.a $(SNAPPY_OUT_DIR)/lib/libsnappy.a gen/go/src/mojom/syncbase/syncbase.mojom.go | env-check
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: LDFLAGS := -X v.io/x/ref/runtime/internal.commandLineFlags '$(V23_MOJO_FLAGS)'
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | env-check
 	$(call MOGO_BUILD,v.io/syncbase/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
@@ -227,16 +194,17 @@ endif
 ifeq ($(wildcard $(MOJO_BUILD_DIR)),)
 	$(error ERROR: $(MOJO_BUILD_DIR) does not exist.  Please see README.md for instructions on compiling Mojo resources.)
 endif
+ifeq ($(wildcard $(THIRD_PARTY_LIBS)/*),)
+	ifdef ANDROID
+		$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "GOOS=android GOARCH=arm v23 profile install syncbase")
+	else
+		$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "v23 profile install syncbase")
+	endif
+endif
 ifdef ANDROID
-ifeq ($(wildcard $(ANDROID_NDK)),)
-	$(error ERROR: $(ANDROID_NDK) does not exist.  Please install android profile with "v23 profile install android")
-endif
-ifeq ($(wildcard $(LEVELDB_SRC_DIR)),)
-	$(error ERROR: $(LEVELDB_SRC_DIR) does not exist.  Please install syncbase profile with "v23 profile install syncbase")
-endif
-ifeq ($(wildcard $(SNAPPY_SRC_DIR)),)
-	$(error ERROR: $(SNAPPY_SRC_DIR) does not exist.  Please install syncbase profile with "v23 profile install syncbase")
-endif
+	ifeq ($(wildcard $(ANDROID_NDK)),)
+		$(error ERROR: $(ANDROID_NDK) does not exist.  Please install android profile with "v23 profile install android")
+	endif
 endif
 
 .PHONY: clean
@@ -244,6 +212,6 @@ clean:
 	rm -rf gen/mojo gen/go
 
 .PHONY: veryclean
-veryclean:
+veryclean: clean
 	rm -rf gen
 	rm -rf dart/{lib/gen,packages,.packages,pubspec.lock}
