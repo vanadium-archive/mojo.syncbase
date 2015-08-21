@@ -1,5 +1,4 @@
 #!mojo mojo:dart_content_handler
-
 import 'package:ether/initialized_application.dart' show InitializedApplication;
 import 'package:ether/echo_client.dart' show EchoClient;
 

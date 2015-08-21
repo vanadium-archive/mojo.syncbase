@@ -1,0 +1,34 @@
+# Combination of ../mojoconfig and $MOJO_DIR/src/mojo/tools/configs/sky.
+
+{
+  'dev_servers': [
+    {
+      'host': 'https://mojo.v.io/',
+      'mappings': [
+        ('packages/', [
+          # For sky/widgets.dart.
+          '@{ETHER_DIR}/sky_echo/packages'
+        ]),
+        ('', [
+          # For echo_server.mojo.
+          '@{ETHER_BUILD_DIR}',
+          # For sky_echo/lib/main.dart.
+          '@{ETHER_DIR}',
+        ]),
+      ],
+    },
+    {
+      'host': 'https://sky/',
+      'mappings': [
+        ('', [
+          # For sky_viewer.mojo.
+          '@{SKY_BUILD_DIR}'
+        ]),
+      ],
+    }
+  ],
+
+  'content_handlers': {
+    'application/dart': 'https://sky/sky_viewer.mojo',
+  }
+}

@@ -11,7 +11,7 @@ V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 SYNCBASED_ADDR := 127.0.0.1:4002
 V23_MOJO_FLAGS := --v=5 --root-dir=/tmp/syncbase_mojo --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={\"Admin\":{\"In\":[\"...\"]},\"Write\":{\"In\":[\"...\"]},\"Read\":{\"In\":[\"...\"]},\"Resolve\":{\"In\":[\"...\"]},\"Debug\":{\"In\":[\"...\"]}}
 
-#MOUNTTABLE_ADDR := 127.0.0.1:4001
+# MOUNTTABLE_ADDR := 127.0.0.1:4001
 ifdef MOUNTTABLE_ADDR
 	V23_MOJO_FLAGS += --name=syncbase_mojo --v23.namespace.root=/$(MOUNTTABLE_ADDR)
 endif
@@ -33,7 +33,7 @@ ifdef ANDROID
 	MOJO_BUILD_DIR := $(MOJO_DIR)/src/out/android_Debug
 	MOJO_SHARED_LIB := $(PWD)/gen/lib/android/libsystem_thunk.a
 	MOJO_SHELL_PATH := $(MOJO_BUILD_DIR)/apks/MojoShell.apk
-
+	SKY_BUILD_DIR := $(SKY_DIR)/src/out/android_Debug
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/android
 
 	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/android_arm
@@ -53,7 +53,7 @@ else
 	MOJO_BUILD_DIR := $(MOJO_DIR)/src/out/Debug
 	MOJO_SHARED_LIB := $(PWD)/gen/lib/linux_amd64/libsystem_thunk.a
 	MOJO_SHELL_PATH := $(MOJO_BUILD_DIR)/mojo_shell
-
+	SKY_BUILD_DIR := $(SKY_DIR)/src/out/Debug
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 
 	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/linux_amd64
@@ -68,7 +68,9 @@ GOPATH := $(V23_GOPATH):$(MOJO_DIR):$(MOJO_DIR)/third_party/go:$(MOJO_BUILD_DIR)
 # very large, and can interfere with C++ memory if they are in the same
 # process.
 MOJO_SHELL_FLAGS := -v --enable-multiprocess \
-	--config-file $(PWD)/mojoconfig \
+	--config-alias MOJO_BUILD_DIR=$(MOJO_BUILD_DIR) \
+	--config-alias SKY_DIR=$(SKY_DIR) \
+	--config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR) \
 	--config-alias ETHER_DIR=$(PWD) \
 	--config-alias ETHER_BUILD_DIR=$(ETHER_BUILD_DIR)
 
@@ -173,23 +175,30 @@ dart/packages: dart/pubspec.yaml
 
 .PHONY: run-syncbase-example
 run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/syncbase_example.dart
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/syncbase_example.dart
 
 .PHONY: run-echo-example
 run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/echo_example.dart
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/echo_example.dart
+
+.PHONY: run-sky-echo
+run-sky-echo: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_echo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_echo/lib/main.dart'
 
 # TODO(nlacasse): The tests are currently flaky due to
 # https://github.com/domokit/mojo/issues/387.  If you see errors about
 # "!consumer_in_two_phase_read()", ignore and re-run the tests.
 .PHONY: test
 test: dart/packages $(ETHER_BUILD_DIR)/echo_server.mojo $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
 
 .PHONY: env-check
 env-check:
 ifndef MOJO_DIR
 	$(error MOJO_DIR is not set)
+endif
+ifndef SKY_DIR
+	$(error SKY_DIR is not set)
 endif
 ifndef V23_ROOT
 	$(error V23_ROOT is not set)
@@ -217,4 +226,5 @@ clean:
 .PHONY: veryclean
 veryclean: clean
 	rm -rf gen
-	rm -rf dart/{lib/gen,packages,.packages,pubspec.lock}
+	rm -rf dart/lib/gen
+	rm -rf dart/{.packages,pubspec.lock,packages}

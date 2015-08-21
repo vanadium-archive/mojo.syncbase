@@ -2,10 +2,10 @@
 /bin
 /creds
 /gen
-
-# Dart dependencies
-/dart/.packages
-/dart/.pub
 /dart/lib/gen
-/dart/pubspec.lock
-/dart/**/packages
+
+# Dart artifacts
+.packages
+.pub
+pubspec.lock
+packages

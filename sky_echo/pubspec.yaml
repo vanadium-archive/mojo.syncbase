@@ -1,0 +1,4 @@
+name: sky_echo
+dependencies:
+  sky: any
+  sky_tools: any

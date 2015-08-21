@@ -12,7 +12,7 @@ class EchoClient {
   final String url;
 
   Future close({bool immediate: false}) {
-    return _proxy.close();
+    return _proxy.close(immediate: immediate);
   }
 
   EchoClient(this._app, this.url) : _proxy = new mojom.EchoProxy.unbound() {
