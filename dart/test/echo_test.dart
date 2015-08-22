@@ -13,7 +13,7 @@ main(List args) async {
 
   String url = 'https://mojo.v.io/echo_server.mojo';
 
-  EchoClient c = new EchoClient(app, url);
+  EchoClient c = new EchoClient(app.connectToService, url);
 
   tearDown(() {
     app.resetConnections();
