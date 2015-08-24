@@ -2,29 +2,29 @@ library echo_client;
 
 import 'dart:async';
 
-import 'package:mojo/bindings.dart' as bindings;
+import 'package:mojo/application.dart' show Application;
 
 import 'gen/dart-gen/mojom/lib/mojo/echo.mojom.dart' as mojom;
 
-typedef void ConnectToServiceFn(String url, bindings.ProxyBase proxy);
-
 class EchoClient {
+  final Application _app;
   final mojom.EchoProxy _proxy;
+  final String url;
 
   Future close({bool immediate: false}) {
     return _proxy.close(immediate: immediate);
   }
 
-  EchoClient(ConnectToServiceFn cts, String url)
-      : _proxy = new mojom.EchoProxy.unbound() {
+  EchoClient(this._app, this.url) : _proxy = new mojom.EchoProxy.unbound() {
     print('connecting to $url');
-    cts(url, _proxy);
+    _app.connectToService(url, _proxy);
     print('connected');
   }
 
   Future<String> echo(String s) async {
     print('calling echoString($s)');
     mojom.EchoEchoStringResponseParams v = await _proxy.ptr.echoString(s);
+
     String output = v.value;
     print('got echo result: $output');
     return output;

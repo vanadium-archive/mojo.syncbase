@@ -1,7 +1,7 @@
 SHELL := /bin/bash -euo pipefail
 PWD := $(shell pwd)
 V23_GOPATH := $(shell echo `v23 run env | grep GOPATH | cut -d\= -f2`)
-DART_FILES := $(shell find dart/bin dart/lib dart/test sky_echo/lib -name "*.dart" -not -path "dart/lib/gen/*")
+DART_FILES := $(shell find dart/bin dart/lib dart/test -name "*.dart" -not -path "dart/lib/gen/*")
 GO_FILES := $(shell find go/src -name "*.go")
 V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 
@@ -167,16 +167,11 @@ dartanalyzer: dart/packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
 	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
 	# warnings from *.mojom.dart files.
-	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v "\[hint\] Dead code.*\.mojom\.dart"
-	cd sky_echo && dartanalyzer lib/*.dart
+	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v '\.mojom\.dart'
 
 # Installs dart dependencies.
 dart/packages: dart/pubspec.yaml
 	cd dart && pub get
-
-# Installs dart dependencies.
-sky_echo/packages: sky_echo/pubspec.yaml
-	cd sky_echo && pub get
 
 .PHONY: run-syncbase-example
 run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | env-check
@@ -187,7 +182,7 @@ run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/echo_example.dart
 
 .PHONY: run-sky-echo
-run-sky-echo: $(ETHER_BUILD_DIR)/echo_server.mojo sky_echo/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
+run-sky-echo: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_echo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_echo/lib/main.dart'
 
 # TODO(nlacasse): The tests are currently flaky due to

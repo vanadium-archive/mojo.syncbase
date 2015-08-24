@@ -6,10 +6,8 @@
       'host': 'https://mojo.v.io/',
       'mappings': [
         ('packages/', [
-          # For echo_client.dart.
-          '@{ETHER_DIR}/dart/packages',
           # For sky/widgets.dart.
-          '@{ETHER_DIR}/sky_echo/packages',
+          '@{ETHER_DIR}/sky_echo/packages'
         ]),
         ('', [
           # For echo_server.mojo.
@@ -24,7 +22,7 @@
       'mappings': [
         ('', [
           # For sky_viewer.mojo.
-          '@{SKY_BUILD_DIR}',
+          '@{SKY_BUILD_DIR}'
         ]),
       ],
     }
