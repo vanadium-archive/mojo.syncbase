@@ -58,7 +58,7 @@ else
 
 	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/linux_amd64
 
-	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data
+	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data --alsologtostderr=false
 endif
 
 GOPATH := $(V23_GOPATH):$(MOJO_DIR):$(MOJO_DIR)/third_party/go:$(MOJO_BUILD_DIR)/gen/go:$(PWD)/go:$(PWD)/gen/go
@@ -166,8 +166,8 @@ dartfmt:
 dartanalyzer: dart/packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
 	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
-	# warnings from *.mojom.dart files.
-	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v '\.mojom\.dart'
+	# hints from *.mojom.dart files.
+	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v '\[hint\].*\.mojom\.dart'
 
 # Installs dart dependencies.
 dart/packages: dart/pubspec.yaml
@@ -185,9 +185,6 @@ run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen
 run-sky-echo: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_echo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_echo/lib/main.dart'
 
-# TODO(nlacasse): The tests are currently flaky due to
-# https://github.com/domokit/mojo/issues/387.  If you see errors about
-# "!consumer_in_two_phase_read()", ignore and re-run the tests.
 .PHONY: test
 test: dart/packages $(ETHER_BUILD_DIR)/echo_server.mojo $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | env-check
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
@@ -222,9 +219,9 @@ endif
 .PHONY: clean
 clean:
 	rm -rf gen/mojo gen/go
+	rm -rf dart/lib/gen
 
 .PHONY: veryclean
 veryclean: clean
 	rm -rf gen
-	rm -rf dart/lib/gen
 	rm -rf dart/{.packages,pubspec.lock,packages}

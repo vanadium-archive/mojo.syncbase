@@ -85,7 +85,7 @@ interface Syncbase {
   DbCreate(string name, Perms perms) => (Error err);
   DbDelete(string name) => (Error err);
   DbExists(string name) => (Error err, bool exists);
-  DbExec(string name, string query, ExecStream& stream) => (Error err);
+  DbExec(string name, string query, ExecStream stream) => (Error err);
   DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_dn);
   DbCommit(string name) => (Error err);
   DbAbort(string name) => (Error err);
@@ -126,7 +126,7 @@ interface Syncbase {
   TableDeleteRowRange(string name, array<uint8> start, array<uint8> limit)
       => (Error err);
   TableScan(
-      string name, array<uint8> start, array<uint8> limit, ScanStream& stream)
+      string name, array<uint8> start, array<uint8> limit, ScanStream stream)
       => (Error err);
   TableGetPermissions(string name, string key)
       => (Error err, array<PrefixPerms> perms_arr);

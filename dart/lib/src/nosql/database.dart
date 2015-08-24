@@ -101,7 +101,7 @@ class ExecStreamImpl implements mojom.ExecStream {
     sc.add(result);
   }
 
-  onDone(Error err) {
+  onDone(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }

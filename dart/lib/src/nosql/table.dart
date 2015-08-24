@@ -34,10 +34,12 @@ class SyncbaseTable extends NamedResource {
 
   Stream<mojom.KeyValue> scan(List<int> start, List<int> limit) {
     StreamController<mojom.KeyValue> sc = new StreamController();
-    mojom.ScanStream scanStream = new ScanStreamImpl._fromStreamController(sc);
+
+    mojom.ScanStreamStub stub = new mojom.ScanStreamStub.unbound();
+    stub.impl = new ScanStreamImpl._fromStreamController(sc);
 
     // Call tableScan asynchronously.
-    _proxy.ptr.tableScan(fullName, start, limit, scanStream).then((v) {
+    _proxy.ptr.tableScan(fullName, start, limit, stub).then((v) {
       // TODO(nlacasse): Is throwing the correct behavior here?  Consider
       // returning a tuple (Stream<mojom.KeyValue>, Future) and resolve the
       // Future at the end of the RPC (with an error if applicable).  Then
@@ -78,7 +80,7 @@ class ScanStreamImpl implements mojom.ScanStream {
     sc.add(keyValue);
   }
 
-  onDone(Error err) {
+  onDone(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }
