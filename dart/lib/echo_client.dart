@@ -10,16 +10,15 @@ typedef void ConnectToServiceFn(String url, bindings.ProxyBase proxy);
 
 class EchoClient {
   final mojom.EchoProxy _proxy;
-  final String _url;
 
   Future close({bool immediate: false}) {
     return _proxy.close(immediate: immediate);
   }
 
-  EchoClient(ConnectToServiceFn cts, this._url)
+  EchoClient(ConnectToServiceFn cts, String url)
       : _proxy = new mojom.EchoProxy.unbound() {
-    print('connecting to $_url');
-    cts(_url, _proxy);
+    print('connecting to $url');
+    cts(url, _proxy);
     print('connected');
   }
 

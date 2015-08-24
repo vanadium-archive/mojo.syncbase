@@ -7,7 +7,7 @@ import '../../dart/lib/echo_client.dart' show EchoClient;
 
 log(String msg) {
   DateTime now = new DateTime.now();
-  print('${now.toString()} $msg');
+  print('$now $msg');
 }
 
 class EchoApp extends App {
@@ -15,7 +15,7 @@ class EchoApp extends App {
 
   EchoApp()
       : _c = new EchoClient(
-            embedder.connectToService, 'https://mojo.v.io/echo_server.mojo') {}
+            embedder.connectToService, 'https://mojo.v.io/echo_server.mojo');
 
   int seq = 0;
   String sendMsg = '';
