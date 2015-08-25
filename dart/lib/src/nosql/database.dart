@@ -24,13 +24,11 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   Future create(mojom.Perms perms) async {
     var v = await _proxy.ptr.dbCreate(fullName, perms);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future delete() async {
     var v = await _proxy.ptr.dbDelete(fullName);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future<bool> exists() async {
@@ -68,19 +66,16 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   Future commit() async {
     var v = await _proxy.ptr.dbCommit(fullName);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future abort() async {
     var v = await _proxy.ptr.dbAbort(fullName);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future<mojom.Perms> getPermissions() async {
     var v = await _proxy.ptr.dbGetPermissions(fullName);
     if (isError(v.err)) throw v.err;
-
     // TODO(nlacasse): We need to return the version too.  Create a struct type
     // that combines perms and version?
     return v.perms;
@@ -89,7 +84,6 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   Future setPermissions(mojom.Perms perms, String version) async {
     var v = await _proxy.ptr.dbSetPermissions(fullName, perms, version);
     if (isError(v.err)) throw v.err;
-    return;
   }
 }
 

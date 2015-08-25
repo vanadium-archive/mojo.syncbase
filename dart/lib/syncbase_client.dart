@@ -2,7 +2,7 @@ library syncbase_client;
 
 import 'dart:async';
 
-import 'package:mojo/application.dart' show Application;
+import 'package:mojo/bindings.dart' as bindings;
 
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 
@@ -20,26 +20,26 @@ part 'src/nosql/row.dart';
 part 'src/nosql/syncgroup.dart';
 part 'src/nosql/table.dart';
 
+typedef void ConnectToServiceFn(String url, bindings.ProxyBase proxy);
+
 bool isError(mojom.Error err) {
   return err != null && err.id != '';
 }
 
 class SyncbaseClient {
-  final Application _mojoApp;
   final mojom.SyncbaseProxy _proxy;
-  final String url;
 
-  SyncbaseClient(this._mojoApp, this.url)
+  SyncbaseClient(ConnectToServiceFn cts, String url)
       : _proxy = new mojom.SyncbaseProxy.unbound() {
     print('connecting to $url');
-    _mojoApp.connectToService(url, _proxy);
+    cts(url, _proxy);
     print('connected');
   }
 
   // Closes the connection to the syncbase server.
   // TODO(nlacasse): Is this necessary?
   Future close({bool immediate: false}) {
-    return _proxy.close();
+    return _proxy.close(immediate: immediate);
   }
 
   // app returns the app with the given name, which should not contain slashes.
@@ -48,7 +48,6 @@ class SyncbaseClient {
   Future<mojom.Perms> getPermissions() async {
     var v = await _proxy.ptr.serviceGetPermissions();
     if (isError(v.err)) throw v.err;
-
     // TODO(nlacasse): We need to return the version too.  Create a struct type
     // that combines perms and version?
     return v.perms;
@@ -57,6 +56,5 @@ class SyncbaseClient {
   Future setPermissions(mojom.Perms perms, String version) async {
     var v = await _proxy.ptr.serviceSetPermissions(perms, version);
     if (isError(v.err)) throw v.err;
-    return;
   }
 }

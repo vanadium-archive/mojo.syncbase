@@ -11,13 +11,11 @@ class SyncbaseTable extends NamedResource {
   Future create(mojom.Perms perms) async {
     var v = await _proxy.ptr.tableCreate(fullName, perms);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future delete() async {
     var v = await _proxy.ptr.tableDelete(fullName);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future<bool> exists() async {
@@ -29,7 +27,6 @@ class SyncbaseTable extends NamedResource {
   Future deleteRowRange(List<int> start, List<int> limit) async {
     var v = await _proxy.ptr.tableDeleteRowRange(fullName, start, limit);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Stream<mojom.KeyValue> scan(List<int> start, List<int> limit) {
@@ -62,13 +59,11 @@ class SyncbaseTable extends NamedResource {
   Future setPermissions(String prefix, mojom.Perms perms) async {
     var v = await _proxy.ptr.tableSetPermissions(fullName, prefix, perms);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future deletePermissions(String prefix) async {
     var v = await _proxy.ptr.tableDeletePermissions(fullName, prefix);
     if (isError(v.err)) throw v.err;
-    return;
   }
 }
 

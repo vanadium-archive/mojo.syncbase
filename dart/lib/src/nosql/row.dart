@@ -19,12 +19,10 @@ class SyncbaseRow extends NamedResource {
   Future put(List<int> value) async {
     var v = await _proxy.ptr.rowPut(fullName, value);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future delete() async {
     var v = await _proxy.ptr.rowDelete(fullName);
     if (isError(v.err)) throw v.err;
-    return;
   }
 }

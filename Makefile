@@ -1,15 +1,17 @@
 SHELL := /bin/bash -euo pipefail
 PWD := $(shell pwd)
 V23_GOPATH := $(shell echo `v23 run env | grep GOPATH | cut -d\= -f2`)
-DART_FILES := $(shell find dart/bin dart/lib dart/test -name "*.dart" -not -path "dart/lib/gen/*")
+DART_FILES := $(shell find dart/bin dart/lib dart/test sky_demo/lib -name "*.dart" -not -path "dart/lib/gen/*")
 GO_FILES := $(shell find go/src -name "*.go")
 V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 
 # Flags for Syncbase service running as Mojo service.
 # See v.io/x/ref/runtime/internal/mojo_util.go for the wonderful magic that
 # makes this work.
+# If you change these flags, be sure to do a "make clean", since the flag values
+# get bound at compile time.
 SYNCBASED_ADDR := 127.0.0.1:4002
-V23_MOJO_FLAGS := --v=5 --root-dir=/tmp/syncbase_mojo --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={\"Admin\":{\"In\":[\"...\"]},\"Write\":{\"In\":[\"...\"]},\"Read\":{\"In\":[\"...\"]},\"Resolve\":{\"In\":[\"...\"]},\"Debug\":{\"In\":[\"...\"]}}
+V23_MOJO_FLAGS := --v=0 --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={\"Admin\":{\"In\":[\"...\"]},\"Write\":{\"In\":[\"...\"]},\"Read\":{\"In\":[\"...\"]},\"Resolve\":{\"In\":[\"...\"]},\"Debug\":{\"In\":[\"...\"]}}
 
 # MOUNTTABLE_ADDR := 127.0.0.1:4001
 ifdef MOUNTTABLE_ADDR
@@ -58,7 +60,7 @@ else
 
 	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/linux_amd64
 
-	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data --alsologtostderr=false
+	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data
 endif
 
 GOPATH := $(V23_GOPATH):$(MOJO_DIR):$(MOJO_DIR)/third_party/go:$(MOJO_BUILD_DIR)/gen/go:$(PWD)/go:$(PWD)/gen/go
@@ -163,15 +165,20 @@ dartfmt:
 
 # Lints src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
-dartanalyzer: dart/packages gen-mojom
+dartanalyzer: dart/packages sky_demo/packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
 	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
-	# hints from *.mojom.dart files.
-	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v '\[hint\].*\.mojom\.dart'
+	# hints and warnings from *.mojom.dart files.
+	cd dart && dartanalyzer bin/*.dart lib/*.dart test/*.dart | grep -v "\.mojom\.dart, line"
+	cd sky_demo && dartanalyzer lib/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
 dart/packages: dart/pubspec.yaml
 	cd dart && pub get
+
+# Installs dart dependencies.
+sky_demo/packages: sky_demo/pubspec.yaml
+	cd sky_demo && pub get
 
 .PHONY: run-syncbase-example
 run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | env-check
@@ -181,9 +188,9 @@ run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart
 run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/echo_example.dart
 
-.PHONY: run-sky-echo
-run-sky-echo: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_echo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_echo/lib/main.dart'
+.PHONY: run-sky-demo
+run-sky-demo: $(ETHER_BUILD_DIR)/echo_server.mojo sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | env-check
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_demo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_demo/lib/main.dart'
 
 .PHONY: test
 test: dart/packages $(ETHER_BUILD_DIR)/echo_server.mojo $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | env-check
@@ -224,4 +231,4 @@ clean:
 .PHONY: veryclean
 veryclean: clean
 	rm -rf gen
-	rm -rf dart/{.packages,pubspec.lock,packages}
+	rm -rf {dart,sky_demo}/{.packages,pubspec.lock,packages}

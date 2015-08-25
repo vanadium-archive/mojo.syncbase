@@ -13,13 +13,11 @@ class SyncbaseApp extends NamedResource {
   Future create(mojom.Perms perms) async {
     var v = await _proxy.ptr.appCreate(fullName, perms);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future delete() async {
     var v = await _proxy.ptr.appDelete(fullName);
     if (isError(v.err)) throw v.err;
-    return;
   }
 
   Future<bool> exists() async {
@@ -31,7 +29,6 @@ class SyncbaseApp extends NamedResource {
   Future<mojom.Perms> getPermissions() async {
     var v = await _proxy.ptr.appGetPermissions(fullName);
     if (isError(v.err)) throw v.err;
-
     // TODO(nlacasse): We need to return the version too.  Create a struct type
     // that combines perms and version?
     return v.perms;
@@ -40,6 +37,5 @@ class SyncbaseApp extends NamedResource {
   Future setPermissions(mojom.Perms perms, String version) async {
     var v = await _proxy.ptr.appSetPermissions(fullName, perms, version);
     if (isError(v.err)) throw v.err;
-    return;
   }
 }

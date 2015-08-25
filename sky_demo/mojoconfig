@@ -6,13 +6,13 @@
       'host': 'https://mojo.v.io/',
       'mappings': [
         ('packages/', [
-          # For sky/widgets.dart.
-          '@{ETHER_DIR}/sky_echo/packages'
+          # For sky_demo packages.
+          '@{ETHER_DIR}/sky_demo/packages',
         ]),
         ('', [
-          # For echo_server.mojo.
+          # For echo_server.mojo and syncbase_server.mojo.
           '@{ETHER_BUILD_DIR}',
-          # For sky_echo/lib/main.dart.
+          # For sky_demo/lib/main.dart.
           '@{ETHER_DIR}',
         ]),
       ],

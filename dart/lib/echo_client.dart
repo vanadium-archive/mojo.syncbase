@@ -2,23 +2,25 @@ library echo_client;
 
 import 'dart:async';
 
-import 'package:mojo/application.dart' show Application;
+import 'package:mojo/bindings.dart' as bindings;
 
 import 'gen/dart-gen/mojom/lib/mojo/echo.mojom.dart' as mojom;
 
-class EchoClient {
-  final Application _app;
-  final mojom.EchoProxy _proxy;
-  final String url;
+typedef void ConnectToServiceFn(String url, bindings.ProxyBase proxy);
 
-  Future close({bool immediate: false}) {
-    return _proxy.close(immediate: immediate);
+class EchoClient {
+  final mojom.EchoProxy _proxy;
+
+  EchoClient(ConnectToServiceFn cts, String url)
+      : _proxy = new mojom.EchoProxy.unbound() {
+    print('connecting to $url');
+    cts(url, _proxy);
+    print('connected');
   }
 
-  EchoClient(this._app, this.url) : _proxy = new mojom.EchoProxy.unbound() {
-    print('connecting to $url');
-    _app.connectToService(url, _proxy);
-    print('connected');
+  // TODO(nlacasse): Is this necessary?
+  Future close({bool immediate: false}) {
+    return _proxy.close(immediate: immediate);
   }
 
   Future<String> echo(String s) async {
