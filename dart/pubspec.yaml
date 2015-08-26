@@ -1,0 +1,6 @@
+name: ether
+dependencies:
+  mojo: any
+dev_dependencies:
+  dart_style: any
+  test: any
