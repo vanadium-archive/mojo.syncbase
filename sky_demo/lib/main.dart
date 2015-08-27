@@ -53,13 +53,18 @@ class DemoApp extends App {
       log('syncbase already initialized');
       return;
     }
-    // TODO(sadovsky): Handle "already exists" case.
     var app = _syncbaseClient.app('app');
-    await app.create(emptyPerms());
+    if (!(await app.exists())) {
+      await app.create(emptyPerms());
+    }
     var db = app.noSqlDatabase('db');
-    await db.create(emptyPerms());
+    if (!(await db.exists())) {
+      await db.create(emptyPerms());
+    }
     var table = db.table('table');
-    await table.create(emptyPerms());
+    if (!(await table.exists())) {
+      await table.create(emptyPerms());
+    }
     tb = table;
     log('syncbase is now initialized');
   }
