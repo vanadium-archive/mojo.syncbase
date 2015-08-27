@@ -71,8 +71,6 @@ GOPATH := $(V23_GOPATH):$(MOJO_DIR):$(MOJO_DIR)/third_party/go:$(MOJO_BUILD_DIR)
 # process.
 MOJO_SHELL_FLAGS := -v --enable-multiprocess \
 	--config-alias MOJO_BUILD_DIR=$(MOJO_BUILD_DIR) \
-	--config-alias SKY_DIR=$(SKY_DIR) \
-	--config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR) \
 	--config-alias ETHER_DIR=$(PWD) \
 	--config-alias ETHER_BUILD_DIR=$(ETHER_BUILD_DIR)
 
@@ -189,7 +187,11 @@ run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/echo_example.dart
 
 .PHONY: run-sky-demo
+run-sky-demo: MOJO_SHELL_FLAGS += --config-alias SKY_DIR=$(SKY_DIR) --config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR)
 run-sky-demo: $(ETHER_BUILD_DIR)/echo_server.mojo sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | env-check
+ifndef SKY_DIR
+	$(error SKY_DIR is not set)
+endif
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_demo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_demo/lib/main.dart'
 
 .PHONY: test
@@ -201,26 +203,23 @@ env-check:
 ifndef MOJO_DIR
 	$(error MOJO_DIR is not set)
 endif
-ifndef SKY_DIR
-	$(error SKY_DIR is not set)
-endif
 ifndef V23_ROOT
 	$(error V23_ROOT is not set)
 endif
 ifeq ($(wildcard $(MOJO_BUILD_DIR)),)
 	$(error ERROR: $(MOJO_BUILD_DIR) does not exist.  Please see README.md for instructions on compiling Mojo resources.)
 endif
-ifeq ($(wildcard $(THIRD_PARTY_LIBS)/*),)
-	ifdef ANDROID
-		$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "GOOS=android GOARCH=arm v23 profile install syncbase")
-	else
-		$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "v23 profile install syncbase")
-	endif
+ifeq ($(wildcard $(THIRD_PARTY_LIBS)),)
+ifdef ANDROID
+	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "GOOS=android GOARCH=arm v23 profile install syncbase")
+else
+	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "v23 profile install syncbase")
+endif
 endif
 ifdef ANDROID
-	ifeq ($(wildcard $(ANDROID_NDK)),)
-		$(error ERROR: $(ANDROID_NDK) does not exist.  Please install android profile with "v23 profile install android")
-	endif
+ifeq ($(wildcard $(ANDROID_NDK)),)
+	$(error ERROR: $(ANDROID_NDK) does not exist.  Please install android profile with "v23 profile install android")
+endif
 endif
 
 .PHONY: clean
