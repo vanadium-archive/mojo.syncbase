@@ -126,11 +126,11 @@ sky_demo/packages: sky_demo/pubspec.yaml
 
 .PHONY: run-syncbase-example
 run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | synbase-env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/syncbase_example.dart
+	$(call MOJO_RUN,https://mojo.v.io/syncbase_example.dart)
 
 .PHONY: run-echo-example
 run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | synbase-env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) https://mojo.v.io/echo_example.dart
+	$(call MOJO_RUN,https://mojo.v.io/echo_example.dart)
 
 .PHONY: run-sky-demo
 run-sky-demo: MOJO_SHELL_FLAGS += --config-alias SKY_DIR=$(SKY_DIR) --config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR)
