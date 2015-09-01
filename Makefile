@@ -60,7 +60,7 @@ build: $(ETHER_BUILD_DIR)/echo_server.mojo  $(ETHER_BUILD_DIR)/syncbase_server.m
 bin: $(V23_GO_FILES) | syncbase-env-check
 	v23 go build -a -o $@/mounttabled v.io/x/ref/services/mounttable/mounttabled
 	v23 go build -a -o $@/principal v.io/x/ref/cmd/principal
-	v23 go build -a -o $@/syncbased v.io/syncbase/x/ref/services/syncbase/syncbased
+	v23 go build -a -o $@/syncbased v.io/x/ref/services/syncbase/syncbased
 	touch $@
 
 # Mints credentials.
@@ -100,7 +100,7 @@ $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/l
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: LDFLAGS := -X v.io/x/ref/runtime/internal.commandLineFlags '$(V23_MOJO_FLAGS)'
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | synbase-env-check
-	$(call MOGO_BUILD,v.io/syncbase/x/ref/services/syncbase/syncbased,$@)
+	$(call MOGO_BUILD,v.io/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
 .PHONY: dartfmt
