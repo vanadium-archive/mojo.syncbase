@@ -1,0 +1,8 @@
+name: sky_demo
+dependencies:
+  sky: any
+  sky_tools: any
+  ether: any
+dependency_overrides:
+  ether:
+    path: ../dart
