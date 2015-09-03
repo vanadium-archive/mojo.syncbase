@@ -15,8 +15,8 @@ class SyncbaseApp extends NamedResource {
     if (isError(v.err)) throw v.err;
   }
 
-  Future delete() async {
-    var v = await _proxy.ptr.appDelete(fullName);
+  Future destroy() async {
+    var v = await _proxy.ptr.appDestroy(fullName);
     if (isError(v.err)) throw v.err;
   }
 

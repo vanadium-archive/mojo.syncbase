@@ -73,7 +73,7 @@ interface Syncbase {
   // App
 
   AppCreate(string name, Perms perms) => (Error err);
-  AppDelete(string name) => (Error err);
+  AppDestroy(string name) => (Error err);
   AppExists(string name) => (Error err, bool exists);
   AppGetPermissions(string name) => (Error err, Perms perms, string version);
   AppSetPermissions(string name, Perms perms, string version) => (Error err);
@@ -83,7 +83,7 @@ interface Syncbase {
 
   // TODO(sadovsky): Add SchemaMetadata argument.
   DbCreate(string name, Perms perms) => (Error err);
-  DbDelete(string name) => (Error err);
+  DbDestroy(string name) => (Error err);
   DbExists(string name) => (Error err, bool exists);
   DbExec(string name, string query, ExecStream stream) => (Error err);
   DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_dn);

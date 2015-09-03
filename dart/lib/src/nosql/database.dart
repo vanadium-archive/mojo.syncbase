@@ -26,8 +26,8 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     if (isError(v.err)) throw v.err;
   }
 
-  Future delete() async {
-    var v = await _proxy.ptr.dbDelete(fullName);
+  Future destroy() async {
+    var v = await _proxy.ptr.dbDestroy(fullName);
     if (isError(v.err)) throw v.err;
   }
 

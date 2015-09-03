@@ -15,7 +15,7 @@ runDatabaseTests(SyncbaseClient c) {
     expect(db.fullName, equals(app.fullName + '/' + dbName));
   });
 
-  test('creating and deleting a database', () async {
+  test('creating and destroying a database', () async {
     var app = c.app(utils.uniqueName('app'));
     await app.create(utils.emptyPerms());
 
@@ -24,7 +24,7 @@ runDatabaseTests(SyncbaseClient c) {
     expect(await db.exists(), equals(false));
     await db.create(utils.emptyPerms());
     expect(await db.exists(), equals(true));
-    await db.delete();
+    await db.destroy();
     expect(await db.exists(), equals(false));
   });
 

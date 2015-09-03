@@ -14,14 +14,14 @@ runAppTests(SyncbaseClient c) {
     expect(app.fullName, equals(appName));
   });
 
-  test('creating and deleting an app', () async {
+  test('creating and destroying an app', () async {
     var appName = utils.uniqueName('app');
     var app = c.app(appName);
 
     expect(await app.exists(), equals(false));
     await app.create(utils.emptyPerms());
     expect(await app.exists(), equals(true));
-    await app.delete();
+    await app.destroy();
     expect(await app.exists(), equals(false));
   });
 
