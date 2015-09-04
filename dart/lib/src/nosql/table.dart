@@ -13,8 +13,8 @@ class SyncbaseTable extends NamedResource {
     if (isError(v.err)) throw v.err;
   }
 
-  Future delete() async {
-    var v = await _proxy.ptr.tableDelete(fullName);
+  Future destroy() async {
+    var v = await _proxy.ptr.tableDestroy(fullName);
     if (isError(v.err)) throw v.err;
   }
 

@@ -121,7 +121,7 @@ interface Syncbase {
   // nosql.Table
 
   TableCreate(string name, Perms perms) => (Error err);
-  TableDelete(string name) => (Error err);
+  TableDestroy(string name) => (Error err);
   TableExists(string name) => (Error err, bool exists);
   TableDeleteRowRange(string name, array<uint8> start, array<uint8> limit)
       => (Error err);

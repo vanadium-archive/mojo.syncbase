@@ -29,7 +29,7 @@ runTableTests(SyncbaseClient c) {
     expect(await table.exists(), equals(false));
     await table.create(utils.emptyPerms());
     expect(await table.exists(), equals(true));
-    await table.delete();
+    await table.destroy();
     expect(await table.exists(), equals(false));
   });
 
