@@ -24,8 +24,17 @@ class SyncbaseTable extends NamedResource {
     return v.exists;
   }
 
-  Future deleteRowRange(List<int> start, List<int> limit) async {
-    var v = await _proxy.ptr.tableDeleteRowRange(fullName, start, limit);
+  // TODO(aghassemi):
+  // Add put(string key, value)
+  // Add get(string key)
+  // Add delete(string key)
+  // Implement deleteRange in mojo_impl.go and add tests in Dart
+  // See v.io/i/711
+
+  // TODO(aghassemi): deleteRange and scan should take a RowRange object
+  // See v.io/i/711
+  Future deleteRange(List<int> start, List<int> limit) async {
+    var v = await _proxy.ptr.tableDeleteRange(fullName, start, limit);
     if (isError(v.err)) throw v.err;
   }
 

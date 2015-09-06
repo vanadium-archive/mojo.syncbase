@@ -123,7 +123,7 @@ interface Syncbase {
   TableCreate(string name, Perms perms) => (Error err);
   TableDestroy(string name) => (Error err);
   TableExists(string name) => (Error err, bool exists);
-  TableDeleteRowRange(string name, array<uint8> start, array<uint8> limit)
+  TableDeleteRange(string name, array<uint8> start, array<uint8> limit)
       => (Error err);
   TableScan(
       string name, array<uint8> start, array<uint8> limit, ScanStream stream)
