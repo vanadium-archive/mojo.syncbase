@@ -54,7 +54,7 @@ MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 all: test
 
 .PHONY: build
-build: $(ETHER_BUILD_DIR)/echo_server.mojo  $(ETHER_BUILD_DIR)/syncbase_server.mojo
+build: $(ETHER_BUILD_DIR)/echo_server.mojo  $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom
 
 # Builds mounttabled, principal, and syncbased.
 bin: $(V23_GO_FILES) | syncbase-env-check
