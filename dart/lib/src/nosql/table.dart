@@ -24,28 +24,32 @@ class SyncbaseTable extends NamedResource {
     return v.exists;
   }
 
-  // TODO(aghassemi):
-  // Add put(string key, value)
-  // Add get(string key)
-  // Add delete(string key)
-  // Implement deleteRange in mojo_impl.go and add tests in Dart
-  // See v.io/i/711
+  Future<List<int>> get(String key) async {
+    return this.row(key).get();
+  }
 
-  // TODO(aghassemi): deleteRange and scan should take a RowRange object
-  // See v.io/i/711
-  Future deleteRange(List<int> start, List<int> limit) async {
-    var v = await _proxy.ptr.tableDeleteRange(fullName, start, limit);
+  Future put(String key, List<int> value) async {
+    return this.row(key).put(value);
+  }
+
+  Future delete(String key) async {
+    return this.row(key).delete();
+  }
+
+  Future deleteRange(RowRange range) async {
+    var v =
+        await _proxy.ptr.tableDeleteRange(fullName, range.start, range.limit);
     if (isError(v.err)) throw v.err;
   }
 
-  Stream<mojom.KeyValue> scan(List<int> start, List<int> limit) {
+  Stream<mojom.KeyValue> scan(RowRange range) {
     StreamController<mojom.KeyValue> sc = new StreamController();
 
     mojom.ScanStreamStub stub = new mojom.ScanStreamStub.unbound();
     stub.impl = new ScanStreamImpl._fromStreamController(sc);
 
     // Call tableScan asynchronously.
-    _proxy.ptr.tableScan(fullName, start, limit, stub).then((v) {
+    _proxy.ptr.tableScan(fullName, range.start, range.limit, stub).then((v) {
       // TODO(nlacasse): Is throwing the correct behavior here?  Consider
       // returning a tuple (Stream<mojom.KeyValue>, Future) and resolve the
       // Future at the end of the RPC (with an error if applicable).  Then

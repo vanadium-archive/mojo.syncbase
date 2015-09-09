@@ -1,6 +1,7 @@
 library syncbase_client;
 
 import 'dart:async';
+import 'dart:convert' show UTF8;
 
 import 'package:mojo/bindings.dart' as bindings;
 
@@ -17,6 +18,7 @@ part 'src/app.dart';
 part 'src/named_resource.dart';
 part 'src/nosql/database.dart';
 part 'src/nosql/row.dart';
+part 'src/nosql/rowrange.dart';
 part 'src/nosql/syncgroup.dart';
 part 'src/nosql/table.dart';
 

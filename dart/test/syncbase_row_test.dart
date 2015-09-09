@@ -21,7 +21,7 @@ runRowTests(SyncbaseClient c) {
     expect(row.fullName, equals(table.fullName + '/' + rowName));
   });
 
-  test('putting and getting a row', () async {
+  test('putting, getting and deleting row', () async {
     var app = c.app(utils.uniqueName('app'));
     await app.create(utils.emptyPerms());
     var db = app.noSqlDatabase(utils.uniqueName('db'));
@@ -33,13 +33,13 @@ runRowTests(SyncbaseClient c) {
 
     expect(await row.exists(), equals(false));
 
-    var value1 = UTF8.encode("foo");
+    var value1 = UTF8.encode('foo');
     await row.put(value1);
 
     expect(await row.exists(), equals(true));
     expect(await row.get(), equals(value1));
 
-    var value2 = UTF8.encode("bar");
+    var value2 = UTF8.encode('bar');
     await row.put(value2);
 
     expect(await row.exists(), equals(true));
