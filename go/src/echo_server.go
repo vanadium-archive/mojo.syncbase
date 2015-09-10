@@ -1,6 +1,6 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+// Copyright 2015 The Vanadium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
 
 // NOTE(nlacasse): This file was taken from $MOJO_DIR/src/examples/go.  The
 // only changes are the mojom import path.
