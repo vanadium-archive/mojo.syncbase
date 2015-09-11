@@ -54,7 +54,7 @@ MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 all: test
 
 .PHONY: build
-build: $(ETHER_BUILD_DIR)/echo_server.mojo  $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom
+build: $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom
 
 # Builds mounttabled, principal, and syncbased.
 bin: $(V23_GO_FILES) | syncbase-env-check
@@ -69,26 +69,20 @@ creds: bin
 	touch $@
 
 .PHONY: gen-mojom
-gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart gen/go/src/mojom/echo/echo.mojom.go
 gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
-dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart: mojom/echo.mojom
 dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
-dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: | synbase-env-check
+dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
 	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
 	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
 	# files, so we delete them.  Stop doing this once the generator is fixed.
 	# See https://github.com/domokit/mojo/issues/386
 	rm -f dart/lib/gen/mojom/$(notdir $@)
 
-gen/go/src/mojom/echo/echo.mojom.go: mojom/echo.mojom
 gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
-gen/go/src/mojom/echo/echo.mojom.go gen/go/src/mojom/syncbase/syncbase.mojom.go: | synbase-env-check
+gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
 	$(call MOJOM_GEN,$<,gen,go)
 	gofmt -w $@
-
-$(ETHER_BUILD_DIR)/echo_server.mojo: $(GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/echo/echo.mojom.go | syncbase-env-check
-	$(call MOGO_BUILD,$(PWD)/go/src/echo_server.go,$@)
 
 # TODO(nlacasse): These target-specific variables will affect this task and all
 # pre-requisite tasks.  Luckily none of the prerequisites require that these
@@ -99,7 +93,7 @@ $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/lev
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: LDFLAGS := -X v.io/x/ref/runtime/internal.commandLineFlags '$(V23_MOJO_FLAGS)'
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | synbase-env-check
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
 	$(call MOGO_BUILD,v.io/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
@@ -125,26 +119,22 @@ sky_demo/packages: sky_demo/pubspec.yaml
 	cd sky_demo && pub get
 
 .PHONY: run-syncbase-example
-run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | synbase-env-check
+run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
 	$(call MOJO_RUN,https://mojo.v.io/syncbase_example.dart)
-
-.PHONY: run-echo-example
-run-echo-example: $(ETHER_BUILD_DIR)/echo_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart | synbase-env-check
-	$(call MOJO_RUN,https://mojo.v.io/echo_example.dart)
 
 .PHONY: run-sky-demo
 run-sky-demo: MOJO_SHELL_FLAGS += --config-alias SKY_DIR=$(SKY_DIR) --config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR)
-run-sky-demo: $(ETHER_BUILD_DIR)/echo_server.mojo sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-pkg/mojom/lib/mojo/echo.mojom.dart dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | synbase-env-check
+run-sky-demo: sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
 ifndef SKY_DIR
 	$(error SKY_DIR is not set)
 endif
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_demo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_demo/lib/main.dart'
 
 .PHONY: test
-test: dart/packages $(ETHER_BUILD_DIR)/echo_server.mojo $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | synbase-env-check
+test: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
 
-.PHONY: synbase-env-check
+.PHONY: syncbase-env-check
 syncbase-env-check: | mojo-env-check
 ifeq ($(wildcard $(THIRD_PARTY_LIBS)),)
 ifdef ANDROID

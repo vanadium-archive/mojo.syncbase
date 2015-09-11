@@ -6,9 +6,9 @@
       'host': 'https://mojo.v.io/',
       'mappings': [
         ('', [
-          # For echo_server.mojo and syncbase_server.mojo.
+          # For syncbase_server.mojo.
           '@{ETHER_BUILD_DIR}',
-          # For echo_example.dart and syncbase_example.dart.
+          # For syncbase_example.dart.
           '@{ETHER_DIR}/dart/bin'
         ]),
       ],

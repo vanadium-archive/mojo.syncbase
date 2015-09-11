@@ -10,7 +10,7 @@
           '@{ETHER_DIR}/sky_demo/packages',
         ]),
         ('', [
-          # For echo_server.mojo and syncbase_server.mojo.
+          # For syncbase_server.mojo.
           '@{ETHER_BUILD_DIR}',
           # For sky_demo/lib/main.dart.
           '@{ETHER_DIR}',

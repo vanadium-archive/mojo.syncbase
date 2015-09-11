@@ -8,7 +8,6 @@ import 'dart:convert' show UTF8;
 import 'package:sky/mojo/embedder.dart' show embedder;
 import 'package:sky/widgets.dart';
 
-import 'package:ether/echo_client.dart' show EchoClient;
 import 'package:ether/syncbase_client.dart'
     show Perms, SyncbaseClient, SyncbaseTable;
 
@@ -20,36 +19,15 @@ log(String msg) {
 Perms emptyPerms() => new Perms()..json = '{}';
 
 class DemoApp extends App {
-  final EchoClient _echoClient;
   final SyncbaseClient _syncbaseClient;
 
   DemoApp()
-      : _echoClient = new EchoClient(
-            embedder.connectToService, 'https://mojo.v.io/echo_server.mojo'),
-        _syncbaseClient = new SyncbaseClient(embedder.connectToService,
+      : _syncbaseClient = new SyncbaseClient(embedder.connectToService,
             'https://mojo.v.io/syncbase_server.mojo');
 
   int seq = 0;
   SyncbaseTable tb;
-  String sendMsg, recvMsg, putStr, getStr;
-
-  Future doEcho() async {
-    log('DemoApp.doEcho');
-
-    setState(() {
-      sendMsg = seq.toString();
-      recvMsg = '';
-    });
-    seq++;
-    log('setState sendMsg done');
-
-    String recvMsgAsync = await _echoClient.echo(sendMsg);
-
-    setState(() {
-      recvMsg = recvMsgAsync;
-    });
-    log('setState recvMsg done');
-  }
+  String putStr, getStr;
 
   Future doSyncbaseInit() async {
     log('DemoApp.doSyncbaseInit');
@@ -98,7 +76,6 @@ class DemoApp extends App {
   // TODO(sadovsky): I don't think Sky calls App.close().
   Future close({bool immediate: false}) async {
     log('DemoApp.close');
-    await _echoClient.close(immediate: immediate);
     await _syncbaseClient.close(immediate: immediate);
   }
 
@@ -107,9 +84,6 @@ class DemoApp extends App {
         decoration:
             const BoxDecoration(backgroundColor: const Color(0xFF00ACC1)),
         child: new Flex([
-          new RaisedButton(child: new Text('doEcho'), onPressed: doEcho),
-          new Text('sendMsg: $sendMsg'),
-          new Text('recvMsg: $recvMsg'),
           new RaisedButton(child: new Text('doPutGet'), onPressed: doPutGet),
           new Text('putStr: $putStr'),
           new Text('getStr: $getStr')
