@@ -8,6 +8,7 @@ class SyncbaseTable extends NamedResource {
   SyncbaseTable._internal(_proxy, _parentFullName, relativeName)
       : super._internal(_proxy, _parentFullName, relativeName);
 
+  // row returns a row with the given key.
   SyncbaseRow row(String key) {
     return new SyncbaseRow._internal(_proxy, fullName, key);
   }

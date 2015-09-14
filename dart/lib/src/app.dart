@@ -4,12 +4,14 @@
 
 part of syncbase_client;
 
+// TODO(sadovsky): Add listDatabases method.
 class SyncbaseApp extends NamedResource {
-  SyncbaseApp._internal(_proxy, fullName)
-      : super._internal(_proxy, null, fullName);
+  // NOTE(sadovsky): For the Mojo Syncbase service, we only store names from app
+  // down - i.e. there is no service name.
+  SyncbaseApp._internal(_proxy, relativeName)
+      : super._internal(_proxy, null, relativeName);
 
-  // noSqlDatabase returns the noSqlDatabase with the given relativeName.
-  // relativeName must not contain slashes.
+  // noSqlDatabase returns a noSqlDatabase with the given relativeName.
   SyncbaseNoSqlDatabase noSqlDatabase(String relativeName) {
     return new SyncbaseNoSqlDatabase._internal(_proxy, fullName, relativeName);
   }

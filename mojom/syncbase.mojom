@@ -62,6 +62,7 @@ interface ScanStream {
 };
 
 // TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
+// TODO(sadovsky): Add ListApps, ListDatabases, and ListTables methods.
 // All 'name' params are service-relative object names.
 
 // Error handling modeled after:

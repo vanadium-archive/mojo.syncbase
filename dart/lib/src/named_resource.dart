@@ -14,10 +14,8 @@ class NamedResource {
       mojom.SyncbaseProxy _proxy, String _parentFullName, String relativeName)
       : this._proxy = _proxy,
         this.relativeName = relativeName,
-        this.fullName = (_parentFullName == null ? '' : _parentFullName + '/') +
-            relativeName {
-    if (relativeName.contains('/')) {
-      throw 'relativeName cannot contain "/": $relativeName';
-    }
-  }
+        this.fullName = (_parentFullName == null
+                ? ''
+                : (_parentFullName + '/\$/')) +
+            relativeName {}
 }

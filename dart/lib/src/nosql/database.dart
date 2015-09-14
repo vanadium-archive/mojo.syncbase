@@ -4,12 +4,12 @@
 
 part of syncbase_client;
 
+// TODO(sadovsky): Add listTables method.
 class SyncbaseNoSqlDatabase extends NamedResource {
   SyncbaseNoSqlDatabase._internal(_proxy, _parentFullName, relativeName)
       : super._internal(_proxy, _parentFullName, relativeName);
 
-  // table returns a table with the given relativeName.  relativeName must not
-  // contain slashes.
+  // table returns a table with the given relativeName.
   SyncbaseTable table(String relativeName) {
     return new SyncbaseTable._internal(_proxy, fullName, relativeName);
   }

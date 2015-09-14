@@ -32,6 +32,7 @@ bool isError(mojom.Error err) {
   return err != null && err.id != '';
 }
 
+// TODO(sadovsky): Add listApps method.
 class SyncbaseClient {
   final mojom.SyncbaseProxy _proxy;
 
@@ -48,7 +49,7 @@ class SyncbaseClient {
     return _proxy.close(immediate: immediate);
   }
 
-  // app returns the app with the given name, which should not contain slashes.
+  // app returns the app with the given name.
   SyncbaseApp app(String name) => new SyncbaseApp._internal(_proxy, name);
 
   Future<mojom.Perms> getPermissions() async {
