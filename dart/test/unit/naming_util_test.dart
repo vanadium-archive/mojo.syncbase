@@ -23,14 +23,14 @@ main() {
 
   test('decoding name elements encoded by our encoder', () {
     for (var t in tests) {
-      expect(naming.decodeAsNameElement(t[1]), equals(t[0]));
+      expect(naming.decodeFromNameElement(t[1]), equals(t[0]));
     }
   });
 
   test('decoding name elements encoded by third-party percent encoder', () {
     for (var t in tests) {
       var uriEncoded = Uri.encodeComponent(t[0]);
-      expect(naming.decodeAsNameElement(uriEncoded), equals(t[0]));
+      expect(naming.decodeFromNameElement(uriEncoded), equals(t[0]));
     }
   });
 

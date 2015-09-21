@@ -18,7 +18,7 @@ String encodeAsNameElement(String name) {
 // can handle more hex encodings than / and %.
 // This is intentional since we'll most likely want to add other letters to
 // the set to be encoded.
-String decodeAsNameElement(String name) {
+String decodeFromNameElement(String name) {
   return unescape(name);
 }
 
