@@ -78,7 +78,7 @@ String unescape(String text) {
     var codeUnit = text.codeUnitAt(i);
     if (codeUnit == percent) {
       if (i + 3 > text.length) {
-        throw new ArgumentError('Trucated or malformed encoded string');
+        throw new ArgumentError('Truncated or malformed encoded string');
       }
       bytes.add(_hexCharPairToByte(text, i + 1));
       i += 2;
@@ -115,7 +115,7 @@ int _hexCharPairToByte(String s, int pos) {
       if (0x61 <= charCode && charCode <= 0x66) {
         byte = byte * 16 + charCode - 0x57;
       } else {
-        throw new ArgumentError("Trucated or malformed encoded string");
+        throw new ArgumentError("Truncated or malformed encoded string");
       }
     }
   }
