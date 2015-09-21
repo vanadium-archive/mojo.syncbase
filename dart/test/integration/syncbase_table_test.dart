@@ -19,7 +19,7 @@ runTableTests(SyncbaseClient c) {
     var tableName = utils.uniqueName('table');
     var table = db.table(tableName);
     expect(table.relativeName, equals(tableName));
-    expect(table.fullName, equals(db.fullName + '/' + tableName));
+    expect(table.fullName, equals(db.fullName + '/\$/' + tableName));
   });
 
   test('creating and destroying a table', () async {

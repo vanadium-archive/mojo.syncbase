@@ -16,7 +16,7 @@ runDatabaseTests(SyncbaseClient c) {
     var dbName = utils.uniqueName('db');
     var db = app.noSqlDatabase(dbName);
     expect(db.relativeName, equals(dbName));
-    expect(db.fullName, equals(app.fullName + '/' + dbName));
+    expect(db.fullName, equals(app.fullName + '/\$/' + dbName));
   });
 
   test('creating and destroying a database', () async {

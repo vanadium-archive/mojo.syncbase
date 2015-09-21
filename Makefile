@@ -1,6 +1,6 @@
 PWD := $(shell pwd)
 DART_FILES := $(shell find dart/bin dart/lib dart/test sky_demo/lib -name "*.dart" -not -path "dart/lib/gen/*")
-GO_FILES := $(shell find go/src -name "*.go")
+GO_FILES := $(shell find gen/go/src -name "*.go")
 V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
 
 include ../shared/mojo.mk
@@ -131,7 +131,14 @@ endif
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_demo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_demo/lib/main.dart'
 
 .PHONY: test
-test: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
+test: test-unit test-integration
+
+.PHONY: test-unit
+test-unit: dart/packages
+	cd dart && pub run test test/unit
+
+.PHONY: test-integration
+test-integration: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
 
 .PHONY: syncbase-env-check

@@ -2,7 +2,7 @@
 
 tests = [
 	{
-		"test": "https://test.mojo.v.io/syncbase_test.dart",
+		"test": "https://test.mojo.v.io/integration/syncbase_test.dart",
 		"type": "dart",
 		"timeout": 30
 	}

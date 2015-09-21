@@ -22,7 +22,7 @@ runRowTests(SyncbaseClient c) {
     var row = table.row(rowName);
 
     expect(row.relativeName, equals(rowName));
-    expect(row.fullName, equals(table.fullName + '/' + rowName));
+    expect(row.fullName, equals(table.fullName + '/\$/' + rowName));
   });
 
   test('putting, getting and deleting row', () async {
