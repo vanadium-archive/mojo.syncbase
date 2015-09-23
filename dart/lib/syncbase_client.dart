@@ -16,7 +16,9 @@ import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 // constructors, since the default constructors are not user-friendly.  They
 // take zero arguments, so all fields must be populated with assignments.
 export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
-    show BatchOptions, Perms, SyncGroupMemberInfo, SyncGroupSpec;
+    show BatchOptions, Perms, SyncGroupMemberInfo, SyncGroupSpec, WatchChange;
+
+export 'src/nosql/watch_change_types.dart' show WatchChangeTypes;
 
 part 'src/app.dart';
 part 'src/named_resource.dart';

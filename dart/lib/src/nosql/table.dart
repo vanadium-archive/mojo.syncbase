@@ -93,7 +93,8 @@ class ScanStreamImpl implements mojom.ScanStream {
     sc.add(keyValue);
   }
 
-  onDone(mojom.Error err) {
+  // Called by the mojom proxy when the Go function call returns.
+  onReturn(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }

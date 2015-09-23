@@ -60,6 +60,34 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     return sc.stream;
   }
 
+  Stream<mojom.WatchChange> watch(
+      String tableName, String prefix, List<int> resumeMarker) {
+    StreamController<mojom.WatchChange> sc = new StreamController();
+
+    mojom.WatchGlobStreamStub stub = new mojom.WatchGlobStreamStub.unbound();
+    stub.impl = new WatchGlobStreamImpl._fromStreamController(sc);
+
+    // TODO(aghassemi): Implement naming utilities such as Join in Dart and use them instead.
+    var pattern = tableName + nameSeparator + prefix + '*';
+    var req = new mojom.GlobRequest();
+    req.pattern = pattern;
+    req.resumeMarker = resumeMarker;
+
+    // Call dbWatch asynchronously.
+    _proxy.ptr.dbWatchGlob(fullName, req, stub).then((c) {
+      // TODO(nlacasse): Same question regarding throwing behavior as TableScan.
+      if (isError(c.err)) throw c.err;
+    });
+
+    return sc.stream;
+  }
+
+  Future<List<int>> getResumeMarker() async {
+    var v = await _proxy.ptr.dbGetResumeMarker(fullName);
+    if (isError(v.err)) throw v.err;
+    return v.resumeMarker;
+  }
+
   // TODO(nlacasse): Make a BatchDatabase class similar to what we did in JS.
   Future<String> beginBatch(mojom.BatchOptions opts) async {
     var v = await _proxy.ptr.dbBeginBatch(fullName, opts);
@@ -99,7 +127,26 @@ class ExecStreamImpl implements mojom.ExecStream {
     sc.add(result);
   }
 
-  onDone(mojom.Error err) {
+  // Called by the mojo proxy when the Go function call returns.
+  onReturn(mojom.Error err) {
+    if (isError(err)) {
+      sc.addError(err);
+    }
+    sc.close();
+  }
+}
+
+class WatchGlobStreamImpl implements mojom.WatchGlobStream {
+  final StreamController<mojom.WatchChange> sc;
+  WatchGlobStreamImpl._fromStreamController(this.sc);
+
+  onChange(mojom.WatchChange change) {
+    sc.add(change);
+  }
+
+  // Called by the mojo proxy when the Go function call returns.
+  // Watch technically never returns unless there is an error or it is canceled.
+  onReturn(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }

@@ -4,6 +4,9 @@
 
 part of syncbase_client;
 
+// TODO(aghassemi): remove with /$/ change is reverted.
+const String nameSeparator = '/\$/';
+
 // NamedResource is the superclass of resources with names.
 class NamedResource {
   final String fullName;
@@ -16,6 +19,6 @@ class NamedResource {
         this.relativeName = relativeName,
         this.fullName = (_parentFullName == null
                 ? ''
-                : (_parentFullName + '/\$/')) +
+                : (_parentFullName + nameSeparator)) +
             relativeName {}
 }

@@ -48,7 +48,7 @@ struct Result {
 
 interface ExecStream {
   OnResult(Result result);
-  OnDone(Error err);
+  OnReturn(Error err);
 };
 
 struct KeyValue {
@@ -58,7 +58,27 @@ struct KeyValue {
 
 interface ScanStream {
   OnKeyValue(KeyValue key_value);
-  OnDone(Error err);
+  OnReturn(Error err);
+};
+
+struct WatchChange {
+  string table_name;
+  string row_name;
+  uint32 change_type;
+  array<uint8> value_bytes;
+  array<uint8> resume_marker;
+  bool from_sync;
+  bool continued;
+};
+
+struct GlobRequest {
+  string pattern;
+  array<uint8> resume_marker;
+};
+
+interface WatchGlobStream {
+  OnChange(WatchChange change);
+  OnReturn(Error err);
 };
 
 // TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
@@ -96,6 +116,8 @@ interface Syncbase {
   DbAbort(string name) => (Error err);
   DbGetPermissions(string name) => (Error err, Perms perms, string version);
   DbSetPermissions(string name, Perms perms, string version) => (Error err);
+  DbWatchGlob(string name, GlobRequest req, WatchGlobStream stream) => (Error err);
+  DbGetResumeMarker(string name) => (Error err, array<uint8> resumeMarker);
 
   // TODO(sadovsky): Add DatabaseWatcher, BlobManager, and SchemaManager
   // methods.
