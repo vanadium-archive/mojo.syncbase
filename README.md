@@ -18,11 +18,11 @@ See the [Mojo readme] for more comprehensive instructions.
 2. Install [Goma][goma].
 3. Put the following in your `.bashrc`:
 
-       # NOTE: Actual locations depend on where you installed depot_tools and
-       # goma.
-       export PATH=${PATH}:${HOME}/dev/depot_tools
-       export GOMA_DIR=${HOME}/goma
-       export MOJO_DIR=${HOME}/mojo
+        # NOTE: Actual locations depend on where you installed depot_tools and
+        # goma.
+        export PATH=${PATH}:${HOME}/dev/depot_tools
+        export GOMA_DIR=${HOME}/goma
+        export MOJO_DIR=${HOME}/mojo
 
 ### Download Mojo repo
 
@@ -47,21 +47,21 @@ Run this while you grab your morning coffee.
 
 1. Start by updating the repo.
 
-       $ cd $MOJO_DIR/src
-       $ git checkout master
-       $ git pull
-       $ gclient sync
+        $ cd $MOJO_DIR/src
+        $ git checkout master
+        $ git pull
+        $ gclient sync
 
 2. Compile for Linux.  Built resources will be in `$MOJO_DIR/src/out/Debug`
 
-       $ ./mojo/tools/mojob.py gn
-       $ ./mojo/tools/mojob.py build # NOTE: This can take up to 10 minutes.
+        $ ./mojo/tools/mojob.py gn
+        $ ./mojo/tools/mojob.py build # NOTE: This can take up to 10 minutes.
 
 3. Compile for Android.  Built resources will be in
    `$MOJO_DIR/src/out/android_Debug`
 
-       $ ./mojo/tools/mojob.py gn --android
-       $ ./mojo/tools/mojob.py build --android # NOTE: This can take up to 10 minutes.
+        $ ./mojo/tools/mojob.py gn --android
+        $ ./mojo/tools/mojob.py build --android # NOTE: This can take up to 10 minutes.
 
 ## Sky setup
 
