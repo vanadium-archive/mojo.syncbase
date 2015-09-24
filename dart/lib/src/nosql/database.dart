@@ -70,7 +70,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     stub.impl = new WatchGlobStreamImpl._fromStreamController(sc);
 
     // TODO(aghassemi): Implement naming utilities such as Join in Dart and use them instead.
-    var pattern = tableName + nameSeparator + prefix + '*';
+    var pattern = naming.join(tableName, prefix) + '*';
     var req = new mojom.GlobRequest();
     req.pattern = pattern;
     req.resumeMarker = resumeMarker;

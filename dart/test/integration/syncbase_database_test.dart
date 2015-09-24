@@ -18,7 +18,7 @@ runDatabaseTests(SyncbaseClient c) {
     var app = c.app(utils.uniqueName('app'));
     var dbName = utils.uniqueName('db');
     var db = app.noSqlDatabase(dbName);
-    expect(db.relativeName, equals(dbName));
+    expect(db.name, equals(dbName));
     expect(db.fullName, equals(app.fullName + '/' + dbName));
   });
 
@@ -50,7 +50,7 @@ runDatabaseTests(SyncbaseClient c) {
     // Start watching everything from now.
     var resumeMarker = await db.getResumeMarker();
     var prefix = '';
-    var watchStream = db.watch(table.relativeName, prefix, resumeMarker);
+    var watchStream = db.watch(table.name, prefix, resumeMarker);
 
     // Perform some operations while are watching.
     var expectedChanges = new List<WatchChange>();
@@ -58,7 +58,7 @@ runDatabaseTests(SyncbaseClient c) {
     await table.put('row2', UTF8.encode('value2'));
     resumeMarker = await db.getResumeMarker();
     var expectedChange = new WatchChange();
-    expectedChange.tableName = table.relativeName;
+    expectedChange.tableName = table.name;
     expectedChange.rowName = 'row2';
     expectedChange.changeType = WatchChangeTypes.put;
     expectedChange.valueBytes = UTF8.encode('value2');
@@ -68,7 +68,7 @@ runDatabaseTests(SyncbaseClient c) {
     await table.delete('row2');
     resumeMarker = await db.getResumeMarker();
     expectedChange = new WatchChange();
-    expectedChange.tableName = table.relativeName;
+    expectedChange.tableName = table.name;
     expectedChange.rowName = 'row2';
     expectedChange.changeType = WatchChangeTypes.delete;
     expectedChange.valueBytes = new List<int>();

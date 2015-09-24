@@ -18,5 +18,5 @@ int _nameCounter = timestamp();
 String uniqueName(String type) {
   type ??= 'unknown';
   _nameCounter++;
-  return type + '-' + _nameCounter.toString();
+  return type + '_' + _nameCounter.toString();
 }

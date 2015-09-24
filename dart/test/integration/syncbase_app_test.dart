@@ -14,7 +14,7 @@ runAppTests(SyncbaseClient c) {
   test('getting a handle to an app', () {
     var appName = utils.uniqueName('app');
     var app = c.app(appName);
-    expect(app.relativeName, equals(appName));
+    expect(app.name, equals(appName));
     expect(app.fullName, equals(appName));
   });
 

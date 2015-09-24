@@ -21,7 +21,7 @@ runRowTests(SyncbaseClient c) {
     var rowName = utils.uniqueName('row');
     var row = table.row(rowName);
 
-    expect(row.relativeName, equals(rowName));
+    expect(row.name, equals(rowName));
     expect(row.fullName, equals(table.fullName + '/' + rowName));
   });
 

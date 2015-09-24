@@ -8,7 +8,7 @@ class SyncbaseRow extends NamedResource {
   final String key;
 
   SyncbaseRow._internal(_proxy, _parentFullName, key)
-      : super._internal(_proxy, _parentFullName, relativeName,
+      : super._internal(_proxy, _parentFullName, key,
             naming.join(_parentFullName, escape(key))),
         this.key = key;
 

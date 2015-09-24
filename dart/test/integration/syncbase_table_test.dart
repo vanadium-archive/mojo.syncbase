@@ -18,7 +18,7 @@ runTableTests(SyncbaseClient c) {
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     var tableName = utils.uniqueName('table');
     var table = db.table(tableName);
-    expect(table.relativeName, equals(tableName));
+    expect(table.name, equals(tableName));
     expect(table.fullName, equals(db.fullName + '/' + tableName));
   });
 
