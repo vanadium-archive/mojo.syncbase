@@ -4,21 +4,17 @@
 
 part of syncbase_client;
 
-// TODO(aghassemi): remove with /$/ change is reverted.
-const String nameSeparator = '/\$/';
-
 // NamedResource is the superclass of resources with names.
 class NamedResource {
-  final String fullName;
-  final String relativeName;
   final mojom.SyncbaseProxy _proxy;
+  final String _parentFullName;
+  final String name;
+  final String fullName;
 
-  NamedResource._internal(
-      mojom.SyncbaseProxy _proxy, String _parentFullName, String relativeName)
+  NamedResource._internal(mojom.SyncbaseProxy _proxy, String _parentFullName,
+      String name, String fullName)
       : this._proxy = _proxy,
-        this.relativeName = relativeName,
-        this.fullName = (_parentFullName == null
-                ? ''
-                : (_parentFullName + nameSeparator)) +
-            relativeName {}
+        this._parentFullName = _parentFullName,
+        this.name = name,
+        this.fullName = fullName {}
 }

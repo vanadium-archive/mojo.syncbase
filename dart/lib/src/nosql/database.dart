@@ -6,8 +6,10 @@ part of syncbase_client;
 
 // TODO(sadovsky): Add listTables method.
 class SyncbaseNoSqlDatabase extends NamedResource {
-  SyncbaseNoSqlDatabase._internal(_proxy, _parentFullName, relativeName)
-      : super._internal(_proxy, _parentFullName, relativeName);
+  SyncbaseNoSqlDatabase._internal(
+      _proxy, _parentFullName, relativeName, batchSuffix)
+      : super._internal(_proxy, _parentFullName, relativeName,
+            naming.join(_parentFullName, escape(relativeName) + batchSuffix));
 
   // table returns a table with the given relativeName.
   SyncbaseTable table(String relativeName) {
@@ -92,7 +94,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   Future<String> beginBatch(mojom.BatchOptions opts) async {
     var v = await _proxy.ptr.dbBeginBatch(fullName, opts);
     if (isError(v.err)) throw v.err;
-    return v.batchDn;
+    return v.batchSuffix;
   }
 
   Future commit() async {

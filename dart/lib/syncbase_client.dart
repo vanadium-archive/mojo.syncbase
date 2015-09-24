@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert' show UTF8;
 
 import 'package:mojo/bindings.dart' as bindings;
+import 'package:ether/src/naming/util.dart' as naming;
 
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 
@@ -22,6 +23,7 @@ export 'src/nosql/watch_change_types.dart' show WatchChangeTypes;
 
 part 'src/app.dart';
 part 'src/named_resource.dart';
+part 'src/util.dart';
 part 'src/nosql/database.dart';
 part 'src/nosql/row.dart';
 part 'src/nosql/rowrange.dart';

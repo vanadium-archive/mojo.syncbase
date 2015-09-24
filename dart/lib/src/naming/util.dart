@@ -4,8 +4,14 @@
 
 import 'dart:convert' show UTF8;
 
-// TODO(aghassemi): Move these naming utilities outside of Syncbase when we have
-// a Dart Vanadium library
+// TODO(aghassemi): Move these naming utilities out of Syncbase once we
+// implement a Dart Vanadium library.
+
+// TODO(sadovsky): Make this function support more than two input names, and
+// clean the resulting string the same way we do in Go.
+String join(String a, String b) {
+  return a + '/' + b;
+}
 
 // Makes a string representable as a name element by escaping slashes.
 String encodeAsNameElement(String name) {

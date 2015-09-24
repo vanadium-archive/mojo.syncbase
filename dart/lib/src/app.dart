@@ -9,11 +9,12 @@ class SyncbaseApp extends NamedResource {
   // NOTE(sadovsky): For the Mojo Syncbase service, we only store names from app
   // down - i.e. there is no service name.
   SyncbaseApp._internal(_proxy, relativeName)
-      : super._internal(_proxy, null, relativeName);
+      : super._internal(_proxy, null, relativeName, escape(relativeName));
 
   // noSqlDatabase returns a noSqlDatabase with the given relativeName.
   SyncbaseNoSqlDatabase noSqlDatabase(String relativeName) {
-    return new SyncbaseNoSqlDatabase._internal(_proxy, fullName, relativeName);
+    return new SyncbaseNoSqlDatabase._internal(
+        _proxy, fullName, relativeName, '');
   }
 
   Future create(mojom.Perms perms) async {
