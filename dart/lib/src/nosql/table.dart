@@ -29,6 +29,17 @@ class SyncbaseTable extends NamedResource {
     return v.exists;
   }
 
+  Future<mojom.Perms> getPermissions() async {
+    var v = await _proxy.ptr.tableGetPermissions(fullName);
+    if (isError(v.err)) throw v.err;
+    return v.perms;
+  }
+
+  Future setPermissions(mojom.Perms perms) async {
+    var v = await _proxy.ptr.tableSetPermissions(fullName, perms);
+    if (isError(v.err)) throw v.err;
+  }
+
   Future<List<int>> get(String key) async {
     return this.row(key).get();
   }
@@ -68,19 +79,19 @@ class SyncbaseTable extends NamedResource {
     return sc.stream;
   }
 
-  Future<List<mojom.PrefixPerms>> getPermissions(String key) async {
-    var v = await _proxy.ptr.tableGetPermissions(fullName, key);
+  Future<List<mojom.PrefixPerms>> getPrefixPermissions(String key) async {
+    var v = await _proxy.ptr.tableGetPrefixPermissions(fullName, key);
     if (isError(v.err)) throw v.err;
     return v.permsArr;
   }
 
-  Future setPermissions(String prefix, mojom.Perms perms) async {
-    var v = await _proxy.ptr.tableSetPermissions(fullName, prefix, perms);
+  Future setPrefixPermissions(String prefix, mojom.Perms perms) async {
+    var v = await _proxy.ptr.tableSetPrefixPermissions(fullName, prefix, perms);
     if (isError(v.err)) throw v.err;
   }
 
-  Future deletePermissions(String prefix) async {
-    var v = await _proxy.ptr.tableDeletePermissions(fullName, prefix);
+  Future deletePrefixPermissions(String prefix) async {
+    var v = await _proxy.ptr.tableDeletePrefixPermissions(fullName, prefix);
     if (isError(v.err)) throw v.err;
   }
 }

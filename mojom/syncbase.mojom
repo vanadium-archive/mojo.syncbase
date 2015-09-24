@@ -150,15 +150,17 @@ interface Syncbase {
   TableCreate(string name, Perms perms) => (Error err);
   TableDestroy(string name) => (Error err);
   TableExists(string name) => (Error err, bool exists);
+  TableGetPermissions(string name) => (Error err, Perms perms);
+  TableSetPermissions(string name, Perms perms) => (Error err);
   TableDeleteRange(string name, array<uint8> start, array<uint8> limit)
       => (Error err);
   TableScan(
       string name, array<uint8> start, array<uint8> limit, ScanStream stream)
       => (Error err);
-  TableGetPermissions(string name, string key)
+  TableGetPrefixPermissions(string name, string key)
       => (Error err, array<PrefixPerms> perms_arr);
-  TableSetPermissions(string name, string prefix, Perms perms) => (Error err);
-  TableDeletePermissions(string name, string prefix) => (Error err);
+  TableSetPrefixPermissions(string name, string prefix, Perms perms) => (Error err);
+  TableDeletePrefixPermissions(string name, string prefix) => (Error err);
 
   ////////////////////////////////////////
   // nosql.Row
