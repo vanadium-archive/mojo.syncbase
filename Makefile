@@ -1,7 +1,7 @@
 PWD := $(shell pwd)
 DART_FILES := $(shell find dart/bin dart/lib dart/test sky_demo/lib -name "*.dart" -not -path "dart/lib/gen/*")
 GO_FILES := $(shell find gen/go/src -name "*.go")
-V23_GO_FILES := $(shell find $(V23_ROOT) -name "*.go")
+V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
 
 include ../shared/mojo.mk
 
@@ -22,7 +22,7 @@ ifdef ANDROID
 	SKY_BUILD_DIR := $(SKY_DIR)/src/out/android_Debug
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/android
 
-	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/android_arm
+	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/android_arm
 
 	# NOTE(nlacasse): Trying to write to a directory that the app does not have
 	# permission to causes a crash with no stack trace.  Because of this, we
@@ -36,7 +36,7 @@ else
 	SKY_BUILD_DIR := $(SKY_DIR)/src/out/Debug
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 
-	THIRD_PARTY_LIBS := $(V23_ROOT)/third_party/cout/linux_amd64
+	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/linux_amd64
 
 	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data
 endif
