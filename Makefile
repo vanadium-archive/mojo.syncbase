@@ -58,9 +58,9 @@ build: $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom
 
 # Builds mounttabled, principal, and syncbased.
 bin: $(V23_GO_FILES) | syncbase-env-check
-	v23 go build -a -o $@/mounttabled v.io/x/ref/services/mounttable/mounttabled
-	v23 go build -a -o $@/principal v.io/x/ref/cmd/principal
-	v23 go build -a -o $@/syncbased v.io/x/ref/services/syncbase/syncbased
+	jiri go build -a -o $@/mounttabled v.io/x/ref/services/mounttable/mounttabled
+	jiri go build -a -o $@/principal v.io/x/ref/cmd/principal
+	jiri go build -a -o $@/syncbased v.io/x/ref/services/syncbase/syncbased
 	touch $@
 
 # Mints credentials.
@@ -145,9 +145,9 @@ test-integration: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojo
 syncbase-env-check: | mojo-env-check
 ifeq ($(wildcard $(THIRD_PARTY_LIBS)),)
 ifdef ANDROID
-	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "GOOS=android GOARCH=arm v23 profile install syncbase")
+	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "GOOS=android GOARCH=arm jiri profile install syncbase")
 else
-	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "v23 profile install syncbase")
+	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "jiri profile install syncbase")
 endif
 endif
 
