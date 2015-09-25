@@ -1,6 +1,5 @@
 PWD := $(shell pwd)
 DART_FILES := $(shell find dart/bin dart/lib dart/test sky_demo/lib -name "*.dart" -not -path "dart/lib/gen/*")
-GO_FILES := $(shell find gen/go/src -name "*.go")
 V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
 
 include ../shared/mojo.mk
@@ -93,7 +92,7 @@ $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/lev
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: LDFLAGS := -X v.io/x/ref/runtime/internal.commandLineFlags '$(V23_MOJO_FLAGS)'
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(GO_FILES) $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
+$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
 	$(call MOGO_BUILD,v.io/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
