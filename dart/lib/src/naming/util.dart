@@ -8,7 +8,7 @@ import 'dart:convert' show UTF8;
 // implement a Dart Vanadium library.
 
 // TODO(sadovsky): Make this function support more than two input names, and
-// clean the resulting string the same way we do in Go.
+// clean the resulting string the same way we do in Go and other languages.
 String join(String a, String b) {
   return a + '/' + b;
 }
