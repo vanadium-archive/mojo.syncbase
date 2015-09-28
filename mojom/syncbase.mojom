@@ -78,7 +78,7 @@ struct GlobRequest {
 
 interface WatchGlobStream {
   OnChange(WatchChange change);
-  OnReturn(Error err);
+  OnError(Error err);
 };
 
 // TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.

@@ -147,8 +147,8 @@ class WatchGlobStreamImpl implements mojom.WatchGlobStream {
   }
 
   // Called by the mojo proxy when the Go function call returns.
-  // Watch technically never returns unless there is an error or it is canceled.
-  onReturn(mojom.Error err) {
+  // Watch technically never returns unless there is an error.
+  OnError(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }
