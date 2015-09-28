@@ -9,7 +9,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   SyncbaseNoSqlDatabase._internal(
       _proxy, _parentFullName, relativeName, batchSuffix)
       : super._internal(_proxy, _parentFullName, relativeName,
-            naming.join(_parentFullName, escape(relativeName) + batchSuffix));
+          naming.join(_parentFullName, escape(relativeName) + batchSuffix));
 
   // table returns a table with the given relativeName.
   SyncbaseTable table(String relativeName) {

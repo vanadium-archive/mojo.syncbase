@@ -26,14 +26,14 @@ runRowTests(SyncbaseClient c) {
   });
 
   test('putting, getting and deleting row', () async {
-    var app = c.app(utils.uniqueName('app/a\$%b'));  // symbols are okay
+    var app = c.app(utils.uniqueName('app/a\$%b')); // symbols are okay
     await app.create(utils.emptyPerms());
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     await db.create(utils.emptyPerms());
     var table = db.table(utils.uniqueName('table'));
     await table.create(utils.emptyPerms());
 
-    var row = table.row(utils.uniqueName('row/a\$%b'));  // symbols are okay
+    var row = table.row(utils.uniqueName('row/a\$%b')); // symbols are okay
 
     expect(await row.exists(), equals(false));
 

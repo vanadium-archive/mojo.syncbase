@@ -7,7 +7,7 @@ part of syncbase_client;
 class SyncbaseTable extends NamedResource {
   SyncbaseTable._internal(_proxy, _parentFullName, relativeName)
       : super._internal(_proxy, _parentFullName, relativeName,
-            naming.join(_parentFullName, escape(relativeName)));
+          naming.join(_parentFullName, escape(relativeName)));
 
   // row returns a row with the given key.
   SyncbaseRow row(String key) {
