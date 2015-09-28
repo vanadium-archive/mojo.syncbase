@@ -9,11 +9,11 @@ part of syncbase_client;
 // the byte's two-digit hex code. Clients using the client library need not
 // escape names themselves; the client library does so on their behalf.
 String escape(String s) {
-  return naming.escape(s, '/');
+  return naming.encodeAsNameElement(s);
 }
 
 // unescape applies the inverse of escape. Throws exception if the given string
 // is not a valid escaped string.
 String unescape(String s) {
-  return naming.unescape(s);
+  return naming.decodeFromNameElement(s);
 }
