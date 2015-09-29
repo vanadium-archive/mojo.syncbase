@@ -68,10 +68,10 @@ creds: bin
 	touch $@
 
 .PHONY: gen-mojom
-gen-mojom: dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
+gen-mojom: dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
-dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
-dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
+dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
+dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
 	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
 	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
 	# files, so we delete them.  Stop doing this once the generator is fixed.
@@ -118,12 +118,12 @@ sky_demo/packages: sky_demo/pubspec.yaml
 	cd sky_demo && pub get
 
 .PHONY: run-syncbase-example
-run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
+run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
 	$(call MOJO_RUN,https://mojo.v.io/syncbase_example.dart)
 
 .PHONY: run-sky-demo
 run-sky-demo: MOJO_SHELL_FLAGS += --config-alias SKY_DIR=$(SKY_DIR) --config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR)
-run-sky-demo: sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-pkg/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
+run-sky-demo: sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
 ifndef SKY_DIR
 	$(error SKY_DIR is not set)
 endif
@@ -150,10 +150,12 @@ else
 endif
 endif
 
+# TODO(aghassemi): Why does mojo generate dart-pkg and mojom dirs?
 .PHONY: clean
 clean:
 	rm -rf gen/mojo gen/go
-	rm -rf dart/lib/gen
+	rm -rf dart/lib/gen/dart-pkg
+	rm -rf dart/lib/gen/mojom
 
 .PHONY: veryclean
 veryclean: clean

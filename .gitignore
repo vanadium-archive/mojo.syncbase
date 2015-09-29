@@ -4,7 +4,8 @@
 /bin
 /creds
 /gen
-/dart/lib/gen
+/dart/lib/gen/dart-pkg
+/dart/lib/gen/mojom
 
 # Dart artifacts
 .packages
