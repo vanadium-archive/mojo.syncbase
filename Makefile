@@ -106,8 +106,8 @@ dartanalyzer: dart/packages sky_demo/packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
 	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
 	# hints and warnings from *.mojom.dart files.
-	cd dart && dartanalyzer bin/**/*.dart lib/**/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
-	cd sky_demo && dartanalyzer lib/**/*.dart | grep -v "\.mojom\.dart, line"
+	cd dart && dartanalyzer bin/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
+	cd sky_demo && dartanalyzer lib/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
 dart/packages: dart/pubspec.yaml

@@ -9,7 +9,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   SyncbaseNoSqlDatabase._internal(
       _proxy, _parentFullName, relativeName, batchSuffix)
       : super._internal(_proxy, _parentFullName, relativeName,
-          naming.join(_parentFullName, escape(relativeName) + batchSuffix));
+            naming.join(_parentFullName, escape(relativeName) + batchSuffix));
 
   // table returns a table with the given relativeName.
   SyncbaseTable table(String relativeName) {
@@ -148,7 +148,7 @@ class WatchGlobStreamImpl implements mojom.WatchGlobStream {
 
   // Called by the mojo proxy when the Go function call returns.
   // Watch technically never returns unless there is an error.
-  OnError(mojom.Error err) {
+  onError(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }

@@ -2883,7 +2883,7 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
     const bindings.StructDataHeader(24, 0)
   ];
   Error err = null;
-  String batchDn = null;
+  String batchSuffix = null;
 
   SyncbaseDbBeginBatchResponseParams() : super(kVersions.last.size);
 
@@ -2925,7 +2925,7 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      result.batchDn = decoder0.decodeString(16, false);
+      result.batchSuffix = decoder0.decodeString(16, false);
     }
     return result;
   }
@@ -2935,19 +2935,19 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
     
     encoder0.encodeStruct(err, 8, false);
     
-    encoder0.encodeString(batchDn, 16, false);
+    encoder0.encodeString(batchSuffix, 16, false);
   }
 
   String toString() {
     return "SyncbaseDbBeginBatchResponseParams("
            "err: $err" ", "
-           "batchDn: $batchDn" ")";
+           "batchSuffix: $batchSuffix" ")";
   }
 
   Map toJson() {
     Map map = new Map();
     map["err"] = err;
-    map["batchDn"] = batchDn;
+    map["batchSuffix"] = batchSuffix;
     return map;
   }
 }
@@ -4204,9 +4204,10 @@ class SyncbaseDbJoinSyncGroupParams extends bindings.Struct {
 
 class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
-    const bindings.StructDataHeader(16, 0)
+    const bindings.StructDataHeader(24, 0)
   ];
   Error err = null;
+  SyncGroupSpec spec = null;
 
   SyncbaseDbJoinSyncGroupResponseParams() : super(kVersions.last.size);
 
@@ -4246,6 +4247,11 @@ class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
       var decoder1 = decoder0.decodePointer(8, false);
       result.err = Error.decode(decoder1);
     }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(16, false);
+      result.spec = SyncGroupSpec.decode(decoder1);
+    }
     return result;
   }
 
@@ -4253,16 +4259,20 @@ class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
     var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
     
     encoder0.encodeStruct(err, 8, false);
+    
+    encoder0.encodeStruct(spec, 16, false);
   }
 
   String toString() {
     return "SyncbaseDbJoinSyncGroupResponseParams("
-           "err: $err" ")";
+           "err: $err" ", "
+           "spec: $spec" ")";
   }
 
   Map toJson() {
     Map map = new Map();
     map["err"] = err;
+    map["spec"] = spec;
     return map;
   }
 }
@@ -9024,10 +9034,10 @@ class SyncbaseStub extends bindings.Stub {
     result.err = err;
     return result;
   }
-  SyncbaseDbBeginBatchResponseParams _SyncbaseDbBeginBatchResponseParamsFactory(Error err, String batchDn) {
+  SyncbaseDbBeginBatchResponseParams _SyncbaseDbBeginBatchResponseParamsFactory(Error err, String batchSuffix) {
     var result = new SyncbaseDbBeginBatchResponseParams();
     result.err = err;
-    result.batchDn = batchDn;
+    result.batchSuffix = batchSuffix;
     return result;
   }
   SyncbaseDbCommitResponseParams _SyncbaseDbCommitResponseParamsFactory(Error err) {
@@ -9074,9 +9084,10 @@ class SyncbaseStub extends bindings.Stub {
     result.err = err;
     return result;
   }
-  SyncbaseDbJoinSyncGroupResponseParams _SyncbaseDbJoinSyncGroupResponseParamsFactory(Error err) {
+  SyncbaseDbJoinSyncGroupResponseParams _SyncbaseDbJoinSyncGroupResponseParamsFactory(Error err, SyncGroupSpec spec) {
     var result = new SyncbaseDbJoinSyncGroupResponseParams();
     result.err = err;
+    result.spec = spec;
     return result;
   }
   SyncbaseDbLeaveSyncGroupResponseParams _SyncbaseDbLeaveSyncGroupResponseParamsFactory(Error err) {

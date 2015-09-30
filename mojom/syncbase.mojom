@@ -111,7 +111,7 @@ interface Syncbase {
   DbDestroy(string name) => (Error err);
   DbExists(string name) => (Error err, bool exists);
   DbExec(string name, string query, ExecStream stream) => (Error err);
-  DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_dn);
+  DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_suffix);
   DbCommit(string name) => (Error err);
   DbAbort(string name) => (Error err);
   DbGetPermissions(string name) => (Error err, Perms perms, string version);
@@ -131,7 +131,7 @@ interface Syncbase {
       SyncGroupMemberInfo my_info)
       => (Error err);
   DbJoinSyncGroup(string name, string sg_name, SyncGroupMemberInfo my_info)
-      => (Error err);
+      => (Error err, SyncGroupSpec spec);
   DbLeaveSyncGroup(string name, string sg_name) => (Error err);
   DbDestroySyncGroup(string name, string sg_name) => (Error err);
   DbEjectFromSyncGroup(string name, string sg_name, string member)

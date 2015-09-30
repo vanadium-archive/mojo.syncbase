@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:convert' show UTF8;
 
-import 'package:sky/mojo/embedder.dart' show embedder;
+import 'package:sky/src/services/embedder.dart' show embedder;
 import 'package:sky/widgets.dart';
 
 import 'package:ether/syncbase_client.dart'
