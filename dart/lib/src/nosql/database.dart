@@ -90,7 +90,6 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     return v.resumeMarker;
   }
 
-  // TODO(nlacasse): Make a BatchDatabase class similar to what we did in JS.
   Future<String> beginBatch(mojom.BatchOptions opts) async {
     var v = await _proxy.ptr.dbBeginBatch(fullName, opts);
     if (isError(v.err)) throw v.err;

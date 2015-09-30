@@ -4,10 +4,10 @@
 
 library utils;
 
-import 'package:ether/syncbase_client.dart' show Perms;
+import 'package:ether/syncbase_client.dart' show Perms, SyncbaseClient;
 
 // Returns an empty Perms object.
-Perms emptyPerms() => new Perms()..json = '{}';
+Perms emptyPerms() => SyncbaseClient.perms();
 
 // Returns the current timestamp in ms since epoch.
 int timestamp() => new DateTime.now().millisecondsSinceEpoch;

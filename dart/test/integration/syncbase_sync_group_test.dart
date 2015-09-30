@@ -14,8 +14,7 @@ import './utils.dart' as utils;
 runSyncGroupTests(SyncbaseClient c) {
   // TODO(nlacasse): Where does this magic number 8 come from? It's in
   // syncgroup_test.go.
-  var myInfo = new SyncGroupMemberInfo();
-  myInfo.syncPriority = 8;
+  var myInfo = SyncbaseClient.syncGroupMemberInfo(syncPriority: 8);
 
   test('db.syncGroup returns a SyncGroup with name', () {
     var app = c.app(utils.uniqueName('app'));
@@ -32,7 +31,7 @@ runSyncGroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
     var sg = db.syncGroup(utils.uniqueName('sg'));
 
-    var emptySpec = new SyncGroupSpec();
+    var emptySpec = SyncbaseClient.syncGroupSpec(prefixes: []);
     expect(sg.create(emptySpec, myInfo), throws);
   });
 
@@ -43,11 +42,8 @@ runSyncGroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
     var sg = db.syncGroup(utils.uniqueName('sg'));
 
-    var spec = new SyncGroupSpec();
-    spec.description = 'test syncgroup ${sg.name}';
-    spec.perms = utils.emptyPerms();
-    spec.prefixes = ['t1/foo'];
-    spec.mountTables = [];
+    var spec = SyncbaseClient.syncGroupSpec(
+        description: 'test syncgroup ${sg.name}', prefixes: ['t1/foo']);
 
     await sg.create(spec, myInfo);
   });
@@ -61,11 +57,8 @@ runSyncGroupTests(SyncbaseClient c) {
     var sgName = utils.uniqueName('sg-/!@#%^&*():\$\x01\xfe');
     var sg = db.syncGroup(sgName);
 
-    var spec = new SyncGroupSpec();
-    spec.description = 'test syncgroup ${sgName}';
-    spec.perms = utils.emptyPerms();
-    spec.prefixes = ['t1/foo'];
-    spec.mountTables = [];
+    var spec = SyncbaseClient.syncGroupSpec(
+        description: 'test syncgroup ${sgName}', prefixes: ['t1/foo']);
 
     await sg.create(spec, myInfo);
   });
@@ -77,20 +70,14 @@ runSyncGroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
 
     var sg1 = db.syncGroup(utils.uniqueName('sg'));
-    var spec1 = new SyncGroupSpec();
-    spec1.description = 'test nested syncgroup ${sg1.name}';
-    spec1.perms = utils.emptyPerms();
-    spec1.prefixes = ['t1/foo'];
-    spec1.mountTables = [];
+    var spec1 = SyncbaseClient.syncGroupSpec(
+        description: 'test nested syncgroup ${sg1.name}', prefixes: ['t1/foo']);
 
     await sg1.create(spec1, myInfo);
 
     var sg2 = db.syncGroup(utils.uniqueName('sg'));
-    var spec2 = new SyncGroupSpec();
-    spec2.description = 'test nested syncgroup ${sg2.name}';
-    spec2.perms = utils.emptyPerms();
-    spec2.prefixes = ['t1/foo'];
-    spec2.mountTables = [];
+    var spec2 = SyncbaseClient.syncGroupSpec(
+        description: 'test nested syncgroup ${sg2.name}', prefixes: ['t1/foo']);
 
     await sg2.create(spec2, myInfo);
   });
@@ -102,20 +89,14 @@ runSyncGroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
 
     var sgName = utils.uniqueName('sg');
-    var spec1 = new SyncGroupSpec();
-    spec1.description = 'test syncgroup ${sgName}';
-    spec1.perms = utils.emptyPerms();
-    spec1.prefixes = ['t1/foo'];
-    spec1.mountTables = [];
+    var spec1 = SyncbaseClient.syncGroupSpec(
+        description: 'test syncgroup ${sgName}', prefixes: ['t1/foo']);
 
     var sg1 = db.syncGroup(sgName);
     await sg1.create(spec1, myInfo);
 
-    var spec2 = new SyncGroupSpec();
-    spec2.description = 'another syncgroup ${sgName}';
-    spec2.perms = utils.emptyPerms();
-    spec2.prefixes = ['t2/bar'];
-    spec2.mountTables = [];
+    var spec2 = SyncbaseClient.syncGroupSpec(
+        description: 'another syncgroup ${sgName}', prefixes: ['t2/bar']);
 
     var sg2 = db.syncGroup(sgName);
     expect(sg2.create(spec2, myInfo), throws);
@@ -129,11 +110,8 @@ runSyncGroupTests(SyncbaseClient c) {
     var sgName = utils.uniqueName('sg');
     var sg = db.syncGroup(sgName);
 
-    var spec = new SyncGroupSpec();
-    spec.description = 'test syncgroup ${sgName}';
-    spec.perms = utils.emptyPerms();
-    spec.prefixes = ['t1/foo'];
-    spec.mountTables = [];
+    var spec = SyncbaseClient.syncGroupSpec(
+        description: 'test syncgroup ${sgName}', prefixes: ['t1/foo']);
 
     await sg.create(spec, myInfo);
 
@@ -141,11 +119,8 @@ runSyncGroupTests(SyncbaseClient c) {
     expect(gotSpec.description, equals(spec.description));
     expect(gotSpec.prefixes, equals(spec.prefixes));
 
-    var newSpec = new SyncGroupSpec();
-    newSpec.description = 'a totally new spec ${sgName}';
-    newSpec.perms = utils.emptyPerms();
-    newSpec.prefixes = ['t1/foo'];
-    newSpec.mountTables = [];
+    var newSpec = SyncbaseClient.syncGroupSpec(
+        description: 'a totally new spec ${sgName}', prefixes: ['t1/foo']);
 
     await sg.setSpec(newSpec, '');
 

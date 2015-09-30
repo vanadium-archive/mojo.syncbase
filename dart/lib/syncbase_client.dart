@@ -13,13 +13,8 @@ import 'package:ether/src/naming/util.dart' as naming;
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 
 // Export struct types from syncbase.mojom.
-// TODO(nlacasse): Create wrapper around Perms, and possibly other struct
-// constructors, since the default constructors are not user-friendly.  They
-// take zero arguments, so all fields must be populated with assignments.
 export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
     show BatchOptions, Perms, SyncGroupMemberInfo, SyncGroupSpec, WatchChange;
-
-export 'src/nosql/watch_change_types.dart' show WatchChangeTypes;
 
 part 'src/app.dart';
 part 'src/named_resource.dart';
@@ -29,6 +24,7 @@ part 'src/nosql/row.dart';
 part 'src/nosql/rowrange.dart';
 part 'src/nosql/syncgroup.dart';
 part 'src/nosql/table.dart';
+part 'src/nosql/watch_change_types.dart';
 
 typedef void ConnectToServiceFn(String url, bindings.ProxyBase proxy);
 
@@ -67,5 +63,70 @@ class SyncbaseClient {
   Future setPermissions(mojom.Perms perms, String version) async {
     var v = await _proxy.ptr.serviceSetPermissions(perms, version);
     if (isError(v.err)) throw v.err;
+  }
+
+  // Helper methods that wrap the generated constructors for mojom types. The
+  // generated constructors take zero arguments, so they are difficult to use.
+
+  static mojom.BatchOptions batchOptions(
+      {String hint: null, bool readOnly: false}) {
+    return new mojom.BatchOptions()
+      ..hint = hint
+      ..readOnly = readOnly;
+  }
+
+  static mojom.Perms perms([String json = '{}']) {
+    return new mojom.Perms()..json = json;
+  }
+
+  static mojom.SyncGroupMemberInfo syncGroupMemberInfo({int syncPriority: 0}) {
+    return new mojom.SyncGroupMemberInfo()..syncPriority = syncPriority;
+  }
+
+  static mojom.SyncGroupSpec syncGroupSpec(
+      {String description: '',
+      bool isPrivate: false,
+      mojom.Perms perms,
+      List<String> prefixes,
+      List<String> mountTables}) {
+    if (prefixes == null) {
+      throw new ArgumentError('prefixes must be specified');
+    }
+    return new mojom.SyncGroupSpec()
+      ..description = description
+      ..isPrivate = isPrivate
+      ..perms = perms ?? SyncbaseClient.perms()
+      ..prefixes = prefixes
+      ..mountTables = mountTables ?? [];
+  }
+
+  static mojom.WatchChange watchChange(
+      {String tableName,
+      String rowName,
+      List<int> valueBytes,
+      List<int> resumeMarker,
+      int changeType,
+      bool fromSync: false,
+      bool continued: false}) {
+    if (tableName == null) {
+      throw new ArgumentError('tableName must be specified');
+    }
+    if (rowName == null) {
+      throw new ArgumentError('rowName must be specified');
+    }
+    if (resumeMarker == null) {
+      throw new ArgumentError('resumeMarker must be specified');
+    }
+    if (changeType == null) {
+      throw new ArgumentError('changeType must be specified');
+    }
+    return new mojom.WatchChange()
+      ..tableName = tableName
+      ..rowName = rowName
+      ..valueBytes = valueBytes ?? []
+      ..resumeMarker = resumeMarker
+      ..changeType = changeType
+      ..fromSync = fromSync
+      ..continued = continued;
   }
 }

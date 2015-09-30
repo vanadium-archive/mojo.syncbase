@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+library naming;
+
 import 'dart:convert' show UTF8;
 
 // TODO(aghassemi): Move these naming utilities out of Syncbase once we
