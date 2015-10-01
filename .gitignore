@@ -1,5 +1,7 @@
 /.jiri
 #TODO(nlacasse): Get rid of .v23 below once v23->jiri transition is complete.
+/.v23
+
 # Build artifacts
 /bin
 /creds
@@ -7,10 +9,11 @@
 /dart/lib/gen/dart-pkg
 /dart/lib/gen/mojom
 
+# Tmp dir for syncbase data, logs, etc.
+/tmp
+
 # Dart artifacts
 .packages
 .pub
 pubspec.lock
 packages
-
-/.v23

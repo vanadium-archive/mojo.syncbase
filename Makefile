@@ -5,10 +5,6 @@ V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
 include ../shared/mojo.mk
 
 # Flags for Syncbase service running as Mojo service.
-# See v.io/x/ref/runtime/internal/mojo_util.go for the wonderful magic that
-# makes this work.
-# If you change these flags, be sure to do a "make clean", since the flag values
-# get bound at compile time.
 SYNCBASED_ADDR := 127.0.0.1:4002
 V23_MOJO_FLAGS := --v=0 --v23.tcp.address=$(SYNCBASED_ADDR) --v23.permissions.literal={\"Admin\":{\"In\":[\"...\"]},\"Write\":{\"In\":[\"...\"]},\"Read\":{\"In\":[\"...\"]},\"Resolve\":{\"In\":[\"...\"]},\"Debug\":{\"In\":[\"...\"]}}
 
@@ -37,7 +33,7 @@ else
 
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/linux_amd64
 
-	V23_MOJO_FLAGS += --root-dir=/tmp/syncbase_data
+	V23_MOJO_FLAGS += --root-dir=$(PWD)/tmp/syncbase_data
 endif
 
 # NOTE(nlacasse): Running Go Mojo services requires passing the
@@ -46,7 +42,8 @@ endif
 # process.
 MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 	--config-alias ETHER_DIR=$(PWD) \
-	--config-alias ETHER_BUILD_DIR=$(ETHER_BUILD_DIR)
+	--config-alias ETHER_BUILD_DIR=$(ETHER_BUILD_DIR) \
+	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)"
 
 .DELETE_ON_ERROR:
 
@@ -70,16 +67,14 @@ creds: bin
 .PHONY: gen-mojom
 gen-mojom: dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
-dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom
-dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
+dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom | syncbase-env-check
 	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
 	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
 	# files, so we delete them.  Stop doing this once the generator is fixed.
 	# See https://github.com/domokit/mojo/issues/386
 	rm -f dart/lib/gen/mojom/$(notdir $@)
 
-gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom
-gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
+gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom | syncbase-env-check
 	$(call MOJOM_GEN,$<,gen,go)
 	gofmt -w $@
 
@@ -91,7 +86,6 @@ gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: LDFLAGS := -X v.io/x/ref/runtime/internal.commandLineFlags '$(V23_MOJO_FLAGS)'
 $(ETHER_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
 	$(call MOGO_BUILD,v.io/x/ref/services/syncbase/syncbased,$@)
 
@@ -138,7 +132,9 @@ test-unit: dart/packages
 
 .PHONY: test-integration
 test-integration: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test --config-file $(PWD)/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) --shell-path $(MOJO_SHELL_PATH) tests
+	# NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS" flags,
+	# otherwise mojo_test's argument parser gets confused and exits with an error.
+	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test tests --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL_PATH) $(MOJO_ANDROID_FLAGS) $(MOJO_SHELL_FLAGS)
 
 .PHONY: syncbase-env-check
 syncbase-env-check: | mojo-env-check
@@ -153,11 +149,10 @@ endif
 # TODO(aghassemi): Why does mojo generate dart-pkg and mojom dirs?
 .PHONY: clean
 clean:
-	rm -rf gen/mojo gen/go
+	rm -rf bin gen tmp
 	rm -rf dart/lib/gen/dart-pkg
 	rm -rf dart/lib/gen/mojom
 
 .PHONY: veryclean
 veryclean: clean
-	rm -rf gen
 	rm -rf {dart,sky_demo}/{.packages,pubspec.lock,packages}
