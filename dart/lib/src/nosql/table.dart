@@ -7,7 +7,7 @@ part of syncbase_client;
 class SyncbaseTable extends NamedResource {
   SyncbaseTable._internal(_proxy, _parentFullName, relativeName)
       : super._internal(_proxy, _parentFullName, relativeName,
-            naming.join(_parentFullName, escape(relativeName)));
+          naming.join(_parentFullName, escape(relativeName)));
 
   // row returns a row with the given key.
   SyncbaseRow row(String key) {
@@ -101,8 +101,16 @@ class ScanStreamImpl implements mojom.ScanStream {
   final StreamController<mojom.KeyValue> sc;
   ScanStreamImpl._fromStreamController(this.sc);
 
-  onKeyValue(mojom.KeyValue keyValue) {
+  Future<mojom.ScanStreamOnChangeResponseParams> onKeyValue(
+      mojom.KeyValue keyValue, Function resultFactory) {
     sc.add(keyValue);
+
+    // TODO(aghassemi): Honor the pause state.
+    // If stream is paused, return a future that will be completed when stream
+    // is resumed. Otherwise we are breaking Dart stream's flow control.
+
+    // Send an ack back to server.
+    return new Future.value(resultFactory(true));
   }
 
   // Called by the mojom proxy when the Go function call returns.

@@ -56,8 +56,13 @@ struct KeyValue {
   array<uint8> value;
 };
 
+// ScanStream implements the observer + ack pattern.
+// In this model, server pushes a change object and waits until it receives
+// an ack back from client before sending the next KeyValue, effectively
+// creating a mechanism for flow control.
 interface ScanStream {
-  OnKeyValue(KeyValue key_value);
+  // TODO(aghassemi): Same TODO as WatchGlobStream.OnChange
+  OnKeyValue(KeyValue key_value) => (bool ack);
   OnReturn(Error err);
 };
 
@@ -76,8 +81,17 @@ struct GlobRequest {
   array<uint8> resume_marker;
 };
 
+// WatchGlobStream implements the observer + ack pattern.
+// In this model, server pushes a change object and waits until it receives
+// an ack back from client before sending the next change, effectively creating
+// a mechanism for flow control.
 interface WatchGlobStream {
-  OnChange(WatchChange change);
+  // TODO(aghassemi): We should be able to do => () instead of => (bool ack)
+  // but mojom Go compiler has a bug where it does not differentiate between
+  // no return and => () therefore call does not actually block until callback
+  // is called. This is a bug and for now we get around it by returning a bool.
+  // See https://github.com/vanadium/issues/issues/749 for details.
+  OnChange(WatchChange change) => (bool ack);
   OnError(Error err);
 };
 

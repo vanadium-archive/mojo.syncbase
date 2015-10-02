@@ -1053,6 +1053,71 @@ class ScanStreamOnKeyValueParams extends bindings.Struct {
 }
 
 
+class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(16, 0)
+  ];
+  bool ack = false;
+
+  ScanStreamOnKeyValueResponseParams() : super(kVersions.last.size);
+
+  static ScanStreamOnKeyValueResponseParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static ScanStreamOnKeyValueResponseParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    ScanStreamOnKeyValueResponseParams result = new ScanStreamOnKeyValueResponseParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.ack = decoder0.decodeBool(8, 0);
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeBool(ack, 8, 0);
+  }
+
+  String toString() {
+    return "ScanStreamOnKeyValueResponseParams("
+           "ack: $ack" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["ack"] = ack;
+    return map;
+  }
+}
+
+
 class ScanStreamOnReturnParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -1180,6 +1245,71 @@ class WatchGlobStreamOnChangeParams extends bindings.Struct {
   Map toJson() {
     Map map = new Map();
     map["change"] = change;
+    return map;
+  }
+}
+
+
+class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(16, 0)
+  ];
+  bool ack = false;
+
+  WatchGlobStreamOnChangeResponseParams() : super(kVersions.last.size);
+
+  static WatchGlobStreamOnChangeResponseParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static WatchGlobStreamOnChangeResponseParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    WatchGlobStreamOnChangeResponseParams result = new WatchGlobStreamOnChangeResponseParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.ack = decoder0.decodeBool(8, 0);
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeBool(ack, 8, 0);
+  }
+
+  String toString() {
+    return "WatchGlobStreamOnChangeResponseParams("
+           "ack: $ack" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["ack"] = ack;
     return map;
   }
 }
@@ -7413,7 +7543,7 @@ const String ScanStreamName =
       'mojo::ScanStream';
 
 abstract class ScanStream {
-  void onKeyValue(KeyValue keyValue);
+  Future<ScanStreamOnKeyValueResponseParams> onKeyValue(KeyValue keyValue,[Function responseFactory = null]);
   void onReturn(Error err);
 
 }
@@ -7438,6 +7568,20 @@ class ScanStreamProxyImpl extends bindings.Proxy {
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
+      case kScanStream_onKeyValue_name:
+        var r = ScanStreamOnKeyValueResponseParams.deserialize(
+            message.payload);
+        if (!message.header.hasRequestId) {
+          throw 'Expected a message with a valid request Id.';
+        }
+        Completer c = completerMap[message.header.requestId];
+        if (c == null) {
+          throw 'Message had unknown request Id: ${message.header.requestId}';
+        }
+        completerMap.remove(message.header.requestId);
+        assert(!c.isCompleted);
+        c.complete(r);
+        break;
       default:
         throw new bindings.MojoCodecError("Unexpected message name");
         break;
@@ -7455,13 +7599,16 @@ class _ScanStreamProxyCalls implements ScanStream {
   ScanStreamProxyImpl _proxyImpl;
 
   _ScanStreamProxyCalls(this._proxyImpl);
-    void onKeyValue(KeyValue keyValue) {
+    Future<ScanStreamOnKeyValueResponseParams> onKeyValue(KeyValue keyValue,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new ScanStreamOnKeyValueParams();
       params.keyValue = keyValue;
-      _proxyImpl.sendMessage(params, kScanStream_onKeyValue_name);
+      return _proxyImpl.sendMessageWithRequestId(
+          params,
+          kScanStream_onKeyValue_name,
+          -1,
+          bindings.MessageHeader.kMessageExpectsResponse);
     }
-  
     void onReturn(Error err) {
       assert(_proxyImpl.isBound);
       var params = new ScanStreamOnReturnParams();
@@ -7540,6 +7687,11 @@ class ScanStreamStub extends bindings.Stub {
   static const String name = ScanStreamName;
 
 
+  ScanStreamOnKeyValueResponseParams _ScanStreamOnKeyValueResponseParamsFactory(bool ack) {
+    var result = new ScanStreamOnKeyValueResponseParams();
+    result.ack = ack;
+    return result;
+  }
 
   Future<bindings.Message> handleMessage(bindings.ServiceMessage message) {
     if (bindings.ControlMessageHandler.isControlMessage(message)) {
@@ -7552,7 +7704,15 @@ class ScanStreamStub extends bindings.Stub {
       case kScanStream_onKeyValue_name:
         var params = ScanStreamOnKeyValueParams.deserialize(
             message.payload);
-        _impl.onKeyValue(params.keyValue);
+        return _impl.onKeyValue(params.keyValue,_ScanStreamOnKeyValueResponseParamsFactory).then((response) {
+          if (response != null) {
+            return buildResponseWithId(
+                response,
+                kScanStream_onKeyValue_name,
+                message.header.requestId,
+                bindings.MessageHeader.kMessageIsResponse);
+          }
+        });
         break;
       case kScanStream_onReturn_name:
         var params = ScanStreamOnReturnParams.deserialize(
@@ -7587,7 +7747,7 @@ const String WatchGlobStreamName =
       'mojo::WatchGlobStream';
 
 abstract class WatchGlobStream {
-  void onChange(WatchChange change);
+  Future<WatchGlobStreamOnChangeResponseParams> onChange(WatchChange change,[Function responseFactory = null]);
   void onError(Error err);
 
 }
@@ -7612,6 +7772,20 @@ class WatchGlobStreamProxyImpl extends bindings.Proxy {
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
+      case kWatchGlobStream_onChange_name:
+        var r = WatchGlobStreamOnChangeResponseParams.deserialize(
+            message.payload);
+        if (!message.header.hasRequestId) {
+          throw 'Expected a message with a valid request Id.';
+        }
+        Completer c = completerMap[message.header.requestId];
+        if (c == null) {
+          throw 'Message had unknown request Id: ${message.header.requestId}';
+        }
+        completerMap.remove(message.header.requestId);
+        assert(!c.isCompleted);
+        c.complete(r);
+        break;
       default:
         throw new bindings.MojoCodecError("Unexpected message name");
         break;
@@ -7629,13 +7803,16 @@ class _WatchGlobStreamProxyCalls implements WatchGlobStream {
   WatchGlobStreamProxyImpl _proxyImpl;
 
   _WatchGlobStreamProxyCalls(this._proxyImpl);
-    void onChange(WatchChange change) {
+    Future<WatchGlobStreamOnChangeResponseParams> onChange(WatchChange change,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new WatchGlobStreamOnChangeParams();
       params.change = change;
-      _proxyImpl.sendMessage(params, kWatchGlobStream_onChange_name);
+      return _proxyImpl.sendMessageWithRequestId(
+          params,
+          kWatchGlobStream_onChange_name,
+          -1,
+          bindings.MessageHeader.kMessageExpectsResponse);
     }
-  
     void onError(Error err) {
       assert(_proxyImpl.isBound);
       var params = new WatchGlobStreamOnErrorParams();
@@ -7714,6 +7891,11 @@ class WatchGlobStreamStub extends bindings.Stub {
   static const String name = WatchGlobStreamName;
 
 
+  WatchGlobStreamOnChangeResponseParams _WatchGlobStreamOnChangeResponseParamsFactory(bool ack) {
+    var result = new WatchGlobStreamOnChangeResponseParams();
+    result.ack = ack;
+    return result;
+  }
 
   Future<bindings.Message> handleMessage(bindings.ServiceMessage message) {
     if (bindings.ControlMessageHandler.isControlMessage(message)) {
@@ -7726,7 +7908,15 @@ class WatchGlobStreamStub extends bindings.Stub {
       case kWatchGlobStream_onChange_name:
         var params = WatchGlobStreamOnChangeParams.deserialize(
             message.payload);
-        _impl.onChange(params.change);
+        return _impl.onChange(params.change,_WatchGlobStreamOnChangeResponseParamsFactory).then((response) {
+          if (response != null) {
+            return buildResponseWithId(
+                response,
+                kWatchGlobStream_onChange_name,
+                message.header.requestId,
+                bindings.MessageHeader.kMessageIsResponse);
+          }
+        });
         break;
       case kWatchGlobStream_onError_name:
         var params = WatchGlobStreamOnErrorParams.deserialize(

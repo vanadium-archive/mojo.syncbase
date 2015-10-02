@@ -21,9 +21,8 @@ Perms emptyPerms() => new Perms()..json = '{}';
 class DemoApp extends App {
   final SyncbaseClient _syncbaseClient;
 
-  DemoApp()
-      : _syncbaseClient = new SyncbaseClient(embedder.connectToService,
-            'https://mojo.v.io/syncbase_server.mojo');
+  DemoApp() : _syncbaseClient = new SyncbaseClient(
+          embedder.connectToService, 'https://mojo.v.io/syncbase_server.mojo');
 
   int seq = 0;
   SyncbaseTable tb;
@@ -81,13 +80,13 @@ class DemoApp extends App {
 
   Widget build() {
     return new Container(
-        decoration:
-            const BoxDecoration(backgroundColor: const Color(0xFF00ACC1)),
+        decoration: const BoxDecoration(
+            backgroundColor: const Color(0xFF00ACC1)),
         child: new Flex([
-          new RaisedButton(child: new Text('doPutGet'), onPressed: doPutGet),
-          new Text('putStr: $putStr'),
-          new Text('getStr: $getStr')
-        ], direction: FlexDirection.vertical));
+      new RaisedButton(child: new Text('doPutGet'), onPressed: doPutGet),
+      new Text('putStr: $putStr'),
+      new Text('getStr: $getStr')
+    ], direction: FlexDirection.vertical));
   }
 }
 

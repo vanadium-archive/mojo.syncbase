@@ -9,7 +9,7 @@ class SyncbaseRow extends NamedResource {
 
   SyncbaseRow._internal(_proxy, _parentFullName, key)
       : super._internal(_proxy, _parentFullName, key,
-            naming.join(_parentFullName, escape(key))),
+          naming.join(_parentFullName, escape(key))),
         this.key = key;
 
   Future<bool> exists() async {

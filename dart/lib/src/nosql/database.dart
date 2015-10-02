@@ -9,7 +9,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   SyncbaseNoSqlDatabase._internal(
       _proxy, _parentFullName, relativeName, batchSuffix)
       : super._internal(_proxy, _parentFullName, relativeName,
-            naming.join(_parentFullName, escape(relativeName) + batchSuffix));
+          naming.join(_parentFullName, escape(relativeName) + batchSuffix));
 
   // table returns a table with the given relativeName.
   SyncbaseTable table(String relativeName) {
@@ -141,8 +141,16 @@ class WatchGlobStreamImpl implements mojom.WatchGlobStream {
   final StreamController<mojom.WatchChange> sc;
   WatchGlobStreamImpl._fromStreamController(this.sc);
 
-  onChange(mojom.WatchChange change) {
+  Future<mojom.WatchGlobStreamOnChangeResponseParams> onChange(
+      mojom.WatchChange change, Function resultFactory) {
     sc.add(change);
+
+    // TODO(aghassemi): Honor the pause state.
+    // If stream is paused, return a future that will be completed when stream
+    // is resumed. Otherwise we are breaking Dart stream's flow control.
+
+    // Send an ack back to server.
+    return new Future.value(resultFactory(true));
   }
 
   // Called by the mojo proxy when the Go function call returns.
