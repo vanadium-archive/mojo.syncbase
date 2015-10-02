@@ -91,7 +91,7 @@ $(ETHER_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/
 
 # Formats dart files to follow dart style conventions.
 .PHONY: dartfmt
-dartfmt:
+dartfmt: dart/packages
 	dartfmt --overwrite $(DART_FILES)
 
 # Lints src and test files with dartanalyzer. This takes a few seconds.
@@ -104,12 +104,14 @@ dartanalyzer: dart/packages sky_demo/packages gen-mojom
 	cd sky_demo && dartanalyzer lib/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
-dart/packages: dart/pubspec.yaml
-	cd dart && pub get
+.PHONY: dart/packages
+dart/packages:
+	cd dart && pub upgrade
 
 # Installs dart dependencies.
-sky_demo/packages: sky_demo/pubspec.yaml
-	cd sky_demo && pub get
+.PHONY: sky_demo/packages
+sky_demo/packages:
+	cd sky_demo && pub upgrade
 
 .PHONY: run-syncbase-example
 run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
@@ -128,7 +130,7 @@ test: test-unit test-integration
 
 .PHONY: test-unit
 test-unit: dart/packages
-	cd dart && pub run test test/unit
+	cd dart && pub run test test/unit/*.dart
 
 .PHONY: test-integration
 test-integration: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
