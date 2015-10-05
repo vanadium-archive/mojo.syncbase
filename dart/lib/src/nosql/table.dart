@@ -97,20 +97,26 @@ class SyncbaseTable extends NamedResource {
   }
 }
 
-class ScanStreamImpl implements mojom.ScanStream {
+class ScanStreamImpl extends Object with StreamFlowControl
+    implements mojom.ScanStream {
   final StreamController<mojom.KeyValue> sc;
-  ScanStreamImpl._fromStreamController(this.sc);
+
+  ScanStreamImpl._fromStreamController(this.sc) {
+    setupFlowControl(this.sc);
+  }
 
   Future<mojom.ScanStreamOnChangeResponseParams> onKeyValue(
       mojom.KeyValue keyValue, Function resultFactory) {
     sc.add(keyValue);
 
-    // TODO(aghassemi): Honor the pause state.
-    // If stream is paused, return a future that will be completed when stream
-    // is resumed. Otherwise we are breaking Dart stream's flow control.
+    // Only ack after we get unlocked.
+    // If we are not locked, onNextUnlock completes immediately.
+    var ack = onNextUnlock().then((_) {
 
-    // Send an ack back to server.
-    return new Future.value(resultFactory(true));
+      // Send an ack back to server.
+      return new Future.value(resultFactory(true));
+    });
+    return ack;
   }
 
   // Called by the mojom proxy when the Go function call returns.

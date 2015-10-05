@@ -55,7 +55,8 @@ startWatch(db, table) async {
   try {
     var s = db.watch(table.name, '', await db.getResumeMarker());
     s.forEach((change) {
-      print('GOT CHANGE: ${change.rowName} - ${UTF8.decode(change.valueBytes)} - ${change.fromSync}');
+      print(
+          'GOT CHANGE: ${change.rowName} - ${UTF8.decode(change.valueBytes)} - ${change.fromSync}');
     });
   } catch (e) {
     print('ERROR in startWatch()');
@@ -78,7 +79,7 @@ startPuts(table) async {
     print(e);
   }
 
-  await new Future.delayed(new Duration(seconds:5));
+  await new Future.delayed(new Duration(seconds: 5));
   startPuts(table);
 }
 
@@ -98,7 +99,8 @@ Future<sb.SyncbaseApp> createApp(sb.SyncbaseClient c, String name) async {
   return app;
 }
 
-Future<sb.SyncbaseNoSqlDatabase> createDb(sb.SyncbaseApp app, String name) async {
+Future<sb.SyncbaseNoSqlDatabase> createDb(
+    sb.SyncbaseApp app, String name) async {
   var db = app.noSqlDatabase(name);
   var exists = await db.exists();
   if (exists) {
@@ -110,7 +112,8 @@ Future<sb.SyncbaseNoSqlDatabase> createDb(sb.SyncbaseApp app, String name) async
   return db;
 }
 
-Future<sb.SyncbaseTable> createTable(sb.SyncbaseNoSqlDatabase db, String name) async {
+Future<sb.SyncbaseTable> createTable(
+    sb.SyncbaseNoSqlDatabase db, String name) async {
   var table = db.table(name);
   var exists = await table.exists();
   if (exists) {
@@ -122,7 +125,8 @@ Future<sb.SyncbaseTable> createTable(sb.SyncbaseNoSqlDatabase db, String name) a
   return table;
 }
 
-Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db, String mtAddr, String tableName, String name) async {
+Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db,
+    String mtAddr, String tableName, String name) async {
   // TODO(nlacasse): Get your email address out of here!  Figure out a way to
   // get the mounttable name and path to this part of the code.
   var mtName = naming.join(mtAddr, 'users/nlacasse@google.com');
@@ -144,12 +148,9 @@ Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db, 
     print('syncgroup does not exist, creating it');
 
     var sgSpec = sb.SyncbaseClient.syncGroupSpec(
-      description: 'test sync group',
-      perms: openPerms,
-      // Sync the entire table.
-      prefixes: ['$tableName:'],
-      mountTables: [mtName]
-    );
+        description: 'test sync group', perms: openPerms,
+        // Sync the entire table.
+        prefixes: ['$tableName:'], mountTables: [mtName]);
 
     print('SGSPEC = $sgSpec');
 

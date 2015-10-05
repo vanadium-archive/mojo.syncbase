@@ -4,12 +4,14 @@
 
 library syncbase_database_test;
 
+import 'dart:async';
 import 'dart:convert' show UTF8;
 
 import 'package:test/test.dart';
 
+import 'package:ether/src/testing_instrumentations.dart' as testing;
 import 'package:ether/syncbase_client.dart'
-    show SyncbaseClient, WatchChangeTypes, WatchChange;
+    show SyncbaseClient, WatchChangeTypes, WatchChange, WatchGlobStreamImpl;
 
 import './utils.dart' as utils;
 
@@ -88,6 +90,64 @@ runDatabaseTests(SyncbaseClient c) {
         break;
       }
     }
+  });
+
+  test('watch flow control', () async {
+    var app = c.app(utils.uniqueName('app'));
+    await app.create(utils.emptyPerms());
+    var db = app.noSqlDatabase(utils.uniqueName('db'));
+    await db.create(utils.emptyPerms());
+    var table = db.table(utils.uniqueName('table'));
+    await table.create(utils.emptyPerms());
+
+    var resumeMarker = await db.getResumeMarker();
+    var aFewMoments = new Duration(seconds: 1);
+    const int numOperations = 10;
+    var allOperations = [];
+
+    // Do several put operations in parallel and wait until they are all done.
+    for (var i = 0; i < numOperations; i++) {
+      allOperations.add(table.put('row $i', UTF8.encode('value$i')));
+    }
+    await Future.wait(allOperations);
+
+    // Reset testing instrumentations.
+    testing.DatabaseWatch.onChangeCounter.reset();
+
+    // Create a watch stream.
+    var watchStream = db.watch(table.name, '', resumeMarker);
+
+    // Listen for the data on the stream.
+    var allExpectedChangesReceived = new Completer();
+    Function onData(_) {
+      if (testing.DatabaseWatch.onChangeCounter.count == numOperations) {
+        allExpectedChangesReceived.complete();
+      }
+    }
+    var streamListener = watchStream.listen(onData);
+
+    // Pause the stream.
+    streamListener.pause();
+
+    // Wait a few moments.
+    await new Future.delayed(aFewMoments);
+
+    // Assert that we did not got any* events from server when paused.
+    // testing.DatabaseWatch.onChangeCounter instrumentation is used to ensure
+    // that client did not receive any updates from mojo server, guaranteeing
+    // flow control propagated properly all the way to the other end of the pipe
+    // *Note: We always get 1 change before we can tell the server to block by
+    // not acking that single change.
+    expect(testing.DatabaseWatch.onChangeCounter.count, equals(1));
+
+    // Resume the stream.
+    streamListener.resume();
+
+    // Wait until we get all expected changes.
+    await allExpectedChangesReceived.future;
+
+    // Assert we've got all the expected changes after resuming.
+    expect(testing.DatabaseWatch.onChangeCounter.count, equals(numOperations));
   });
 
   // TODO(nlacasse): Test database.get/setPermissions.

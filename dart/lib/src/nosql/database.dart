@@ -137,20 +137,32 @@ class ExecStreamImpl implements mojom.ExecStream {
   }
 }
 
-class WatchGlobStreamImpl implements mojom.WatchGlobStream {
+class WatchGlobStreamImpl extends Object with StreamFlowControl
+    implements mojom.WatchGlobStream {
   final StreamController<mojom.WatchChange> sc;
-  WatchGlobStreamImpl._fromStreamController(this.sc);
+
+  WatchGlobStreamImpl._fromStreamController(this.sc) {
+    setupFlowControl(this.sc);
+  }
 
   Future<mojom.WatchGlobStreamOnChangeResponseParams> onChange(
       mojom.WatchChange change, Function resultFactory) {
+
+    // Testing instrumentations for testing flow control.
+    if (testing.isTesting) {
+      testing.DatabaseWatch.onChangeCounter.increment();
+    }
+
     sc.add(change);
 
-    // TODO(aghassemi): Honor the pause state.
-    // If stream is paused, return a future that will be completed when stream
-    // is resumed. Otherwise we are breaking Dart stream's flow control.
+    // Only ack after we get unlocked.
+    // If we are not locked, onNextUnlock completes immediately.
+    var ack = onNextUnlock().then((_) {
 
-    // Send an ack back to server.
-    return new Future.value(resultFactory(true));
+      // Send an ack back to server.
+      return new Future.value(resultFactory(true));
+    });
+    return ack;
   }
 
   // Called by the mojo proxy when the Go function call returns.
