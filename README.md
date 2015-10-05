@@ -63,15 +63,6 @@ Run this while you grab your morning coffee.
         $ ./mojo/tools/mojob.py gn --android
         $ ./mojo/tools/mojob.py build --android # NOTE: This can take up to 10 minutes.
 
-## Sky setup
-
-You must have the Sky code in `$SKY_DIR`. Follow the instructions in the Sky
-[CONTRIBUTING.md][sky contrib] file for "Getting the code" and "Building the
-code".
-
-Also, you must patch your Mojo code (and rebuild Mojo):
-https://github.com/domokit/mojo/issues/370
-
 ## Install Dart SDK
 
 To run Dart apps, you must install the Dart SDK.
@@ -97,4 +88,3 @@ full test suite hangs with no output.
 [depot tools]: http://www.chromium.org/developers/how-tos/install-depot-tools
 [goma]: https://sites.google.com/a/google.com/goma/how-to-use-goma/how-to-use-goma-for-chrome-team
 [mojo readme]: https://github.com/domokit/mojo/blob/master/README.md
-[sky contrib]: https://github.com/domokit/sky_engine/blob/master/CONTRIBUTING.md

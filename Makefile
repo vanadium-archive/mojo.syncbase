@@ -1,5 +1,5 @@
 PWD := $(shell pwd)
-DART_FILES := $(shell find dart/bin dart/lib dart/test sky_demo/lib -name "*.dart" -not -path "dart/lib/gen/*")
+DART_FILES := $(shell find dart/bin dart/lib dart/test -name "*.dart" -not -path "dart/lib/gen/*")
 V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
 
 include ../shared/mojo.mk
@@ -14,7 +14,6 @@ ifdef MOUNTTABLE_ADDR
 endif
 
 ifdef ANDROID
-	SKY_BUILD_DIR := $(SKY_DIR)/src/out/android_Debug
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/android
 
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/android_arm
@@ -28,7 +27,6 @@ ifdef ANDROID
 	APP_HOME_DIR = /data/data/org.chromium.mojo.shell/app_home
 	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(APP_HOME_DIR)/syncbase_data
 else
-	SKY_BUILD_DIR := $(SKY_DIR)/src/out/Debug
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/linux_amd64
@@ -96,34 +94,20 @@ dartfmt: dart/packages
 
 # Lints src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
-dartanalyzer: dart/packages sky_demo/packages gen-mojom
+dartanalyzer: dart/packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
 	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
 	# hints and warnings from *.mojom.dart files.
 	cd dart && dartanalyzer bin/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
-	cd sky_demo && dartanalyzer lib/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
 .PHONY: dart/packages
 dart/packages:
 	cd dart && pub upgrade
 
-# Installs dart dependencies.
-.PHONY: sky_demo/packages
-sky_demo/packages:
-	cd sky_demo && pub upgrade
-
 .PHONY: run-syncbase-example
 run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
 	$(call MOJO_RUN,https://mojo.v.io/syncbase_example.dart)
-
-.PHONY: run-sky-demo
-run-sky-demo: MOJO_SHELL_FLAGS += --config-alias SKY_DIR=$(SKY_DIR) --config-alias SKY_BUILD_DIR=$(SKY_BUILD_DIR)
-run-sky-demo: sky_demo/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check
-ifndef SKY_DIR
-	$(error SKY_DIR is not set)
-endif
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_run --config-file $(PWD)/sky_demo/mojoconfig $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) 'mojo:window_manager https://mojo.v.io/sky_demo/lib/main.dart'
 
 .PHONY: test
 test: test-unit test-integration
@@ -157,4 +141,4 @@ clean:
 
 .PHONY: veryclean
 veryclean: clean
-	rm -rf {dart,sky_demo}/{.packages,pubspec.lock,packages}
+	rm -rf dart/{.packages,pubspec.lock,packages}
