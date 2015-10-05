@@ -12,13 +12,17 @@ import 'package:mojo/core.dart' show MojoHandle;
 // InitializedApplication is an Application with a future 'initialized' that is
 // resolved after the 'initialize' method finishes.
 class InitializedApplication extends Application {
-  final _initializeCompleter = new Completer();
+  final Completer _initializeCompleter = new Completer();
   Future get initialized => _initializeCompleter.future;
+
+  List<String> _args;
+  List<String> get args => _args;
 
   InitializedApplication.fromHandle(int handle)
       : super.fromHandle(new MojoHandle(handle));
 
   void initialize(List<String> args, String url) {
+    _args = args;
     _initializeCompleter.complete();
   }
 }
