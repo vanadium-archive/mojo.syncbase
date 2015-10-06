@@ -9,7 +9,7 @@ import 'dart:convert' show UTF8;
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:ether/src/naming/util.dart' as naming;
-import 'package:ether/src/testing_instrumentations.dart' as testing;
+import 'package:ether/src/testing_instrumentation.dart' as testing;
 
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 

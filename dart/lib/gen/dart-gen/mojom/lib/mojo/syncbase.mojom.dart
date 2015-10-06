@@ -1055,9 +1055,8 @@ class ScanStreamOnKeyValueParams extends bindings.Struct {
 
 class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
-    const bindings.StructDataHeader(16, 0)
+    const bindings.StructDataHeader(8, 0)
   ];
-  bool ack = false;
 
   ScanStreamOnKeyValueResponseParams() : super(kVersions.last.size);
 
@@ -1092,27 +1091,19 @@ class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
         'Message newer than the last known version cannot be shorter than '
         'required by the last known version.');
     }
-    if (mainDataHeader.version >= 0) {
-      
-      result.ack = decoder0.decodeBool(8, 0);
-    }
     return result;
   }
 
   void encode(bindings.Encoder encoder) {
-    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeBool(ack, 8, 0);
+    encoder.getStructEncoderAtOffset(kVersions.last);
   }
 
   String toString() {
-    return "ScanStreamOnKeyValueResponseParams("
-           "ack: $ack" ")";
+    return "ScanStreamOnKeyValueResponseParams("")";
   }
 
   Map toJson() {
     Map map = new Map();
-    map["ack"] = ack;
     return map;
   }
 }
@@ -1252,9 +1243,8 @@ class WatchGlobStreamOnChangeParams extends bindings.Struct {
 
 class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
-    const bindings.StructDataHeader(16, 0)
+    const bindings.StructDataHeader(8, 0)
   ];
-  bool ack = false;
 
   WatchGlobStreamOnChangeResponseParams() : super(kVersions.last.size);
 
@@ -1289,27 +1279,19 @@ class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
         'Message newer than the last known version cannot be shorter than '
         'required by the last known version.');
     }
-    if (mainDataHeader.version >= 0) {
-      
-      result.ack = decoder0.decodeBool(8, 0);
-    }
     return result;
   }
 
   void encode(bindings.Encoder encoder) {
-    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
-    
-    encoder0.encodeBool(ack, 8, 0);
+    encoder.getStructEncoderAtOffset(kVersions.last);
   }
 
   String toString() {
-    return "WatchGlobStreamOnChangeResponseParams("
-           "ack: $ack" ")";
+    return "WatchGlobStreamOnChangeResponseParams("")";
   }
 
   Map toJson() {
     Map map = new Map();
-    map["ack"] = ack;
     return map;
   }
 }
@@ -7687,9 +7669,8 @@ class ScanStreamStub extends bindings.Stub {
   static const String name = ScanStreamName;
 
 
-  ScanStreamOnKeyValueResponseParams _ScanStreamOnKeyValueResponseParamsFactory(bool ack) {
+  ScanStreamOnKeyValueResponseParams _ScanStreamOnKeyValueResponseParamsFactory() {
     var result = new ScanStreamOnKeyValueResponseParams();
-    result.ack = ack;
     return result;
   }
 
@@ -7891,9 +7872,8 @@ class WatchGlobStreamStub extends bindings.Stub {
   static const String name = WatchGlobStreamName;
 
 
-  WatchGlobStreamOnChangeResponseParams _WatchGlobStreamOnChangeResponseParamsFactory(bool ack) {
+  WatchGlobStreamOnChangeResponseParams _WatchGlobStreamOnChangeResponseParamsFactory() {
     var result = new WatchGlobStreamOnChangeResponseParams();
-    result.ack = ack;
     return result;
   }
 

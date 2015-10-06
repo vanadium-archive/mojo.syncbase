@@ -8,7 +8,7 @@ import 'dart:async';
 import 'package:mojo/core.dart' show MojoHandle;
 import 'package:test/test.dart';
 
-import 'package:ether/src/testing_instrumentations.dart' as testing;
+import 'package:ether/src/testing_instrumentation.dart' as testing;
 import 'package:ether/initialized_application.dart' show InitializedApplication;
 import 'package:ether/syncbase_client.dart' show SyncbaseClient;
 
@@ -20,7 +20,7 @@ import './syncbase_sync_group_test.dart' show runSyncGroupTests;
 import './syncbase_table_test.dart' show runTableTests;
 
 main(List args) async {
-  // Enable testing instrumentations.
+  // Enable testing instrumentation.
   testing.isTesting = true;
 
   InitializedApplication app = new InitializedApplication.fromHandle(args[0]);

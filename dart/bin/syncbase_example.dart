@@ -148,9 +148,11 @@ Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db,
     print('syncgroup does not exist, creating it');
 
     var sgSpec = sb.SyncbaseClient.syncGroupSpec(
-        description: 'test sync group', perms: openPerms,
+        description: 'test sync group',
+        perms: openPerms,
         // Sync the entire table.
-        prefixes: ['$tableName:'], mountTables: [mtName]);
+        prefixes: ['$tableName:'],
+        mountTables: [mtName]);
 
     print('SGSPEC = $sgSpec');
 

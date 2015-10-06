@@ -7,7 +7,7 @@ part of syncbase_client;
 class SyncbaseTable extends NamedResource {
   SyncbaseTable._internal(_proxy, _parentFullName, relativeName)
       : super._internal(_proxy, _parentFullName, relativeName,
-          naming.join(_parentFullName, escape(relativeName)));
+            naming.join(_parentFullName, escape(relativeName)));
 
   // row returns a row with the given key.
   SyncbaseRow row(String key) {
@@ -97,26 +97,27 @@ class SyncbaseTable extends NamedResource {
   }
 }
 
-class ScanStreamImpl extends Object with StreamFlowControl
+class ScanStreamImpl extends Object
+    with StreamFlowControl
     implements mojom.ScanStream {
   final StreamController<mojom.KeyValue> sc;
 
   ScanStreamImpl._fromStreamController(this.sc) {
-    setupFlowControl(this.sc);
+    initFlowControl(this.sc);
   }
 
-  Future<mojom.ScanStreamOnChangeResponseParams> onKeyValue(
-      mojom.KeyValue keyValue, Function resultFactory) {
+  Future onKeyValue(mojom.KeyValue keyValue, [Function newAck = null]) {
+    // NOTE(aghassemi): We need to make newAck optional to match mojo's
+    // define class, but newAck is always provided by mojo when called.
+    if (newAck == null) {
+      throw new ArgumentError('newAck can not be null');
+    }
+
     sc.add(keyValue);
 
     // Only ack after we get unlocked.
-    // If we are not locked, onNextUnlock completes immediately.
-    var ack = onNextUnlock().then((_) {
-
-      // Send an ack back to server.
-      return new Future.value(resultFactory(true));
-    });
-    return ack;
+    // If we are not locked, onNextUnlock returns immediately.
+    return onNextUnlock().then((_) => newAck());
   }
 
   // Called by the mojom proxy when the Go function call returns.

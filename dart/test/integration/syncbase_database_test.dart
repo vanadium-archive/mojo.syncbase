@@ -9,7 +9,7 @@ import 'dart:convert' show UTF8;
 
 import 'package:test/test.dart';
 
-import 'package:ether/src/testing_instrumentations.dart' as testing;
+import 'package:ether/src/testing_instrumentation.dart' as testing;
 import 'package:ether/syncbase_client.dart'
     show SyncbaseClient, WatchChangeTypes, WatchChange, WatchGlobStreamImpl;
 
@@ -119,7 +119,7 @@ runDatabaseTests(SyncbaseClient c) {
 
     // Listen for the data on the stream.
     var allExpectedChangesReceived = new Completer();
-    Function onData(_) {
+    onData(_) {
       if (testing.DatabaseWatch.onChangeCounter.count == numOperations) {
         allExpectedChangesReceived.complete();
       }

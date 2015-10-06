@@ -9,7 +9,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   SyncbaseNoSqlDatabase._internal(
       _proxy, _parentFullName, relativeName, batchSuffix)
       : super._internal(_proxy, _parentFullName, relativeName,
-          naming.join(_parentFullName, escape(relativeName) + batchSuffix));
+            naming.join(_parentFullName, escape(relativeName) + batchSuffix));
 
   // table returns a table with the given relativeName.
   SyncbaseTable table(String relativeName) {
@@ -137,18 +137,22 @@ class ExecStreamImpl implements mojom.ExecStream {
   }
 }
 
-class WatchGlobStreamImpl extends Object with StreamFlowControl
+class WatchGlobStreamImpl extends Object
+    with StreamFlowControl
     implements mojom.WatchGlobStream {
   final StreamController<mojom.WatchChange> sc;
 
   WatchGlobStreamImpl._fromStreamController(this.sc) {
-    setupFlowControl(this.sc);
+    initFlowControl(this.sc);
   }
 
-  Future<mojom.WatchGlobStreamOnChangeResponseParams> onChange(
-      mojom.WatchChange change, Function resultFactory) {
-
-    // Testing instrumentations for testing flow control.
+  Future onChange(mojom.WatchChange change, [Function newAck = null]) {
+    // NOTE(aghassemi): We need to make newAck optional to match mojo's
+    // define class, but newAck is always provided by mojo when called.
+    if (newAck == null) {
+      throw new ArgumentError('newAck can not be null');
+    }
+    // Testing instrumentation for testing flow control.
     if (testing.isTesting) {
       testing.DatabaseWatch.onChangeCounter.increment();
     }
@@ -156,13 +160,8 @@ class WatchGlobStreamImpl extends Object with StreamFlowControl
     sc.add(change);
 
     // Only ack after we get unlocked.
-    // If we are not locked, onNextUnlock completes immediately.
-    var ack = onNextUnlock().then((_) {
-
-      // Send an ack back to server.
-      return new Future.value(resultFactory(true));
-    });
-    return ack;
+    // If we are not locked, onNextUnlock returns immediately.
+    return onNextUnlock().then((_) => newAck());
   }
 
   // Called by the mojo proxy when the Go function call returns.

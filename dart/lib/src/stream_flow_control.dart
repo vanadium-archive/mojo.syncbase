@@ -4,17 +4,17 @@
 
 part of syncbase_client;
 
-// StreamFlowControl is a mixin that exposes methods setupFlowControl() and
+// StreamFlowControl is a mixin that exposes methods initFlowControl() and
 // onNextUnlock() to allow mixers add flow control to their stream controllers.
 class StreamFlowControl {
   // We are in "locked" state if and only if _mutex is not null.
   // We are locked by default until we gain the first subscriber.
-  Future _mutex = new Completer();
+  Completer _mutex = new Completer();
 
   // Setup flow control by adding listeners to the stream controller.
   // Mixin classes can't have constructors, so this is just a method that should
   // be called from mixer's constructor.
-  setupFlowControl(StreamController sc) {
+  initFlowControl(StreamController sc) {
     // Unlock when gaining the first subscriber.
     sc.onListen = _unlock;
     // Lock when losing the last subscriber.
