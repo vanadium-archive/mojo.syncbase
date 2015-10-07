@@ -18,11 +18,11 @@ runRowTests(SyncbaseClient c) {
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     var table = db.table(utils.uniqueName('table'));
 
-    var rowName = utils.uniqueName('row');
-    var row = table.row(rowName);
+    var rowKey = utils.uniqueName('row');
+    var row = table.row(rowKey);
 
-    expect(row.name, equals(rowName));
-    expect(row.fullName, equals(table.fullName + '/' + rowName));
+    expect(row.name, equals(rowKey));
+    expect(row.fullName, equals(table.fullName + '/' + rowKey));
   });
 
   test('putting, getting and deleting row', () async {

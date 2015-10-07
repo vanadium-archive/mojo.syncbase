@@ -308,13 +308,87 @@ class PrefixPerms extends bindings.Struct {
 }
 
 
+class SyncGroupPrefix extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(24, 0)
+  ];
+  String tableName = null;
+  String rowPrefix = null;
+
+  SyncGroupPrefix() : super(kVersions.last.size);
+
+  static SyncGroupPrefix deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncGroupPrefix decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncGroupPrefix result = new SyncGroupPrefix();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.tableName = decoder0.decodeString(8, false);
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.rowPrefix = decoder0.decodeString(16, false);
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeString(tableName, 8, false);
+    
+    encoder0.encodeString(rowPrefix, 16, false);
+  }
+
+  String toString() {
+    return "SyncGroupPrefix("
+           "tableName: $tableName" ", "
+           "rowPrefix: $rowPrefix" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["tableName"] = tableName;
+    map["rowPrefix"] = rowPrefix;
+    return map;
+  }
+}
+
+
 class SyncGroupSpec extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(48, 0)
   ];
   String description = null;
   Perms perms = null;
-  List<String> prefixes = null;
+  List<SyncGroupPrefix> prefixes = null;
   List<String> mountTables = null;
   bool isPrivate = false;
 
@@ -365,10 +439,11 @@ class SyncGroupSpec extends bindings.Struct {
       var decoder1 = decoder0.decodePointer(24, false);
       {
         var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
-        result.prefixes = new List<String>(si1.numElements);
+        result.prefixes = new List<SyncGroupPrefix>(si1.numElements);
         for (int i1 = 0; i1 < si1.numElements; ++i1) {
           
-          result.prefixes[i1] = decoder1.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+          var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+          result.prefixes[i1] = SyncGroupPrefix.decode(decoder2);
         }
       }
     }
@@ -404,7 +479,7 @@ class SyncGroupSpec extends bindings.Struct {
       var encoder1 = encoder0.encodePointerArray(prefixes.length, 24, bindings.kUnspecifiedArrayLength);
       for (int i0 = 0; i0 < prefixes.length; ++i0) {
         
-        encoder1.encodeString(prefixes[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+        encoder1.encodeStruct(prefixes[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
       }
     }
     
@@ -667,7 +742,7 @@ class WatchChange extends bindings.Struct {
     const bindings.StructDataHeader(48, 0)
   ];
   String tableName = null;
-  String rowName = null;
+  String rowKey = null;
   int changeType = 0;
   bool fromSync = false;
   bool continued = false;
@@ -713,7 +788,7 @@ class WatchChange extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      result.rowName = decoder0.decodeString(16, false);
+      result.rowKey = decoder0.decodeString(16, false);
     }
     if (mainDataHeader.version >= 0) {
       
@@ -743,7 +818,7 @@ class WatchChange extends bindings.Struct {
     
     encoder0.encodeString(tableName, 8, false);
     
-    encoder0.encodeString(rowName, 16, false);
+    encoder0.encodeString(rowKey, 16, false);
     
     encoder0.encodeUint32(changeType, 24);
     
@@ -759,7 +834,7 @@ class WatchChange extends bindings.Struct {
   String toString() {
     return "WatchChange("
            "tableName: $tableName" ", "
-           "rowName: $rowName" ", "
+           "rowKey: $rowKey" ", "
            "changeType: $changeType" ", "
            "fromSync: $fromSync" ", "
            "continued: $continued" ", "
@@ -770,7 +845,7 @@ class WatchChange extends bindings.Struct {
   Map toJson() {
     Map map = new Map();
     map["tableName"] = tableName;
-    map["rowName"] = rowName;
+    map["rowKey"] = rowKey;
     map["changeType"] = changeType;
     map["fromSync"] = fromSync;
     map["continued"] = continued;

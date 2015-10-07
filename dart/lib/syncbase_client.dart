@@ -15,7 +15,13 @@ import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 
 // Export struct types from syncbase.mojom.
 export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
-    show BatchOptions, Perms, SyncGroupMemberInfo, SyncGroupSpec, WatchChange;
+    show
+        BatchOptions,
+        Perms,
+        SyncGroupMemberInfo,
+        SyncGroupPrefix,
+        SyncGroupSpec,
+        WatchChange;
 
 part 'src/app.dart';
 part 'src/named_resource.dart';
@@ -85,6 +91,15 @@ class SyncbaseClient {
     return new mojom.SyncGroupMemberInfo()..syncPriority = syncPriority;
   }
 
+  // TODO(aghassemi): Here and elsewhere, make required parameters actually
+  // required (rather than optional).
+  static mojom.SyncGroupPrefix syncGroupPrefix(
+      {String tableName, String rowPrefix}) {
+    return new mojom.SyncGroupPrefix()
+      ..tableName = tableName
+      ..rowPrefix = rowPrefix;
+  }
+
   static mojom.SyncGroupSpec syncGroupSpec(
       {String description: '',
       bool isPrivate: false,
@@ -104,7 +119,7 @@ class SyncbaseClient {
 
   static mojom.WatchChange watchChange(
       {String tableName,
-      String rowName,
+      String rowKey,
       List<int> valueBytes,
       List<int> resumeMarker,
       int changeType,
@@ -113,8 +128,8 @@ class SyncbaseClient {
     if (tableName == null) {
       throw new ArgumentError('tableName must be specified');
     }
-    if (rowName == null) {
-      throw new ArgumentError('rowName must be specified');
+    if (rowKey == null) {
+      throw new ArgumentError('rowKey must be specified');
     }
     if (resumeMarker == null) {
       throw new ArgumentError('resumeMarker must be specified');
@@ -124,7 +139,7 @@ class SyncbaseClient {
     }
     return new mojom.WatchChange()
       ..tableName = tableName
-      ..rowName = rowName
+      ..rowKey = rowKey
       ..valueBytes = valueBytes ?? []
       ..resumeMarker = resumeMarker
       ..changeType = changeType

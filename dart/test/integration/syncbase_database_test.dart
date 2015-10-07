@@ -61,7 +61,7 @@ runDatabaseTests(SyncbaseClient c) {
     resumeMarker = await db.getResumeMarker();
     var expectedChange = SyncbaseClient.watchChange(
         tableName: table.name,
-        rowName: 'row2',
+        rowKey: 'row2',
         changeType: WatchChangeTypes.put,
         valueBytes: UTF8.encode('value2'),
         resumeMarker: resumeMarker);
@@ -71,7 +71,7 @@ runDatabaseTests(SyncbaseClient c) {
     resumeMarker = await db.getResumeMarker();
     expectedChange = SyncbaseClient.watchChange(
         tableName: table.name,
-        rowName: 'row2',
+        rowKey: 'row2',
         changeType: WatchChangeTypes.delete,
         resumeMarker: resumeMarker);
     expectedChanges.add(expectedChange);

@@ -44,22 +44,22 @@ runTableTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
     var table = db.table(utils.uniqueName('table'));
     await table.create(utils.emptyPerms());
-    var rowName = utils.uniqueName('row');
-    var row = table.row(rowName);
+    var rowKey = utils.uniqueName('row');
+    var row = table.row(rowKey);
 
     expect(await row.exists(), equals(false));
 
     var value1 = UTF8.encode('foo');
-    await table.put(rowName, value1);
+    await table.put(rowKey, value1);
 
     expect(await row.exists(), equals(true));
-    expect(await table.get(rowName), equals(value1));
+    expect(await table.get(rowKey), equals(value1));
 
     var value2 = UTF8.encode('bar');
-    await table.put(rowName, value2);
+    await table.put(rowKey, value2);
 
     expect(await row.exists(), equals(true));
-    expect(await table.get(rowName), equals(value2));
+    expect(await table.get(rowKey), equals(value2));
 
     await row.delete();
     expect(await row.exists(), equals(false));
@@ -74,14 +74,14 @@ runTableTests(SyncbaseClient c) {
     await table.create(utils.emptyPerms());
 
     // Put some rows.
-    var rowNames = [
+    var rowKeys = [
       utils.uniqueName('bar'),
       utils.uniqueName('fooA'),
       utils.uniqueName('fooB'),
     ];
 
-    for (var rowName in rowNames) {
-      var row = table.row(rowName);
+    for (var rowKey in rowKeys) {
+      var row = table.row(rowKey);
       await row.put(UTF8.encode(utils.uniqueName('value')));
     }
 
@@ -91,16 +91,16 @@ runTableTests(SyncbaseClient c) {
 
     var gotRows = await stream.toList();
     expect(gotRows, hasLength(2));
-    expect(gotRows[0].key, equals(rowNames[1]));
-    expect(gotRows[1].key, equals(rowNames[2]));
+    expect(gotRows[0].key, equals(rowKeys[1]));
+    expect(gotRows[1].key, equals(rowKeys[2]));
 
     // Scan for a single row
-    range = new RowRange.singleRow(rowNames[0]);
+    range = new RowRange.singleRow(rowKeys[0]);
     stream = table.scan(range);
 
     gotRows = await stream.toList();
     expect(gotRows, hasLength(1));
-    expect(gotRows[0].key, equals(rowNames[0]));
+    expect(gotRows[0].key, equals(rowKeys[0]));
 
     // Scan for everything
     range = new RowRange.prefix('');
@@ -108,9 +108,9 @@ runTableTests(SyncbaseClient c) {
 
     gotRows = await stream.toList();
     expect(gotRows, hasLength(3));
-    expect(gotRows[0].key, equals(rowNames[0]));
-    expect(gotRows[1].key, equals(rowNames[1]));
-    expect(gotRows[2].key, equals(rowNames[2]));
+    expect(gotRows[0].key, equals(rowKeys[0]));
+    expect(gotRows[1].key, equals(rowKeys[1]));
+    expect(gotRows[2].key, equals(rowKeys[2]));
   });
 
   test('deleting a range of rows', () async {
@@ -122,24 +122,24 @@ runTableTests(SyncbaseClient c) {
     await table.create(utils.emptyPerms());
 
     // Put some rows.
-    var rowNames = [
+    var rowKeys = [
       utils.uniqueName('toDeleteA'),
       utils.uniqueName('toDeleteB'),
       utils.uniqueName('notToDelete'),
     ];
 
-    for (var rowName in rowNames) {
-      var row = table.row(rowName);
+    for (var rowKey in rowKeys) {
+      var row = table.row(rowKey);
       await row.put(UTF8.encode(utils.uniqueName('value')));
     }
 
     await table.deleteRange(new RowRange.prefix('toDelete'));
 
     // toDeleteA and toDeleteB should not exist anymore.
-    expect(await table.row(rowNames[0]).exists(), equals(false));
-    expect(await table.row(rowNames[1]).exists(), equals(false));
+    expect(await table.row(rowKeys[0]).exists(), equals(false));
+    expect(await table.row(rowKeys[1]).exists(), equals(false));
 
     // notToDelete should still exist.
-    expect(await table.row(rowNames[2]).exists(), equals(true));
+    expect(await table.row(rowKeys[2]).exists(), equals(true));
   });
 }

@@ -30,10 +30,15 @@ struct PrefixPerms {
   Perms perms;
 };
 
+struct SyncGroupPrefix {
+  string table_name;
+  string row_prefix;
+};
+
 struct SyncGroupSpec {
   string description;
   Perms perms;
-  array<string> prefixes;
+  array<SyncGroupPrefix> prefixes;
   array<string> mount_tables;
   bool is_private;
 };
@@ -67,7 +72,7 @@ interface ScanStream {
 
 struct WatchChange {
   string table_name;
-  string row_name;
+  string row_key;
   uint32 change_type;
   array<uint8> value_bytes;
   array<uint8> resume_marker;
