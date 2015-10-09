@@ -7,7 +7,7 @@ library syncbase_syncgroup_test;
 import 'package:test/test.dart';
 
 import 'package:ether/syncbase_client.dart'
-    show SyncbaseClient, SyncgroupPrefix;
+    show SyncbaseClient, SyncgroupPrefix, SyncGroupSpec;
 
 import './utils.dart' as utils;
 
@@ -20,6 +20,41 @@ List<SyncgroupPrefix> mkPfxs(List<String> strs) {
         tableName: parts[0], rowPrefix: parts[1]));
   }
   return res;
+}
+
+// NOTE(nlacasse): It would be nice if we could override the == operator on
+// SyncgroupSpec so that checking for equality would "just work" without
+// needing this helper method.  Unfortunately those SyncgroupSpec is generated
+// from the mojom file, so there's no way to change its functionality without
+// wrapping, which I'd like to avoid.
+bool specsAreEqual(SyncGroupSpec s1, SyncGroupSpec s2) {
+  if (s1.description != s2.description) {
+    return false;
+  }
+  if (s1.prefixes.length != s2.prefixes.length) {
+    return false;
+  }
+
+  // Sort prefixes by tableName then rowPrefix.
+  int comparePrefixes(p1, p2) {
+    if (p1.tableName != p2.tableName) {
+      return p1.tableName.compareTo(p2.tableName);
+    }
+    return p1.rowPrefix.compareTo(p2.rowPrefix);
+  }
+
+  s1.prefixes.sort(comparePrefixes);
+  s2.prefixes.sort(comparePrefixes);
+
+  for (var i = 0; i < s1.prefixes.length; i++) {
+    if (s1.prefixes[i].tableName != s2.prefixes[i].tableName) {
+      return false;
+    }
+    if (s1.prefixes[i].rowPrefix != s2.prefixes[i].rowPrefix) {
+      return false;
+    }
+  }
+  return true;
 }
 
 runSyncgroupTests(SyncbaseClient c) {
@@ -130,8 +165,7 @@ runSyncgroupTests(SyncbaseClient c) {
     await sg.create(spec, myInfo);
 
     var gotSpec = await sg.getSpec();
-    expect(gotSpec.description, equals(spec.description));
-    expect(gotSpec.prefixes, equals(spec.prefixes));
+    expect(specsAreEqual(gotSpec, spec), isTrue);
 
     var newSpec = SyncbaseClient.syncgroupSpec(
         description: 'a totally new spec ${sgName}',
@@ -140,7 +174,6 @@ runSyncgroupTests(SyncbaseClient c) {
     await sg.setSpec(newSpec, '');
 
     var gotSpec2 = await sg.getSpec();
-    expect(gotSpec2.description, equals(newSpec.description));
-    expect(gotSpec2.prefixes, equals(newSpec.prefixes));
+    expect(specsAreEqual(gotSpec2, newSpec), isTrue);
   });
 }
