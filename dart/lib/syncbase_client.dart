@@ -91,21 +91,18 @@ class SyncbaseClient {
     return new mojom.SyncgroupMemberInfo()..syncPriority = syncPriority;
   }
 
-  // TODO(aghassemi): Here and elsewhere, make required parameters actually
-  // required (rather than optional).
   static mojom.SyncgroupPrefix syncgroupPrefix(
-      {String tableName, String rowPrefix}) {
+      String tableName, String rowPrefix) {
     return new mojom.SyncgroupPrefix()
       ..tableName = tableName
       ..rowPrefix = rowPrefix;
   }
 
-  static mojom.SyncgroupSpec syncgroupSpec(
+  static mojom.SyncgroupSpec syncgroupSpec(List<mojom.SyncgroupPrefix> prefixes,
       {String description: '',
       bool isPrivate: false,
-      mojom.Perms perms,
-      List<mojom.SyncgroupPrefix> prefixes,
-      List<String> mountTables}) {
+      mojom.Perms perms: null,
+      List<String> mountTables: null}) {
     if (prefixes == null) {
       throw new ArgumentError('prefixes must be specified');
     }
@@ -118,11 +115,8 @@ class SyncbaseClient {
   }
 
   static mojom.WatchChange watchChange(
-      {String tableName,
-      String rowKey,
-      List<int> valueBytes,
-      List<int> resumeMarker,
-      int changeType,
+      String tableName, String rowKey, List<int> resumeMarker, int changeType,
+      {List<int> valueBytes: null,
       bool fromSync: false,
       bool continued: false}) {
     if (tableName == null) {

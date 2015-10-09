@@ -60,20 +60,14 @@ runDatabaseTests(SyncbaseClient c) {
     await table.put('row2', UTF8.encode('value2'));
     resumeMarker = await db.getResumeMarker();
     var expectedChange = SyncbaseClient.watchChange(
-        tableName: table.name,
-        rowKey: 'row2',
-        changeType: WatchChangeTypes.put,
-        valueBytes: UTF8.encode('value2'),
-        resumeMarker: resumeMarker);
+        table.name, 'row2', resumeMarker, WatchChangeTypes.put,
+        valueBytes: UTF8.encode('value2'));
     expectedChanges.add(expectedChange);
 
     await table.delete('row2');
     resumeMarker = await db.getResumeMarker();
     expectedChange = SyncbaseClient.watchChange(
-        tableName: table.name,
-        rowKey: 'row2',
-        changeType: WatchChangeTypes.delete,
-        resumeMarker: resumeMarker);
+        table.name, 'row2', resumeMarker, WatchChangeTypes.delete);
     expectedChanges.add(expectedChange);
 
     // Ensure we see all the expected changes in order in the watch stream.

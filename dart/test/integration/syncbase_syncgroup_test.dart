@@ -16,8 +16,7 @@ List<SyncgroupPrefix> mkPfxs(List<String> strs) {
   for (var str in strs) {
     var parts = str.split(':');
     assert(parts.length == 2);
-    res.add(SyncbaseClient.syncgroupPrefix(
-        tableName: parts[0], rowPrefix: parts[1]));
+    res.add(SyncbaseClient.syncgroupPrefix(parts[0], parts[1]));
   }
   return res;
 }
@@ -77,7 +76,7 @@ runSyncgroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
     var sg = db.syncgroup(utils.uniqueName('sg'));
 
-    var emptySpec = SyncbaseClient.syncgroupSpec(prefixes: mkPfxs([]));
+    var emptySpec = SyncbaseClient.syncgroupSpec(mkPfxs([]));
     expect(sg.create(emptySpec, myInfo), throws);
   });
 
@@ -88,8 +87,8 @@ runSyncgroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
     var sg = db.syncgroup(utils.uniqueName('sg'));
 
-    var spec = SyncbaseClient.syncgroupSpec(
-        description: 'test syncgroup ${sg.name}', prefixes: mkPfxs(['t1:foo']));
+    var spec = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'test syncgroup ${sg.name}');
 
     await sg.create(spec, myInfo);
   });
@@ -103,8 +102,8 @@ runSyncgroupTests(SyncbaseClient c) {
     var sgName = utils.uniqueName('sg-/!@#%^&*():\$\x01\xfe');
     var sg = db.syncgroup(sgName);
 
-    var spec = SyncbaseClient.syncgroupSpec(
-        description: 'test syncgroup ${sgName}', prefixes: mkPfxs(['t1:foo']));
+    var spec = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'test syncgroup ${sgName}');
 
     await sg.create(spec, myInfo);
   });
@@ -116,16 +115,14 @@ runSyncgroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
 
     var sg1 = db.syncgroup(utils.uniqueName('sg'));
-    var spec1 = SyncbaseClient.syncgroupSpec(
-        description: 'test nested syncgroup ${sg1.name}',
-        prefixes: mkPfxs(['t1:foo']));
+    var spec1 = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'test nested syncgroup ${sg1.name}');
 
     await sg1.create(spec1, myInfo);
 
     var sg2 = db.syncgroup(utils.uniqueName('sg'));
-    var spec2 = SyncbaseClient.syncgroupSpec(
-        description: 'test nested syncgroup ${sg2.name}',
-        prefixes: mkPfxs(['t1:foo']));
+    var spec2 = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'test nested syncgroup ${sg2.name}');
 
     await sg2.create(spec2, myInfo);
   });
@@ -137,15 +134,14 @@ runSyncgroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
 
     var sgName = utils.uniqueName('sg');
-    var spec1 = SyncbaseClient.syncgroupSpec(
-        description: 'test syncgroup ${sgName}', prefixes: mkPfxs(['t1:foo']));
+    var spec1 = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'test syncgroup ${sgName}');
 
     var sg1 = db.syncgroup(sgName);
     await sg1.create(spec1, myInfo);
 
-    var spec2 = SyncbaseClient.syncgroupSpec(
-        description: 'another syncgroup ${sgName}',
-        prefixes: mkPfxs(['t2:bar']));
+    var spec2 = SyncbaseClient.syncgroupSpec(mkPfxs(['t2:bar']),
+        description: 'another syncgroup ${sgName}');
 
     var sg2 = db.syncgroup(sgName);
     expect(sg2.create(spec2, myInfo), throws);
@@ -159,17 +155,16 @@ runSyncgroupTests(SyncbaseClient c) {
     var sgName = utils.uniqueName('sg');
     var sg = db.syncgroup(sgName);
 
-    var spec = SyncbaseClient.syncgroupSpec(
-        description: 'test syncgroup ${sgName}', prefixes: mkPfxs(['t1:foo']));
+    var spec = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'test syncgroup ${sgName}');
 
     await sg.create(spec, myInfo);
 
     var gotSpec = await sg.getSpec();
     expect(specsAreEqual(gotSpec, spec), isTrue);
 
-    var newSpec = SyncbaseClient.syncgroupSpec(
-        description: 'a totally new spec ${sgName}',
-        prefixes: mkPfxs(['t1:foo']));
+    var newSpec = SyncbaseClient.syncgroupSpec(mkPfxs(['t1:foo']),
+        description: 'a totally new spec ${sgName}');
 
     await sg.setSpec(newSpec, '');
 
