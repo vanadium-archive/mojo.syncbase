@@ -18,9 +18,9 @@ export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
     show
         BatchOptions,
         Perms,
-        SyncGroupMemberInfo,
-        SyncGroupPrefix,
-        SyncGroupSpec,
+        SyncgroupMemberInfo,
+        SyncgroupPrefix,
+        SyncgroupSpec,
         WatchChange;
 
 part 'src/app.dart';
@@ -87,20 +87,20 @@ class SyncbaseClient {
     return new mojom.Perms()..json = json;
   }
 
-  static mojom.SyncGroupMemberInfo syncGroupMemberInfo({int syncPriority: 0}) {
-    return new mojom.SyncGroupMemberInfo()..syncPriority = syncPriority;
+  static mojom.SyncgroupMemberInfo syncgroupMemberInfo({int syncPriority: 0}) {
+    return new mojom.SyncgroupMemberInfo()..syncPriority = syncPriority;
   }
 
   // TODO(aghassemi): Here and elsewhere, make required parameters actually
   // required (rather than optional).
-  static mojom.SyncGroupPrefix syncGroupPrefix(
+  static mojom.SyncgroupPrefix syncgroupPrefix(
       {String tableName, String rowPrefix}) {
-    return new mojom.SyncGroupPrefix()
+    return new mojom.SyncgroupPrefix()
       ..tableName = tableName
       ..rowPrefix = rowPrefix;
   }
 
-  static mojom.SyncGroupSpec syncGroupSpec(
+  static mojom.SyncgroupSpec syncgroupSpec(
       {String description: '',
       bool isPrivate: false,
       mojom.Perms perms,
@@ -109,7 +109,7 @@ class SyncbaseClient {
     if (prefixes == null) {
       throw new ArgumentError('prefixes must be specified');
     }
-    return new mojom.SyncGroupSpec()
+    return new mojom.SyncgroupSpec()
       ..description = description
       ..isPrivate = isPrivate
       ..perms = perms ?? SyncbaseClient.perms()

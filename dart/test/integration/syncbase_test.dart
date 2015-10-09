@@ -16,7 +16,7 @@ import 'package:ether/syncbase_client.dart' show SyncbaseClient;
 import './syncbase_app_test.dart' show runAppTests;
 import './syncbase_database_test.dart' show runDatabaseTests;
 import './syncbase_row_test.dart' show runRowTests;
-import './syncbase_syncgroup_test.dart' show runSyncGroupTests;
+import './syncbase_syncgroup_test.dart' show runSyncgroupTests;
 import './syncbase_table_test.dart' show runTableTests;
 
 main(List args) async {
@@ -36,7 +36,7 @@ main(List args) async {
   // Run imported tests.
   runAppTests(c);
   runDatabaseTests(c);
-  runSyncGroupTests(c);
+  runSyncgroupTests(c);
   runTableTests(c);
   runRowTests(c);
 

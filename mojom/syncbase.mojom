@@ -30,20 +30,20 @@ struct PrefixPerms {
   Perms perms;
 };
 
-struct SyncGroupPrefix {
+struct SyncgroupPrefix {
   string table_name;
   string row_prefix;
 };
 
-struct SyncGroupSpec {
+struct SyncgroupSpec {
   string description;
   Perms perms;
-  array<SyncGroupPrefix> prefixes;
+  array<SyncgroupPrefix> prefixes;
   array<string> mount_tables;
   bool is_private;
 };
 
-struct SyncGroupMemberInfo {
+struct SyncgroupMemberInfo {
   uint8 sync_priority;
 };
 
@@ -137,26 +137,26 @@ interface Syncbase {
   // methods.
 
   ////////////////////////////////////////
-  // nosql.Database:SyncGroupManager
+  // nosql.Database:SyncgroupManager
 
-  DbGetSyncGroupNames(string name) => (Error err, array<string> names);
-  DbCreateSyncGroup(
-      string name, string sg_name, SyncGroupSpec spec,
-      SyncGroupMemberInfo my_info)
+  DbGetSyncgroupNames(string name) => (Error err, array<string> names);
+  DbCreateSyncgroup(
+      string name, string sg_name, SyncgroupSpec spec,
+      SyncgroupMemberInfo my_info)
       => (Error err);
-  DbJoinSyncGroup(string name, string sg_name, SyncGroupMemberInfo my_info)
-      => (Error err, SyncGroupSpec spec);
-  DbLeaveSyncGroup(string name, string sg_name) => (Error err);
-  DbDestroySyncGroup(string name, string sg_name) => (Error err);
-  DbEjectFromSyncGroup(string name, string sg_name, string member)
+  DbJoinSyncgroup(string name, string sg_name, SyncgroupMemberInfo my_info)
+      => (Error err, SyncgroupSpec spec);
+  DbLeaveSyncgroup(string name, string sg_name) => (Error err);
+  DbDestroySyncgroup(string name, string sg_name) => (Error err);
+  DbEjectFromSyncgroup(string name, string sg_name, string member)
       => (Error err);
-  DbGetSyncGroupSpec(string name, string sg_name)
-      => (Error err, SyncGroupSpec spec, string version);
-  DbSetSyncGroupSpec(
-      string name, string sg_name, SyncGroupSpec spec, string version)
+  DbGetSyncgroupSpec(string name, string sg_name)
+      => (Error err, SyncgroupSpec spec, string version);
+  DbSetSyncgroupSpec(
+      string name, string sg_name, SyncgroupSpec spec, string version)
       => (Error err);
-  DbGetSyncGroupMembers(string name, string sg_name)
-      => (Error err, map<string, SyncGroupMemberInfo> infos);
+  DbGetSyncgroupMembers(string name, string sg_name)
+      => (Error err, map<string, SyncgroupMemberInfo> infos);
 
   ////////////////////////////////////////
   // nosql.Table

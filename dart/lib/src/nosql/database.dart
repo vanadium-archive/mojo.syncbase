@@ -16,13 +16,13 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     return new SyncbaseTable._internal(_proxy, fullName, relativeName);
   }
 
-  // syncGroup returns a syncGroup with the given name.
-  SyncbaseSyncGroup syncGroup(String name) {
-    return new SyncbaseSyncGroup._internal(_proxy, this.fullName, name);
+  // syncgroup returns a syncgroup with the given name.
+  SyncbaseSyncgroup syncgroup(String name) {
+    return new SyncbaseSyncgroup._internal(_proxy, this.fullName, name);
   }
 
-  Future<List<String>> getSyncGroupNames() async {
-    var v = await _proxy.ptr.dbGetSyncGroupNames(fullName);
+  Future<List<String>> getSyncgroupNames() async {
+    var v = await _proxy.ptr.dbGetSyncgroupNames(fullName);
     if (isError(v.err)) throw v.err;
     return v.names;
   }

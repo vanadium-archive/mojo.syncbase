@@ -308,27 +308,27 @@ class PrefixPerms extends bindings.Struct {
 }
 
 
-class SyncGroupPrefix extends bindings.Struct {
+class SyncgroupPrefix extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String tableName = null;
   String rowPrefix = null;
 
-  SyncGroupPrefix() : super(kVersions.last.size);
+  SyncgroupPrefix() : super(kVersions.last.size);
 
-  static SyncGroupPrefix deserialize(bindings.Message message) {
+  static SyncgroupPrefix deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncGroupPrefix decode(bindings.Decoder decoder0) {
+  static SyncgroupPrefix decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncGroupPrefix result = new SyncGroupPrefix();
+    SyncgroupPrefix result = new SyncgroupPrefix();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -368,7 +368,7 @@ class SyncGroupPrefix extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncGroupPrefix("
+    return "SyncgroupPrefix("
            "tableName: $tableName" ", "
            "rowPrefix: $rowPrefix" ")";
   }
@@ -382,30 +382,30 @@ class SyncGroupPrefix extends bindings.Struct {
 }
 
 
-class SyncGroupSpec extends bindings.Struct {
+class SyncgroupSpec extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(48, 0)
   ];
   String description = null;
   Perms perms = null;
-  List<SyncGroupPrefix> prefixes = null;
+  List<SyncgroupPrefix> prefixes = null;
   List<String> mountTables = null;
   bool isPrivate = false;
 
-  SyncGroupSpec() : super(kVersions.last.size);
+  SyncgroupSpec() : super(kVersions.last.size);
 
-  static SyncGroupSpec deserialize(bindings.Message message) {
+  static SyncgroupSpec deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncGroupSpec decode(bindings.Decoder decoder0) {
+  static SyncgroupSpec decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncGroupSpec result = new SyncGroupSpec();
+    SyncgroupSpec result = new SyncgroupSpec();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -439,11 +439,11 @@ class SyncGroupSpec extends bindings.Struct {
       var decoder1 = decoder0.decodePointer(24, false);
       {
         var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
-        result.prefixes = new List<SyncGroupPrefix>(si1.numElements);
+        result.prefixes = new List<SyncgroupPrefix>(si1.numElements);
         for (int i1 = 0; i1 < si1.numElements; ++i1) {
           
           var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
-          result.prefixes[i1] = SyncGroupPrefix.decode(decoder2);
+          result.prefixes[i1] = SyncgroupPrefix.decode(decoder2);
         }
       }
     }
@@ -497,7 +497,7 @@ class SyncGroupSpec extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncGroupSpec("
+    return "SyncgroupSpec("
            "description: $description" ", "
            "perms: $perms" ", "
            "prefixes: $prefixes" ", "
@@ -517,26 +517,26 @@ class SyncGroupSpec extends bindings.Struct {
 }
 
 
-class SyncGroupMemberInfo extends bindings.Struct {
+class SyncgroupMemberInfo extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   int syncPriority = 0;
 
-  SyncGroupMemberInfo() : super(kVersions.last.size);
+  SyncgroupMemberInfo() : super(kVersions.last.size);
 
-  static SyncGroupMemberInfo deserialize(bindings.Message message) {
+  static SyncgroupMemberInfo deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncGroupMemberInfo decode(bindings.Decoder decoder0) {
+  static SyncgroupMemberInfo decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncGroupMemberInfo result = new SyncGroupMemberInfo();
+    SyncgroupMemberInfo result = new SyncgroupMemberInfo();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -570,7 +570,7 @@ class SyncGroupMemberInfo extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncGroupMemberInfo("
+    return "SyncgroupMemberInfo("
            "syncPriority: $syncPriority" ")";
   }
 
@@ -4045,26 +4045,26 @@ class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbGetSyncGroupNamesParams extends bindings.Struct {
+class SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   String name = null;
 
-  SyncbaseDbGetSyncGroupNamesParams() : super(kVersions.last.size);
+  SyncbaseDbGetSyncgroupNamesParams() : super(kVersions.last.size);
 
-  static SyncbaseDbGetSyncGroupNamesParams deserialize(bindings.Message message) {
+  static SyncbaseDbGetSyncgroupNamesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbGetSyncGroupNamesParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbGetSyncgroupNamesParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbGetSyncGroupNamesParams result = new SyncbaseDbGetSyncGroupNamesParams();
+    SyncbaseDbGetSyncgroupNamesParams result = new SyncbaseDbGetSyncgroupNamesParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4098,7 +4098,7 @@ class SyncbaseDbGetSyncGroupNamesParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbGetSyncGroupNamesParams("
+    return "SyncbaseDbGetSyncgroupNamesParams("
            "name: $name" ")";
   }
 
@@ -4110,27 +4110,27 @@ class SyncbaseDbGetSyncGroupNamesParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbGetSyncGroupNamesResponseParams extends bindings.Struct {
+class SyncbaseDbGetSyncgroupNamesResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   Error err = null;
   List<String> names = null;
 
-  SyncbaseDbGetSyncGroupNamesResponseParams() : super(kVersions.last.size);
+  SyncbaseDbGetSyncgroupNamesResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbGetSyncGroupNamesResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbGetSyncgroupNamesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbGetSyncGroupNamesResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbGetSyncgroupNamesResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbGetSyncGroupNamesResponseParams result = new SyncbaseDbGetSyncGroupNamesResponseParams();
+    SyncbaseDbGetSyncgroupNamesResponseParams result = new SyncbaseDbGetSyncgroupNamesResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4187,7 +4187,7 @@ class SyncbaseDbGetSyncGroupNamesResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbGetSyncGroupNamesResponseParams("
+    return "SyncbaseDbGetSyncgroupNamesResponseParams("
            "err: $err" ", "
            "names: $names" ")";
   }
@@ -4201,29 +4201,29 @@ class SyncbaseDbGetSyncGroupNamesResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbCreateSyncGroupParams extends bindings.Struct {
+class SyncbaseDbCreateSyncgroupParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(40, 0)
   ];
   String name = null;
   String sgName = null;
-  SyncGroupSpec spec = null;
-  SyncGroupMemberInfo myInfo = null;
+  SyncgroupSpec spec = null;
+  SyncgroupMemberInfo myInfo = null;
 
-  SyncbaseDbCreateSyncGroupParams() : super(kVersions.last.size);
+  SyncbaseDbCreateSyncgroupParams() : super(kVersions.last.size);
 
-  static SyncbaseDbCreateSyncGroupParams deserialize(bindings.Message message) {
+  static SyncbaseDbCreateSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbCreateSyncGroupParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbCreateSyncgroupParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbCreateSyncGroupParams result = new SyncbaseDbCreateSyncGroupParams();
+    SyncbaseDbCreateSyncgroupParams result = new SyncbaseDbCreateSyncgroupParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4254,12 +4254,12 @@ class SyncbaseDbCreateSyncGroupParams extends bindings.Struct {
     if (mainDataHeader.version >= 0) {
       
       var decoder1 = decoder0.decodePointer(24, false);
-      result.spec = SyncGroupSpec.decode(decoder1);
+      result.spec = SyncgroupSpec.decode(decoder1);
     }
     if (mainDataHeader.version >= 0) {
       
       var decoder1 = decoder0.decodePointer(32, false);
-      result.myInfo = SyncGroupMemberInfo.decode(decoder1);
+      result.myInfo = SyncgroupMemberInfo.decode(decoder1);
     }
     return result;
   }
@@ -4277,7 +4277,7 @@ class SyncbaseDbCreateSyncGroupParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbCreateSyncGroupParams("
+    return "SyncbaseDbCreateSyncgroupParams("
            "name: $name" ", "
            "sgName: $sgName" ", "
            "spec: $spec" ", "
@@ -4295,26 +4295,26 @@ class SyncbaseDbCreateSyncGroupParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbCreateSyncGroupResponseParams extends bindings.Struct {
+class SyncbaseDbCreateSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   Error err = null;
 
-  SyncbaseDbCreateSyncGroupResponseParams() : super(kVersions.last.size);
+  SyncbaseDbCreateSyncgroupResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbCreateSyncGroupResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbCreateSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbCreateSyncGroupResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbCreateSyncgroupResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbCreateSyncGroupResponseParams result = new SyncbaseDbCreateSyncGroupResponseParams();
+    SyncbaseDbCreateSyncgroupResponseParams result = new SyncbaseDbCreateSyncgroupResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4349,7 +4349,7 @@ class SyncbaseDbCreateSyncGroupResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbCreateSyncGroupResponseParams("
+    return "SyncbaseDbCreateSyncgroupResponseParams("
            "err: $err" ")";
   }
 
@@ -4361,28 +4361,28 @@ class SyncbaseDbCreateSyncGroupResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbJoinSyncGroupParams extends bindings.Struct {
+class SyncbaseDbJoinSyncgroupParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
   ];
   String name = null;
   String sgName = null;
-  SyncGroupMemberInfo myInfo = null;
+  SyncgroupMemberInfo myInfo = null;
 
-  SyncbaseDbJoinSyncGroupParams() : super(kVersions.last.size);
+  SyncbaseDbJoinSyncgroupParams() : super(kVersions.last.size);
 
-  static SyncbaseDbJoinSyncGroupParams deserialize(bindings.Message message) {
+  static SyncbaseDbJoinSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbJoinSyncGroupParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbJoinSyncgroupParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbJoinSyncGroupParams result = new SyncbaseDbJoinSyncGroupParams();
+    SyncbaseDbJoinSyncgroupParams result = new SyncbaseDbJoinSyncgroupParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4413,7 +4413,7 @@ class SyncbaseDbJoinSyncGroupParams extends bindings.Struct {
     if (mainDataHeader.version >= 0) {
       
       var decoder1 = decoder0.decodePointer(24, false);
-      result.myInfo = SyncGroupMemberInfo.decode(decoder1);
+      result.myInfo = SyncgroupMemberInfo.decode(decoder1);
     }
     return result;
   }
@@ -4429,7 +4429,7 @@ class SyncbaseDbJoinSyncGroupParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbJoinSyncGroupParams("
+    return "SyncbaseDbJoinSyncgroupParams("
            "name: $name" ", "
            "sgName: $sgName" ", "
            "myInfo: $myInfo" ")";
@@ -4445,27 +4445,27 @@ class SyncbaseDbJoinSyncGroupParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
+class SyncbaseDbJoinSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   Error err = null;
-  SyncGroupSpec spec = null;
+  SyncgroupSpec spec = null;
 
-  SyncbaseDbJoinSyncGroupResponseParams() : super(kVersions.last.size);
+  SyncbaseDbJoinSyncgroupResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbJoinSyncGroupResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbJoinSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbJoinSyncGroupResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbJoinSyncgroupResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbJoinSyncGroupResponseParams result = new SyncbaseDbJoinSyncGroupResponseParams();
+    SyncbaseDbJoinSyncgroupResponseParams result = new SyncbaseDbJoinSyncgroupResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4493,7 +4493,7 @@ class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
     if (mainDataHeader.version >= 0) {
       
       var decoder1 = decoder0.decodePointer(16, false);
-      result.spec = SyncGroupSpec.decode(decoder1);
+      result.spec = SyncgroupSpec.decode(decoder1);
     }
     return result;
   }
@@ -4507,7 +4507,7 @@ class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbJoinSyncGroupResponseParams("
+    return "SyncbaseDbJoinSyncgroupResponseParams("
            "err: $err" ", "
            "spec: $spec" ")";
   }
@@ -4521,27 +4521,27 @@ class SyncbaseDbJoinSyncGroupResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbLeaveSyncGroupParams extends bindings.Struct {
+class SyncbaseDbLeaveSyncgroupParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String name = null;
   String sgName = null;
 
-  SyncbaseDbLeaveSyncGroupParams() : super(kVersions.last.size);
+  SyncbaseDbLeaveSyncgroupParams() : super(kVersions.last.size);
 
-  static SyncbaseDbLeaveSyncGroupParams deserialize(bindings.Message message) {
+  static SyncbaseDbLeaveSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbLeaveSyncGroupParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbLeaveSyncgroupParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbLeaveSyncGroupParams result = new SyncbaseDbLeaveSyncGroupParams();
+    SyncbaseDbLeaveSyncgroupParams result = new SyncbaseDbLeaveSyncgroupParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4581,7 +4581,7 @@ class SyncbaseDbLeaveSyncGroupParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbLeaveSyncGroupParams("
+    return "SyncbaseDbLeaveSyncgroupParams("
            "name: $name" ", "
            "sgName: $sgName" ")";
   }
@@ -4595,26 +4595,26 @@ class SyncbaseDbLeaveSyncGroupParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbLeaveSyncGroupResponseParams extends bindings.Struct {
+class SyncbaseDbLeaveSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   Error err = null;
 
-  SyncbaseDbLeaveSyncGroupResponseParams() : super(kVersions.last.size);
+  SyncbaseDbLeaveSyncgroupResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbLeaveSyncGroupResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbLeaveSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbLeaveSyncGroupResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbLeaveSyncgroupResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbLeaveSyncGroupResponseParams result = new SyncbaseDbLeaveSyncGroupResponseParams();
+    SyncbaseDbLeaveSyncgroupResponseParams result = new SyncbaseDbLeaveSyncgroupResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4649,7 +4649,7 @@ class SyncbaseDbLeaveSyncGroupResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbLeaveSyncGroupResponseParams("
+    return "SyncbaseDbLeaveSyncgroupResponseParams("
            "err: $err" ")";
   }
 
@@ -4661,27 +4661,27 @@ class SyncbaseDbLeaveSyncGroupResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbDestroySyncGroupParams extends bindings.Struct {
+class SyncbaseDbDestroySyncgroupParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String name = null;
   String sgName = null;
 
-  SyncbaseDbDestroySyncGroupParams() : super(kVersions.last.size);
+  SyncbaseDbDestroySyncgroupParams() : super(kVersions.last.size);
 
-  static SyncbaseDbDestroySyncGroupParams deserialize(bindings.Message message) {
+  static SyncbaseDbDestroySyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbDestroySyncGroupParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbDestroySyncgroupParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbDestroySyncGroupParams result = new SyncbaseDbDestroySyncGroupParams();
+    SyncbaseDbDestroySyncgroupParams result = new SyncbaseDbDestroySyncgroupParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4721,7 +4721,7 @@ class SyncbaseDbDestroySyncGroupParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbDestroySyncGroupParams("
+    return "SyncbaseDbDestroySyncgroupParams("
            "name: $name" ", "
            "sgName: $sgName" ")";
   }
@@ -4735,26 +4735,26 @@ class SyncbaseDbDestroySyncGroupParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbDestroySyncGroupResponseParams extends bindings.Struct {
+class SyncbaseDbDestroySyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   Error err = null;
 
-  SyncbaseDbDestroySyncGroupResponseParams() : super(kVersions.last.size);
+  SyncbaseDbDestroySyncgroupResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbDestroySyncGroupResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbDestroySyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbDestroySyncGroupResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbDestroySyncgroupResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbDestroySyncGroupResponseParams result = new SyncbaseDbDestroySyncGroupResponseParams();
+    SyncbaseDbDestroySyncgroupResponseParams result = new SyncbaseDbDestroySyncgroupResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4789,7 +4789,7 @@ class SyncbaseDbDestroySyncGroupResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbDestroySyncGroupResponseParams("
+    return "SyncbaseDbDestroySyncgroupResponseParams("
            "err: $err" ")";
   }
 
@@ -4801,7 +4801,7 @@ class SyncbaseDbDestroySyncGroupResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbEjectFromSyncGroupParams extends bindings.Struct {
+class SyncbaseDbEjectFromSyncgroupParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
   ];
@@ -4809,20 +4809,20 @@ class SyncbaseDbEjectFromSyncGroupParams extends bindings.Struct {
   String sgName = null;
   String member = null;
 
-  SyncbaseDbEjectFromSyncGroupParams() : super(kVersions.last.size);
+  SyncbaseDbEjectFromSyncgroupParams() : super(kVersions.last.size);
 
-  static SyncbaseDbEjectFromSyncGroupParams deserialize(bindings.Message message) {
+  static SyncbaseDbEjectFromSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbEjectFromSyncGroupParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbEjectFromSyncgroupParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbEjectFromSyncGroupParams result = new SyncbaseDbEjectFromSyncGroupParams();
+    SyncbaseDbEjectFromSyncgroupParams result = new SyncbaseDbEjectFromSyncgroupParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4868,7 +4868,7 @@ class SyncbaseDbEjectFromSyncGroupParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbEjectFromSyncGroupParams("
+    return "SyncbaseDbEjectFromSyncgroupParams("
            "name: $name" ", "
            "sgName: $sgName" ", "
            "member: $member" ")";
@@ -4884,26 +4884,26 @@ class SyncbaseDbEjectFromSyncGroupParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbEjectFromSyncGroupResponseParams extends bindings.Struct {
+class SyncbaseDbEjectFromSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   Error err = null;
 
-  SyncbaseDbEjectFromSyncGroupResponseParams() : super(kVersions.last.size);
+  SyncbaseDbEjectFromSyncgroupResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbEjectFromSyncGroupResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbEjectFromSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbEjectFromSyncGroupResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbEjectFromSyncgroupResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbEjectFromSyncGroupResponseParams result = new SyncbaseDbEjectFromSyncGroupResponseParams();
+    SyncbaseDbEjectFromSyncgroupResponseParams result = new SyncbaseDbEjectFromSyncgroupResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -4938,7 +4938,7 @@ class SyncbaseDbEjectFromSyncGroupResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbEjectFromSyncGroupResponseParams("
+    return "SyncbaseDbEjectFromSyncgroupResponseParams("
            "err: $err" ")";
   }
 
@@ -4950,27 +4950,27 @@ class SyncbaseDbEjectFromSyncGroupResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbGetSyncGroupSpecParams extends bindings.Struct {
+class SyncbaseDbGetSyncgroupSpecParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String name = null;
   String sgName = null;
 
-  SyncbaseDbGetSyncGroupSpecParams() : super(kVersions.last.size);
+  SyncbaseDbGetSyncgroupSpecParams() : super(kVersions.last.size);
 
-  static SyncbaseDbGetSyncGroupSpecParams deserialize(bindings.Message message) {
+  static SyncbaseDbGetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbGetSyncGroupSpecParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbGetSyncgroupSpecParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbGetSyncGroupSpecParams result = new SyncbaseDbGetSyncGroupSpecParams();
+    SyncbaseDbGetSyncgroupSpecParams result = new SyncbaseDbGetSyncgroupSpecParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -5010,7 +5010,7 @@ class SyncbaseDbGetSyncGroupSpecParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbGetSyncGroupSpecParams("
+    return "SyncbaseDbGetSyncgroupSpecParams("
            "name: $name" ", "
            "sgName: $sgName" ")";
   }
@@ -5024,28 +5024,28 @@ class SyncbaseDbGetSyncGroupSpecParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbGetSyncGroupSpecResponseParams extends bindings.Struct {
+class SyncbaseDbGetSyncgroupSpecResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
   ];
   Error err = null;
-  SyncGroupSpec spec = null;
+  SyncgroupSpec spec = null;
   String version = null;
 
-  SyncbaseDbGetSyncGroupSpecResponseParams() : super(kVersions.last.size);
+  SyncbaseDbGetSyncgroupSpecResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbGetSyncGroupSpecResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbGetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbGetSyncGroupSpecResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbGetSyncgroupSpecResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbGetSyncGroupSpecResponseParams result = new SyncbaseDbGetSyncGroupSpecResponseParams();
+    SyncbaseDbGetSyncgroupSpecResponseParams result = new SyncbaseDbGetSyncgroupSpecResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -5073,7 +5073,7 @@ class SyncbaseDbGetSyncGroupSpecResponseParams extends bindings.Struct {
     if (mainDataHeader.version >= 0) {
       
       var decoder1 = decoder0.decodePointer(16, false);
-      result.spec = SyncGroupSpec.decode(decoder1);
+      result.spec = SyncgroupSpec.decode(decoder1);
     }
     if (mainDataHeader.version >= 0) {
       
@@ -5093,7 +5093,7 @@ class SyncbaseDbGetSyncGroupSpecResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbGetSyncGroupSpecResponseParams("
+    return "SyncbaseDbGetSyncgroupSpecResponseParams("
            "err: $err" ", "
            "spec: $spec" ", "
            "version: $version" ")";
@@ -5109,29 +5109,29 @@ class SyncbaseDbGetSyncGroupSpecResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbSetSyncGroupSpecParams extends bindings.Struct {
+class SyncbaseDbSetSyncgroupSpecParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(40, 0)
   ];
   String name = null;
   String sgName = null;
-  SyncGroupSpec spec = null;
+  SyncgroupSpec spec = null;
   String version = null;
 
-  SyncbaseDbSetSyncGroupSpecParams() : super(kVersions.last.size);
+  SyncbaseDbSetSyncgroupSpecParams() : super(kVersions.last.size);
 
-  static SyncbaseDbSetSyncGroupSpecParams deserialize(bindings.Message message) {
+  static SyncbaseDbSetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbSetSyncGroupSpecParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbSetSyncgroupSpecParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbSetSyncGroupSpecParams result = new SyncbaseDbSetSyncGroupSpecParams();
+    SyncbaseDbSetSyncgroupSpecParams result = new SyncbaseDbSetSyncgroupSpecParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -5162,7 +5162,7 @@ class SyncbaseDbSetSyncGroupSpecParams extends bindings.Struct {
     if (mainDataHeader.version >= 0) {
       
       var decoder1 = decoder0.decodePointer(24, false);
-      result.spec = SyncGroupSpec.decode(decoder1);
+      result.spec = SyncgroupSpec.decode(decoder1);
     }
     if (mainDataHeader.version >= 0) {
       
@@ -5184,7 +5184,7 @@ class SyncbaseDbSetSyncGroupSpecParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbSetSyncGroupSpecParams("
+    return "SyncbaseDbSetSyncgroupSpecParams("
            "name: $name" ", "
            "sgName: $sgName" ", "
            "spec: $spec" ", "
@@ -5202,26 +5202,26 @@ class SyncbaseDbSetSyncGroupSpecParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbSetSyncGroupSpecResponseParams extends bindings.Struct {
+class SyncbaseDbSetSyncgroupSpecResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
   ];
   Error err = null;
 
-  SyncbaseDbSetSyncGroupSpecResponseParams() : super(kVersions.last.size);
+  SyncbaseDbSetSyncgroupSpecResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbSetSyncGroupSpecResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbSetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbSetSyncGroupSpecResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbSetSyncgroupSpecResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbSetSyncGroupSpecResponseParams result = new SyncbaseDbSetSyncGroupSpecResponseParams();
+    SyncbaseDbSetSyncgroupSpecResponseParams result = new SyncbaseDbSetSyncgroupSpecResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -5256,7 +5256,7 @@ class SyncbaseDbSetSyncGroupSpecResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbSetSyncGroupSpecResponseParams("
+    return "SyncbaseDbSetSyncgroupSpecResponseParams("
            "err: $err" ")";
   }
 
@@ -5268,27 +5268,27 @@ class SyncbaseDbSetSyncGroupSpecResponseParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbGetSyncGroupMembersParams extends bindings.Struct {
+class SyncbaseDbGetSyncgroupMembersParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String name = null;
   String sgName = null;
 
-  SyncbaseDbGetSyncGroupMembersParams() : super(kVersions.last.size);
+  SyncbaseDbGetSyncgroupMembersParams() : super(kVersions.last.size);
 
-  static SyncbaseDbGetSyncGroupMembersParams deserialize(bindings.Message message) {
+  static SyncbaseDbGetSyncgroupMembersParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbGetSyncGroupMembersParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbGetSyncgroupMembersParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbGetSyncGroupMembersParams result = new SyncbaseDbGetSyncGroupMembersParams();
+    SyncbaseDbGetSyncgroupMembersParams result = new SyncbaseDbGetSyncgroupMembersParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -5328,7 +5328,7 @@ class SyncbaseDbGetSyncGroupMembersParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbGetSyncGroupMembersParams("
+    return "SyncbaseDbGetSyncgroupMembersParams("
            "name: $name" ", "
            "sgName: $sgName" ")";
   }
@@ -5342,27 +5342,27 @@ class SyncbaseDbGetSyncGroupMembersParams extends bindings.Struct {
 }
 
 
-class SyncbaseDbGetSyncGroupMembersResponseParams extends bindings.Struct {
+class SyncbaseDbGetSyncgroupMembersResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   Error err = null;
-  Map<String, SyncGroupMemberInfo> infos = null;
+  Map<String, SyncgroupMemberInfo> infos = null;
 
-  SyncbaseDbGetSyncGroupMembersResponseParams() : super(kVersions.last.size);
+  SyncbaseDbGetSyncgroupMembersResponseParams() : super(kVersions.last.size);
 
-  static SyncbaseDbGetSyncGroupMembersResponseParams deserialize(bindings.Message message) {
+  static SyncbaseDbGetSyncgroupMembersResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncbaseDbGetSyncGroupMembersResponseParams decode(bindings.Decoder decoder0) {
+  static SyncbaseDbGetSyncgroupMembersResponseParams decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncbaseDbGetSyncGroupMembersResponseParams result = new SyncbaseDbGetSyncGroupMembersResponseParams();
+    SyncbaseDbGetSyncgroupMembersResponseParams result = new SyncbaseDbGetSyncgroupMembersResponseParams();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -5393,7 +5393,7 @@ class SyncbaseDbGetSyncGroupMembersResponseParams extends bindings.Struct {
       {
         decoder1.decodeDataHeaderForMap();
         List<String> keys0;
-        List<SyncGroupMemberInfo> values0;
+        List<SyncgroupMemberInfo> values0;
         {
           
           var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize, false);
@@ -5411,15 +5411,15 @@ class SyncbaseDbGetSyncGroupMembersResponseParams extends bindings.Struct {
           var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize, false);
           {
             var si2 = decoder2.decodeDataHeaderForPointerArray(keys0.length);
-            values0 = new List<SyncGroupMemberInfo>(si2.numElements);
+            values0 = new List<SyncgroupMemberInfo>(si2.numElements);
             for (int i2 = 0; i2 < si2.numElements; ++i2) {
               
               var decoder3 = decoder2.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i2, false);
-              values0[i2] = SyncGroupMemberInfo.decode(decoder3);
+              values0[i2] = SyncgroupMemberInfo.decode(decoder3);
             }
           }
         }
-        result.infos = new Map<String, SyncGroupMemberInfo>.fromIterables(
+        result.infos = new Map<String, SyncgroupMemberInfo>.fromIterables(
             keys0, values0);
       }
     }
@@ -5458,7 +5458,7 @@ class SyncbaseDbGetSyncGroupMembersResponseParams extends bindings.Struct {
   }
 
   String toString() {
-    return "SyncbaseDbGetSyncGroupMembersResponseParams("
+    return "SyncbaseDbGetSyncgroupMembersResponseParams("
            "err: $err" ", "
            "infos: $infos" ")";
   }
@@ -8102,15 +8102,15 @@ const int kSyncbase_dbGetPermissions_name = 14;
 const int kSyncbase_dbSetPermissions_name = 15;
 const int kSyncbase_dbWatchGlob_name = 16;
 const int kSyncbase_dbGetResumeMarker_name = 17;
-const int kSyncbase_dbGetSyncGroupNames_name = 18;
-const int kSyncbase_dbCreateSyncGroup_name = 19;
-const int kSyncbase_dbJoinSyncGroup_name = 20;
-const int kSyncbase_dbLeaveSyncGroup_name = 21;
-const int kSyncbase_dbDestroySyncGroup_name = 22;
-const int kSyncbase_dbEjectFromSyncGroup_name = 23;
-const int kSyncbase_dbGetSyncGroupSpec_name = 24;
-const int kSyncbase_dbSetSyncGroupSpec_name = 25;
-const int kSyncbase_dbGetSyncGroupMembers_name = 26;
+const int kSyncbase_dbGetSyncgroupNames_name = 18;
+const int kSyncbase_dbCreateSyncgroup_name = 19;
+const int kSyncbase_dbJoinSyncgroup_name = 20;
+const int kSyncbase_dbLeaveSyncgroup_name = 21;
+const int kSyncbase_dbDestroySyncgroup_name = 22;
+const int kSyncbase_dbEjectFromSyncgroup_name = 23;
+const int kSyncbase_dbGetSyncgroupSpec_name = 24;
+const int kSyncbase_dbSetSyncgroupSpec_name = 25;
+const int kSyncbase_dbGetSyncgroupMembers_name = 26;
 const int kSyncbase_tableCreate_name = 27;
 const int kSyncbase_tableDestroy_name = 28;
 const int kSyncbase_tableExists_name = 29;
@@ -8148,15 +8148,15 @@ abstract class Syncbase {
   Future<SyncbaseDbSetPermissionsResponseParams> dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
   Future<SyncbaseDbWatchGlobResponseParams> dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]);
   Future<SyncbaseDbGetResumeMarkerResponseParams> dbGetResumeMarker(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbGetSyncGroupNamesResponseParams> dbGetSyncGroupNames(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbCreateSyncGroupResponseParams> dbCreateSyncGroup(String name,String sgName,SyncGroupSpec spec,SyncGroupMemberInfo myInfo,[Function responseFactory = null]);
-  Future<SyncbaseDbJoinSyncGroupResponseParams> dbJoinSyncGroup(String name,String sgName,SyncGroupMemberInfo myInfo,[Function responseFactory = null]);
-  Future<SyncbaseDbLeaveSyncGroupResponseParams> dbLeaveSyncGroup(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseDbDestroySyncGroupResponseParams> dbDestroySyncGroup(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseDbEjectFromSyncGroupResponseParams> dbEjectFromSyncGroup(String name,String sgName,String member,[Function responseFactory = null]);
-  Future<SyncbaseDbGetSyncGroupSpecResponseParams> dbGetSyncGroupSpec(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseDbSetSyncGroupSpecResponseParams> dbSetSyncGroupSpec(String name,String sgName,SyncGroupSpec spec,String version,[Function responseFactory = null]);
-  Future<SyncbaseDbGetSyncGroupMembersResponseParams> dbGetSyncGroupMembers(String name,String sgName,[Function responseFactory = null]);
+  Future<SyncbaseDbGetSyncgroupNamesResponseParams> dbGetSyncgroupNames(String name,[Function responseFactory = null]);
+  Future<SyncbaseDbCreateSyncgroupResponseParams> dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
+  Future<SyncbaseDbJoinSyncgroupResponseParams> dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
+  Future<SyncbaseDbLeaveSyncgroupResponseParams> dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]);
+  Future<SyncbaseDbDestroySyncgroupResponseParams> dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]);
+  Future<SyncbaseDbEjectFromSyncgroupResponseParams> dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]);
+  Future<SyncbaseDbGetSyncgroupSpecResponseParams> dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]);
+  Future<SyncbaseDbSetSyncgroupSpecResponseParams> dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]);
+  Future<SyncbaseDbGetSyncgroupMembersResponseParams> dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]);
   Future<SyncbaseTableCreateResponseParams> tableCreate(String name,Perms perms,[Function responseFactory = null]);
   Future<SyncbaseTableDestroyResponseParams> tableDestroy(String name,[Function responseFactory = null]);
   Future<SyncbaseTableExistsResponseParams> tableExists(String name,[Function responseFactory = null]);
@@ -8446,8 +8446,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbGetSyncGroupNames_name:
-        var r = SyncbaseDbGetSyncGroupNamesResponseParams.deserialize(
+      case kSyncbase_dbGetSyncgroupNames_name:
+        var r = SyncbaseDbGetSyncgroupNamesResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8460,8 +8460,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbCreateSyncGroup_name:
-        var r = SyncbaseDbCreateSyncGroupResponseParams.deserialize(
+      case kSyncbase_dbCreateSyncgroup_name:
+        var r = SyncbaseDbCreateSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8474,8 +8474,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbJoinSyncGroup_name:
-        var r = SyncbaseDbJoinSyncGroupResponseParams.deserialize(
+      case kSyncbase_dbJoinSyncgroup_name:
+        var r = SyncbaseDbJoinSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8488,8 +8488,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbLeaveSyncGroup_name:
-        var r = SyncbaseDbLeaveSyncGroupResponseParams.deserialize(
+      case kSyncbase_dbLeaveSyncgroup_name:
+        var r = SyncbaseDbLeaveSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8502,8 +8502,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbDestroySyncGroup_name:
-        var r = SyncbaseDbDestroySyncGroupResponseParams.deserialize(
+      case kSyncbase_dbDestroySyncgroup_name:
+        var r = SyncbaseDbDestroySyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8516,8 +8516,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbEjectFromSyncGroup_name:
-        var r = SyncbaseDbEjectFromSyncGroupResponseParams.deserialize(
+      case kSyncbase_dbEjectFromSyncgroup_name:
+        var r = SyncbaseDbEjectFromSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8530,8 +8530,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbGetSyncGroupSpec_name:
-        var r = SyncbaseDbGetSyncGroupSpecResponseParams.deserialize(
+      case kSyncbase_dbGetSyncgroupSpec_name:
+        var r = SyncbaseDbGetSyncgroupSpecResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8544,8 +8544,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbSetSyncGroupSpec_name:
-        var r = SyncbaseDbSetSyncGroupSpecResponseParams.deserialize(
+      case kSyncbase_dbSetSyncgroupSpec_name:
+        var r = SyncbaseDbSetSyncgroupSpecResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8558,8 +8558,8 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
-      case kSyncbase_dbGetSyncGroupMembers_name:
-        var r = SyncbaseDbGetSyncGroupMembersResponseParams.deserialize(
+      case kSyncbase_dbGetSyncgroupMembers_name:
+        var r = SyncbaseDbGetSyncgroupMembersResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8976,107 +8976,107 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetSyncGroupNamesResponseParams> dbGetSyncGroupNames(String name,[Function responseFactory = null]) {
+    Future<SyncbaseDbGetSyncgroupNamesResponseParams> dbGetSyncgroupNames(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbGetSyncGroupNamesParams();
+      var params = new SyncbaseDbGetSyncgroupNamesParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbGetSyncGroupNames_name,
+          kSyncbase_dbGetSyncgroupNames_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbCreateSyncGroupResponseParams> dbCreateSyncGroup(String name,String sgName,SyncGroupSpec spec,SyncGroupMemberInfo myInfo,[Function responseFactory = null]) {
+    Future<SyncbaseDbCreateSyncgroupResponseParams> dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbCreateSyncGroupParams();
+      var params = new SyncbaseDbCreateSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
       params.spec = spec;
       params.myInfo = myInfo;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbCreateSyncGroup_name,
+          kSyncbase_dbCreateSyncgroup_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbJoinSyncGroupResponseParams> dbJoinSyncGroup(String name,String sgName,SyncGroupMemberInfo myInfo,[Function responseFactory = null]) {
+    Future<SyncbaseDbJoinSyncgroupResponseParams> dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbJoinSyncGroupParams();
+      var params = new SyncbaseDbJoinSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
       params.myInfo = myInfo;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbJoinSyncGroup_name,
+          kSyncbase_dbJoinSyncgroup_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbLeaveSyncGroupResponseParams> dbLeaveSyncGroup(String name,String sgName,[Function responseFactory = null]) {
+    Future<SyncbaseDbLeaveSyncgroupResponseParams> dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbLeaveSyncGroupParams();
+      var params = new SyncbaseDbLeaveSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbLeaveSyncGroup_name,
+          kSyncbase_dbLeaveSyncgroup_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbDestroySyncGroupResponseParams> dbDestroySyncGroup(String name,String sgName,[Function responseFactory = null]) {
+    Future<SyncbaseDbDestroySyncgroupResponseParams> dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbDestroySyncGroupParams();
+      var params = new SyncbaseDbDestroySyncgroupParams();
       params.name = name;
       params.sgName = sgName;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbDestroySyncGroup_name,
+          kSyncbase_dbDestroySyncgroup_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbEjectFromSyncGroupResponseParams> dbEjectFromSyncGroup(String name,String sgName,String member,[Function responseFactory = null]) {
+    Future<SyncbaseDbEjectFromSyncgroupResponseParams> dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbEjectFromSyncGroupParams();
+      var params = new SyncbaseDbEjectFromSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
       params.member = member;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbEjectFromSyncGroup_name,
+          kSyncbase_dbEjectFromSyncgroup_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetSyncGroupSpecResponseParams> dbGetSyncGroupSpec(String name,String sgName,[Function responseFactory = null]) {
+    Future<SyncbaseDbGetSyncgroupSpecResponseParams> dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbGetSyncGroupSpecParams();
+      var params = new SyncbaseDbGetSyncgroupSpecParams();
       params.name = name;
       params.sgName = sgName;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbGetSyncGroupSpec_name,
+          kSyncbase_dbGetSyncgroupSpec_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbSetSyncGroupSpecResponseParams> dbSetSyncGroupSpec(String name,String sgName,SyncGroupSpec spec,String version,[Function responseFactory = null]) {
+    Future<SyncbaseDbSetSyncgroupSpecResponseParams> dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbSetSyncGroupSpecParams();
+      var params = new SyncbaseDbSetSyncgroupSpecParams();
       params.name = name;
       params.sgName = sgName;
       params.spec = spec;
       params.version = version;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbSetSyncGroupSpec_name,
+          kSyncbase_dbSetSyncgroupSpec_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetSyncGroupMembersResponseParams> dbGetSyncGroupMembers(String name,String sgName,[Function responseFactory = null]) {
+    Future<SyncbaseDbGetSyncgroupMembersResponseParams> dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
-      var params = new SyncbaseDbGetSyncGroupMembersParams();
+      var params = new SyncbaseDbGetSyncgroupMembersParams();
       params.name = name;
       params.sgName = sgName;
       return _proxyImpl.sendMessageWithRequestId(
           params,
-          kSyncbase_dbGetSyncGroupMembers_name,
+          kSyncbase_dbGetSyncgroupMembers_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
@@ -9403,52 +9403,52 @@ class SyncbaseStub extends bindings.Stub {
     result.resumeMarker = resumeMarker;
     return result;
   }
-  SyncbaseDbGetSyncGroupNamesResponseParams _SyncbaseDbGetSyncGroupNamesResponseParamsFactory(Error err, List<String> names) {
-    var result = new SyncbaseDbGetSyncGroupNamesResponseParams();
+  SyncbaseDbGetSyncgroupNamesResponseParams _SyncbaseDbGetSyncgroupNamesResponseParamsFactory(Error err, List<String> names) {
+    var result = new SyncbaseDbGetSyncgroupNamesResponseParams();
     result.err = err;
     result.names = names;
     return result;
   }
-  SyncbaseDbCreateSyncGroupResponseParams _SyncbaseDbCreateSyncGroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbCreateSyncGroupResponseParams();
+  SyncbaseDbCreateSyncgroupResponseParams _SyncbaseDbCreateSyncgroupResponseParamsFactory(Error err) {
+    var result = new SyncbaseDbCreateSyncgroupResponseParams();
     result.err = err;
     return result;
   }
-  SyncbaseDbJoinSyncGroupResponseParams _SyncbaseDbJoinSyncGroupResponseParamsFactory(Error err, SyncGroupSpec spec) {
-    var result = new SyncbaseDbJoinSyncGroupResponseParams();
+  SyncbaseDbJoinSyncgroupResponseParams _SyncbaseDbJoinSyncgroupResponseParamsFactory(Error err, SyncgroupSpec spec) {
+    var result = new SyncbaseDbJoinSyncgroupResponseParams();
     result.err = err;
     result.spec = spec;
     return result;
   }
-  SyncbaseDbLeaveSyncGroupResponseParams _SyncbaseDbLeaveSyncGroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbLeaveSyncGroupResponseParams();
+  SyncbaseDbLeaveSyncgroupResponseParams _SyncbaseDbLeaveSyncgroupResponseParamsFactory(Error err) {
+    var result = new SyncbaseDbLeaveSyncgroupResponseParams();
     result.err = err;
     return result;
   }
-  SyncbaseDbDestroySyncGroupResponseParams _SyncbaseDbDestroySyncGroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbDestroySyncGroupResponseParams();
+  SyncbaseDbDestroySyncgroupResponseParams _SyncbaseDbDestroySyncgroupResponseParamsFactory(Error err) {
+    var result = new SyncbaseDbDestroySyncgroupResponseParams();
     result.err = err;
     return result;
   }
-  SyncbaseDbEjectFromSyncGroupResponseParams _SyncbaseDbEjectFromSyncGroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbEjectFromSyncGroupResponseParams();
+  SyncbaseDbEjectFromSyncgroupResponseParams _SyncbaseDbEjectFromSyncgroupResponseParamsFactory(Error err) {
+    var result = new SyncbaseDbEjectFromSyncgroupResponseParams();
     result.err = err;
     return result;
   }
-  SyncbaseDbGetSyncGroupSpecResponseParams _SyncbaseDbGetSyncGroupSpecResponseParamsFactory(Error err, SyncGroupSpec spec, String version) {
-    var result = new SyncbaseDbGetSyncGroupSpecResponseParams();
+  SyncbaseDbGetSyncgroupSpecResponseParams _SyncbaseDbGetSyncgroupSpecResponseParamsFactory(Error err, SyncgroupSpec spec, String version) {
+    var result = new SyncbaseDbGetSyncgroupSpecResponseParams();
     result.err = err;
     result.spec = spec;
     result.version = version;
     return result;
   }
-  SyncbaseDbSetSyncGroupSpecResponseParams _SyncbaseDbSetSyncGroupSpecResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbSetSyncGroupSpecResponseParams();
+  SyncbaseDbSetSyncgroupSpecResponseParams _SyncbaseDbSetSyncgroupSpecResponseParamsFactory(Error err) {
+    var result = new SyncbaseDbSetSyncgroupSpecResponseParams();
     result.err = err;
     return result;
   }
-  SyncbaseDbGetSyncGroupMembersResponseParams _SyncbaseDbGetSyncGroupMembersResponseParamsFactory(Error err, Map<String, SyncGroupMemberInfo> infos) {
-    var result = new SyncbaseDbGetSyncGroupMembersResponseParams();
+  SyncbaseDbGetSyncgroupMembersResponseParams _SyncbaseDbGetSyncgroupMembersResponseParamsFactory(Error err, Map<String, SyncgroupMemberInfo> infos) {
+    var result = new SyncbaseDbGetSyncgroupMembersResponseParams();
     result.err = err;
     result.infos = infos;
     return result;
@@ -9771,118 +9771,118 @@ class SyncbaseStub extends bindings.Stub {
           }
         });
         break;
-      case kSyncbase_dbGetSyncGroupNames_name:
-        var params = SyncbaseDbGetSyncGroupNamesParams.deserialize(
+      case kSyncbase_dbGetSyncgroupNames_name:
+        var params = SyncbaseDbGetSyncgroupNamesParams.deserialize(
             message.payload);
-        return _impl.dbGetSyncGroupNames(params.name,_SyncbaseDbGetSyncGroupNamesResponseParamsFactory).then((response) {
+        return _impl.dbGetSyncgroupNames(params.name,_SyncbaseDbGetSyncgroupNamesResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbGetSyncGroupNames_name,
+                kSyncbase_dbGetSyncgroupNames_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbCreateSyncGroup_name:
-        var params = SyncbaseDbCreateSyncGroupParams.deserialize(
+      case kSyncbase_dbCreateSyncgroup_name:
+        var params = SyncbaseDbCreateSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbCreateSyncGroup(params.name,params.sgName,params.spec,params.myInfo,_SyncbaseDbCreateSyncGroupResponseParamsFactory).then((response) {
+        return _impl.dbCreateSyncgroup(params.name,params.sgName,params.spec,params.myInfo,_SyncbaseDbCreateSyncgroupResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbCreateSyncGroup_name,
+                kSyncbase_dbCreateSyncgroup_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbJoinSyncGroup_name:
-        var params = SyncbaseDbJoinSyncGroupParams.deserialize(
+      case kSyncbase_dbJoinSyncgroup_name:
+        var params = SyncbaseDbJoinSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbJoinSyncGroup(params.name,params.sgName,params.myInfo,_SyncbaseDbJoinSyncGroupResponseParamsFactory).then((response) {
+        return _impl.dbJoinSyncgroup(params.name,params.sgName,params.myInfo,_SyncbaseDbJoinSyncgroupResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbJoinSyncGroup_name,
+                kSyncbase_dbJoinSyncgroup_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbLeaveSyncGroup_name:
-        var params = SyncbaseDbLeaveSyncGroupParams.deserialize(
+      case kSyncbase_dbLeaveSyncgroup_name:
+        var params = SyncbaseDbLeaveSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbLeaveSyncGroup(params.name,params.sgName,_SyncbaseDbLeaveSyncGroupResponseParamsFactory).then((response) {
+        return _impl.dbLeaveSyncgroup(params.name,params.sgName,_SyncbaseDbLeaveSyncgroupResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbLeaveSyncGroup_name,
+                kSyncbase_dbLeaveSyncgroup_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbDestroySyncGroup_name:
-        var params = SyncbaseDbDestroySyncGroupParams.deserialize(
+      case kSyncbase_dbDestroySyncgroup_name:
+        var params = SyncbaseDbDestroySyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbDestroySyncGroup(params.name,params.sgName,_SyncbaseDbDestroySyncGroupResponseParamsFactory).then((response) {
+        return _impl.dbDestroySyncgroup(params.name,params.sgName,_SyncbaseDbDestroySyncgroupResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbDestroySyncGroup_name,
+                kSyncbase_dbDestroySyncgroup_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbEjectFromSyncGroup_name:
-        var params = SyncbaseDbEjectFromSyncGroupParams.deserialize(
+      case kSyncbase_dbEjectFromSyncgroup_name:
+        var params = SyncbaseDbEjectFromSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbEjectFromSyncGroup(params.name,params.sgName,params.member,_SyncbaseDbEjectFromSyncGroupResponseParamsFactory).then((response) {
+        return _impl.dbEjectFromSyncgroup(params.name,params.sgName,params.member,_SyncbaseDbEjectFromSyncgroupResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbEjectFromSyncGroup_name,
+                kSyncbase_dbEjectFromSyncgroup_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbGetSyncGroupSpec_name:
-        var params = SyncbaseDbGetSyncGroupSpecParams.deserialize(
+      case kSyncbase_dbGetSyncgroupSpec_name:
+        var params = SyncbaseDbGetSyncgroupSpecParams.deserialize(
             message.payload);
-        return _impl.dbGetSyncGroupSpec(params.name,params.sgName,_SyncbaseDbGetSyncGroupSpecResponseParamsFactory).then((response) {
+        return _impl.dbGetSyncgroupSpec(params.name,params.sgName,_SyncbaseDbGetSyncgroupSpecResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbGetSyncGroupSpec_name,
+                kSyncbase_dbGetSyncgroupSpec_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbSetSyncGroupSpec_name:
-        var params = SyncbaseDbSetSyncGroupSpecParams.deserialize(
+      case kSyncbase_dbSetSyncgroupSpec_name:
+        var params = SyncbaseDbSetSyncgroupSpecParams.deserialize(
             message.payload);
-        return _impl.dbSetSyncGroupSpec(params.name,params.sgName,params.spec,params.version,_SyncbaseDbSetSyncGroupSpecResponseParamsFactory).then((response) {
+        return _impl.dbSetSyncgroupSpec(params.name,params.sgName,params.spec,params.version,_SyncbaseDbSetSyncgroupSpecResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbSetSyncGroupSpec_name,
+                kSyncbase_dbSetSyncgroupSpec_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }
         });
         break;
-      case kSyncbase_dbGetSyncGroupMembers_name:
-        var params = SyncbaseDbGetSyncGroupMembersParams.deserialize(
+      case kSyncbase_dbGetSyncgroupMembers_name:
+        var params = SyncbaseDbGetSyncgroupMembersParams.deserialize(
             message.payload);
-        return _impl.dbGetSyncGroupMembers(params.name,params.sgName,_SyncbaseDbGetSyncGroupMembersResponseParamsFactory).then((response) {
+        return _impl.dbGetSyncgroupMembers(params.name,params.sgName,_SyncbaseDbGetSyncgroupMembersResponseParamsFactory).then((response) {
           if (response != null) {
             return buildResponseWithId(
                 response,
-                kSyncbase_dbGetSyncGroupMembers_name,
+                kSyncbase_dbGetSyncgroupMembers_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }

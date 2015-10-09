@@ -7,31 +7,31 @@ library syncbase_syncgroup_test;
 import 'package:test/test.dart';
 
 import 'package:ether/syncbase_client.dart'
-    show SyncbaseClient, SyncGroupPrefix;
+    show SyncbaseClient, SyncgroupPrefix;
 
 import './utils.dart' as utils;
 
-List<SyncGroupPrefix> mkPfxs(List<String> strs) {
-  List<SyncGroupPrefix> res = [];
+List<SyncgroupPrefix> mkPfxs(List<String> strs) {
+  List<SyncgroupPrefix> res = [];
   for (var str in strs) {
     var parts = str.split(':');
     assert(parts.length == 2);
-    res.add(SyncbaseClient.syncGroupPrefix(
+    res.add(SyncbaseClient.syncgroupPrefix(
         tableName: parts[0], rowPrefix: parts[1]));
   }
   return res;
 }
 
-runSyncGroupTests(SyncbaseClient c) {
+runSyncgroupTests(SyncbaseClient c) {
   // TODO(nlacasse): Where does this magic number 8 come from? It's in
   // syncgroup_test.go.
-  var myInfo = SyncbaseClient.syncGroupMemberInfo(syncPriority: 8);
+  var myInfo = SyncbaseClient.syncgroupMemberInfo(syncPriority: 8);
 
-  test('db.syncGroup returns a SyncGroup with name', () {
+  test('db.syncgroup returns a syncgroup with name', () {
     var app = c.app(utils.uniqueName('app'));
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     var sgName = utils.uniqueName('sg');
-    var sg = db.syncGroup(sgName);
+    var sg = db.syncgroup(sgName);
     expect(sg.name, equals(sgName));
   });
 
@@ -40,9 +40,9 @@ runSyncGroupTests(SyncbaseClient c) {
     await app.create(utils.emptyPerms());
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     await db.create(utils.emptyPerms());
-    var sg = db.syncGroup(utils.uniqueName('sg'));
+    var sg = db.syncgroup(utils.uniqueName('sg'));
 
-    var emptySpec = SyncbaseClient.syncGroupSpec(prefixes: mkPfxs([]));
+    var emptySpec = SyncbaseClient.syncgroupSpec(prefixes: mkPfxs([]));
     expect(sg.create(emptySpec, myInfo), throws);
   });
 
@@ -51,9 +51,9 @@ runSyncGroupTests(SyncbaseClient c) {
     await app.create(utils.emptyPerms());
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     await db.create(utils.emptyPerms());
-    var sg = db.syncGroup(utils.uniqueName('sg'));
+    var sg = db.syncgroup(utils.uniqueName('sg'));
 
-    var spec = SyncbaseClient.syncGroupSpec(
+    var spec = SyncbaseClient.syncgroupSpec(
         description: 'test syncgroup ${sg.name}', prefixes: mkPfxs(['t1:foo']));
 
     await sg.create(spec, myInfo);
@@ -66,9 +66,9 @@ runSyncGroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
 
     var sgName = utils.uniqueName('sg-/!@#%^&*():\$\x01\xfe');
-    var sg = db.syncGroup(sgName);
+    var sg = db.syncgroup(sgName);
 
-    var spec = SyncbaseClient.syncGroupSpec(
+    var spec = SyncbaseClient.syncgroupSpec(
         description: 'test syncgroup ${sgName}', prefixes: mkPfxs(['t1:foo']));
 
     await sg.create(spec, myInfo);
@@ -80,15 +80,15 @@ runSyncGroupTests(SyncbaseClient c) {
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     await db.create(utils.emptyPerms());
 
-    var sg1 = db.syncGroup(utils.uniqueName('sg'));
-    var spec1 = SyncbaseClient.syncGroupSpec(
+    var sg1 = db.syncgroup(utils.uniqueName('sg'));
+    var spec1 = SyncbaseClient.syncgroupSpec(
         description: 'test nested syncgroup ${sg1.name}',
         prefixes: mkPfxs(['t1:foo']));
 
     await sg1.create(spec1, myInfo);
 
-    var sg2 = db.syncGroup(utils.uniqueName('sg'));
-    var spec2 = SyncbaseClient.syncGroupSpec(
+    var sg2 = db.syncgroup(utils.uniqueName('sg'));
+    var spec2 = SyncbaseClient.syncgroupSpec(
         description: 'test nested syncgroup ${sg2.name}',
         prefixes: mkPfxs(['t1:foo']));
 
@@ -102,17 +102,17 @@ runSyncGroupTests(SyncbaseClient c) {
     await db.create(utils.emptyPerms());
 
     var sgName = utils.uniqueName('sg');
-    var spec1 = SyncbaseClient.syncGroupSpec(
+    var spec1 = SyncbaseClient.syncgroupSpec(
         description: 'test syncgroup ${sgName}', prefixes: mkPfxs(['t1:foo']));
 
-    var sg1 = db.syncGroup(sgName);
+    var sg1 = db.syncgroup(sgName);
     await sg1.create(spec1, myInfo);
 
-    var spec2 = SyncbaseClient.syncGroupSpec(
+    var spec2 = SyncbaseClient.syncgroupSpec(
         description: 'another syncgroup ${sgName}',
         prefixes: mkPfxs(['t2:bar']));
 
-    var sg2 = db.syncGroup(sgName);
+    var sg2 = db.syncgroup(sgName);
     expect(sg2.create(spec2, myInfo), throws);
   });
 
@@ -122,9 +122,9 @@ runSyncGroupTests(SyncbaseClient c) {
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     await db.create(utils.emptyPerms());
     var sgName = utils.uniqueName('sg');
-    var sg = db.syncGroup(sgName);
+    var sg = db.syncgroup(sgName);
 
-    var spec = SyncbaseClient.syncGroupSpec(
+    var spec = SyncbaseClient.syncgroupSpec(
         description: 'test syncgroup ${sgName}', prefixes: mkPfxs(['t1:foo']));
 
     await sg.create(spec, myInfo);
@@ -133,7 +133,7 @@ runSyncGroupTests(SyncbaseClient c) {
     expect(gotSpec.description, equals(spec.description));
     expect(gotSpec.prefixes, equals(spec.prefixes));
 
-    var newSpec = SyncbaseClient.syncGroupSpec(
+    var newSpec = SyncbaseClient.syncgroupSpec(
         description: 'a totally new spec ${sgName}',
         prefixes: mkPfxs(['t1:foo']));
 

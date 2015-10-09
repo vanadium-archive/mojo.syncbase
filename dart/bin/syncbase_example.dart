@@ -33,7 +33,7 @@ main(List args) async {
     sb.SyncbaseApp sbApp = await createApp(c, 'testapp');
     sb.SyncbaseNoSqlDatabase sbDb = await createDb(sbApp, 'testdb');
     sb.SyncbaseTable sbTable = await createTable(sbDb, 'testtable');
-    await joinOrCreateSyncGroup(sbDb, mtAddr, sbTable.name, 'testsg');
+    await joinOrCreateSyncgroup(sbDb, mtAddr, sbTable.name, 'testsg');
 
     startWatch(sbDb, sbTable);
     startPuts(sbTable);
@@ -125,7 +125,7 @@ Future<sb.SyncbaseTable> createTable(
   return table;
 }
 
-Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db,
+Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
     String mtAddr, String tableName, String name) async {
   // TODO(nlacasse): Get your email address out of here!  Figure out a way to
   // get the mounttable name and path to this part of the code.
@@ -133,11 +133,11 @@ Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db,
   // TODO(nlacasse): Make this %%sync thing a constant.
   var sgPrefix = naming.join(mtName, 'syncbase_mojo/%%sync');
   var sgName = naming.join(sgPrefix, 'testsg');
-  var sg = db.syncGroup(sgName);
+  var sg = db.syncgroup(sgName);
 
   print('SGNAME = $sgName');
 
-  var myInfo = sb.SyncbaseClient.syncGroupMemberInfo(syncPriority: 3);
+  var myInfo = sb.SyncbaseClient.syncgroupMemberInfo(syncPriority: 3);
 
   try {
     print('trying to join syncgroup');
@@ -147,8 +147,8 @@ Future<sb.SyncbaseSyncGroup> joinOrCreateSyncGroup(sb.SyncbaseNoSqlDatabase db,
     // Syncgroup does not exist.
     print('syncgroup does not exist, creating it');
 
-    var sgSpec = sb.SyncbaseClient.syncGroupSpec(
-        description: 'test sync group',
+    var sgSpec = sb.SyncbaseClient.syncgroupSpec(
+        description: 'test syncgroup',
         perms: openPerms,
         // Sync the entire table.
         prefixes: ['$tableName:'],
