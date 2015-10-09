@@ -7,7 +7,7 @@ library syncbase_syncgroup_test;
 import 'package:test/test.dart';
 
 import 'package:ether/syncbase_client.dart'
-    show SyncbaseClient, SyncgroupPrefix, SyncGroupSpec;
+    show SyncbaseClient, SyncgroupPrefix, SyncgroupSpec;
 
 import './utils.dart' as utils;
 
@@ -27,7 +27,7 @@ List<SyncgroupPrefix> mkPfxs(List<String> strs) {
 // needing this helper method.  Unfortunately those SyncgroupSpec is generated
 // from the mojom file, so there's no way to change its functionality without
 // wrapping, which I'd like to avoid.
-bool specsAreEqual(SyncGroupSpec s1, SyncGroupSpec s2) {
+bool specsAreEqual(SyncgroupSpec s1, SyncgroupSpec s2) {
   if (s1.description != s2.description) {
     return false;
   }

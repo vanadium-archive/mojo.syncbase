@@ -104,7 +104,7 @@ class SyncbaseClient {
       {String description: '',
       bool isPrivate: false,
       mojom.Perms perms,
-      List<mojom.SyncGroupPrefix> prefixes,
+      List<mojom.SyncgroupPrefix> prefixes,
       List<String> mountTables}) {
     if (prefixes == null) {
       throw new ArgumentError('prefixes must be specified');
