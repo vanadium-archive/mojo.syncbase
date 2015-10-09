@@ -51,9 +51,12 @@ struct Result {
   array<array<uint8>> values;
 };
 
+// In this model, the server pushes one stream item to the client, then waits
+// for an ack from the client before sending the next item, thus providing
+// flow control.
 interface ExecStream {
-  OnResult(Result result);
-  OnReturn(Error err);
+  OnResult(Result result) => ();
+  OnDone(Error err);
 };
 
 struct KeyValue {
@@ -61,13 +64,12 @@ struct KeyValue {
   array<uint8> value;
 };
 
-// ScanStream implements the observer + ack pattern.
-// In this model, server pushes a change object and waits until it receives
-// an ack back from client before sending the next KeyValue, effectively
-// creating a mechanism for flow control.
+// In this model, the server pushes one stream item to the client, then waits
+// for an ack from the client before sending the next item, thus providing
+// flow control.
 interface ScanStream {
   OnKeyValue(KeyValue key_value) => ();
-  OnReturn(Error err);
+  OnDone(Error err);
 };
 
 struct WatchChange {
@@ -85,10 +87,9 @@ struct GlobRequest {
   array<uint8> resume_marker;
 };
 
-// WatchGlobStream implements the observer + ack pattern.
-// In this model, server pushes a change object and waits until it receives
-// an ack back from client before sending the next change, effectively creating
-// a mechanism for flow control.
+// In this model, the server pushes one stream item to the client, then waits
+// for an ack from the client before sending the next item, thus providing
+// flow control.
 interface WatchGlobStream {
   OnChange(WatchChange change) => ();
   OnError(Error err);

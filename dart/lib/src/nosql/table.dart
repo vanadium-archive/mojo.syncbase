@@ -121,7 +121,7 @@ class ScanStreamImpl extends Object
   }
 
   // Called by the mojom proxy when the Go function call returns.
-  onReturn(mojom.Error err) {
+  onDone(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }

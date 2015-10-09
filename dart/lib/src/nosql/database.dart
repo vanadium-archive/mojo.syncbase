@@ -45,17 +45,13 @@ class SyncbaseNoSqlDatabase extends NamedResource {
 
   Stream<mojom.Result> exec(String query) {
     StreamController<mojom.Result> sc = new StreamController();
-    mojom.ExecStream execStream = new ExecStreamImpl._fromStreamController(sc);
+
+    mojom.ExecStreamStub stub = new mojom.ExecStreamStub.unbound();
+    stub.impl = new ExecStreamImpl._fromStreamController(sc);
 
     // Call dbExec asynchronously.
-    _proxy.ptr.dbExec(fullName, query, execStream).then((v) {
-      // TODO(nlacasse): Is throwing the correct behavior here?  Consider
-      // returning a tuple (Stream<mojom.Result>, Future) and resolve the
-      // Future at the end of the RPC (with an error if applicable).  Then
-      // errors will be handled the same in this method as in all the other
-      // methods that return Futures.  (Even though the other methods seem to
-      // "throw", they are actually resolving a Future since the function is
-      // declared with "async".)
+    _proxy.ptr.dbExec(fullName, query, stub).then((v) {
+      // TODO(nlacasse): Same question regarding throwing behavior as TableScan.
       if (isError(v.err)) throw v.err;
     });
 
@@ -120,16 +116,30 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   }
 }
 
-class ExecStreamImpl implements mojom.ExecStream {
+class ExecStreamImpl extends Object
+    with StreamFlowControl
+    implements mojom.ExecStream {
   final StreamController<mojom.Result> sc;
-  ExecStreamImpl._fromStreamController(this.sc);
 
-  onResult(mojom.Result result) {
+  ExecStreamImpl._fromStreamController(this.sc) {
+    initFlowControl(this.sc);
+  }
+
+  onResult(mojom.Result result, [Function newAck = null]) {
+    // NOTE(aghassemi): We need to make newAck optional to match mojo's
+    // define class, but newAck is always provided by mojo when called.
+    if (newAck == null) {
+      throw new ArgumentError('newAck can not be null');
+    }
     sc.add(result);
+
+    // Only ack after we get unlocked.
+    // If we are not locked, onNextUnlock returns immediately.
+    return onNextUnlock().then((_) => newAck());
   }
 
   // Called by the mojo proxy when the Go function call returns.
-  onReturn(mojom.Error err) {
+  onDone(mojom.Error err) {
     if (isError(err)) {
       sc.addError(err);
     }
