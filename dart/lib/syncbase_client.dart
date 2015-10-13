@@ -17,6 +17,7 @@ import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
     show
         BatchOptions,
+        KeyValue,
         Perms,
         SyncgroupMemberInfo,
         SyncgroupPrefix,
