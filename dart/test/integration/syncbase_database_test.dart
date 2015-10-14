@@ -144,39 +144,36 @@ runDatabaseTests(SyncbaseClient c) {
     expect(testing.DatabaseWatch.onChangeCounter.count, equals(numOperations));
   });
 
-  // TODO(aghassemi): Currently queries do not work with non-VOM-encoded values.
-  // See issue: https://github.com/vanadium/issues/issues/766
+  test('basic exec', () async {
+    var app = c.app(utils.uniqueName('app'));
+    await app.create(utils.emptyPerms());
+    var db = app.noSqlDatabase(utils.uniqueName('db'));
+    await db.create(utils.emptyPerms());
+    var table = db.table('airports');
+    await table.create(utils.emptyPerms());
 
-  // test('basic exec', () async {
-  //   var app = c.app(utils.uniqueName('app'));
-  //   await app.create(utils.emptyPerms());
-  //   var db = app.noSqlDatabase(utils.uniqueName('db'));
-  //   await db.create(utils.emptyPerms());
-  //   var table = db.table('airports');
-  //   await table.create(utils.emptyPerms());
-  //
-  //   await table.put('sfo', UTF8.encode('San Francisco'));
-  //   await table.put('yyz', UTF8.encode('Toronto'));
-  //
-  //   var query = 'select k as code, v as cityname from airports';
-  //   var resultStream = db.exec(query);
-  //
-  //   var results = await resultStream.toList();
-  //
-  //   // Expect first entry to be column headers.
-  //   var headers = results[0].values;
-  //   expect(headers, equals([UTF8.decode('code'), UTF8.decode('cityname')]));
-  //
-  //   // Expect the two entries
-  //   var entry1 = results[1].values;
-  //   expect(entry1, equals([UTF8.decode('sfo'), UTF8.decode('San Francisco')]));
-  //
-  //   var entry2 = results[2].values;
-  //   expect(entry2, equals([UTF8.decode('yyz'), UTF8.decode('Toronto')]));
-  //
-  //   // Expect no more entries than two data rows and one column header.
-  //   expect(resultStream.length, 3);
-  // });
+    await table.put('aӲ읔', UTF8.encode('ᚸӲ읔+קAل'));
+    await table.put('yyz', UTF8.encode('Toronto'));
+
+    var query = 'select k as code, v as cityname from airports';
+    var resultStream = db.exec(query);
+
+    var results = await resultStream.toList();
+
+    // Expect first entry to be column headers.
+    var headers = results[0].values;
+    expect(headers, equals([UTF8.encode('"code"'), UTF8.encode('"cityname"')]));
+
+    // Expect the two entries
+    var entry1 = results[1].values;
+    expect(entry1, equals([UTF8.encode('"aӲ읔"'), UTF8.encode('ᚸӲ읔+קAل')]));
+
+    var entry2 = results[2].values;
+    expect(entry2, equals([UTF8.encode('"yyz"'), UTF8.encode('Toronto')]));
+
+    // Expect no more entries than two data rows and one column header.
+    expect(results.length, 3);
+  });
 
   // TODO(nlacasse): Test database.get/setPermissions.
 }
