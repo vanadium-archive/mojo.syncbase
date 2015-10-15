@@ -69,14 +69,14 @@ creds: | bin
 gen-mojom: dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
 dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom | syncbase-env-check
-	$(call MOJOM_GEN,$<,dart/lib/gen,dart)
+	$(call MOJOM_GEN,$<,.,dart/lib/gen,dart)
 	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
 	# files, so we delete them.  Stop doing this once the generator is fixed.
 	# See https://github.com/domokit/mojo/issues/386
 	rm -f dart/lib/gen/mojom/$(notdir $@)
 
 gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom | syncbase-env-check
-	$(call MOJOM_GEN,$<,gen,go)
+	$(call MOJOM_GEN,$<,.,gen,go)
 	gofmt -w $@
 
 # TODO(nlacasse): These target-specific variables will affect this task and all
