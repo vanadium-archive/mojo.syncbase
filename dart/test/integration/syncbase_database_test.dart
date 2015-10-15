@@ -37,6 +37,31 @@ runDatabaseTests(SyncbaseClient c) {
     expect(await db.exists(), equals(false));
   });
 
+  test('listing tables', () async {
+    var app = c.app(utils.uniqueName('app'));
+    await app.create(utils.emptyPerms());
+    var db = app.noSqlDatabase(utils.uniqueName('db'));
+    await db.create(utils.emptyPerms());
+
+    var tableNames = [
+      utils.uniqueName('table'),
+      utils.uniqueName('table'),
+      utils.uniqueName('table'),
+    ];
+    tableNames.sort();
+
+    for (var tableName in tableNames) {
+      await db.table(tableName).create(utils.emptyPerms());
+    }
+
+    var tables = await db.listTables();
+    tables.sort((t1, t2) => t1.name.compareTo(t2.name));
+    expect(tables.length, equals(tableNames.length));
+    for (var i = 0; i < tables.length; i++) {
+      expect(tables[i].name, equals(tableNames[i]));
+    }
+  });
+
   test('basic watch', () async {
     var app = c.app(utils.uniqueName('app'));
     await app.create(utils.emptyPerms());

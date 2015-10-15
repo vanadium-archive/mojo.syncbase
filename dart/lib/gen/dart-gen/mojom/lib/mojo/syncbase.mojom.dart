@@ -4045,6 +4045,162 @@ class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
 }
 
 
+class SyncbaseDbListTablesParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(16, 0)
+  ];
+  String name = null;
+
+  SyncbaseDbListTablesParams() : super(kVersions.last.size);
+
+  static SyncbaseDbListTablesParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncbaseDbListTablesParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncbaseDbListTablesParams result = new SyncbaseDbListTablesParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.name = decoder0.decodeString(8, false);
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeString(name, 8, false);
+  }
+
+  String toString() {
+    return "SyncbaseDbListTablesParams("
+           "name: $name" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["name"] = name;
+    return map;
+  }
+}
+
+
+class SyncbaseDbListTablesResponseParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(24, 0)
+  ];
+  Error err = null;
+  List<String> tables = null;
+
+  SyncbaseDbListTablesResponseParams() : super(kVersions.last.size);
+
+  static SyncbaseDbListTablesResponseParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncbaseDbListTablesResponseParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncbaseDbListTablesResponseParams result = new SyncbaseDbListTablesResponseParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(8, false);
+      result.err = Error.decode(decoder1);
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(16, false);
+      {
+        var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+        result.tables = new List<String>(si1.numElements);
+        for (int i1 = 0; i1 < si1.numElements; ++i1) {
+          
+          result.tables[i1] = decoder1.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+        }
+      }
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeStruct(err, 8, false);
+    
+    if (tables == null) {
+      encoder0.encodeNullPointer(16, false);
+    } else {
+      var encoder1 = encoder0.encodePointerArray(tables.length, 16, bindings.kUnspecifiedArrayLength);
+      for (int i0 = 0; i0 < tables.length; ++i0) {
+        
+        encoder1.encodeString(tables[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+      }
+    }
+  }
+
+  String toString() {
+    return "SyncbaseDbListTablesResponseParams("
+           "err: $err" ", "
+           "tables: $tables" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["err"] = err;
+    map["tables"] = tables;
+    return map;
+  }
+}
+
+
 class SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -8102,29 +8258,30 @@ const int kSyncbase_dbGetPermissions_name = 14;
 const int kSyncbase_dbSetPermissions_name = 15;
 const int kSyncbase_dbWatchGlob_name = 16;
 const int kSyncbase_dbGetResumeMarker_name = 17;
-const int kSyncbase_dbGetSyncgroupNames_name = 18;
-const int kSyncbase_dbCreateSyncgroup_name = 19;
-const int kSyncbase_dbJoinSyncgroup_name = 20;
-const int kSyncbase_dbLeaveSyncgroup_name = 21;
-const int kSyncbase_dbDestroySyncgroup_name = 22;
-const int kSyncbase_dbEjectFromSyncgroup_name = 23;
-const int kSyncbase_dbGetSyncgroupSpec_name = 24;
-const int kSyncbase_dbSetSyncgroupSpec_name = 25;
-const int kSyncbase_dbGetSyncgroupMembers_name = 26;
-const int kSyncbase_tableCreate_name = 27;
-const int kSyncbase_tableDestroy_name = 28;
-const int kSyncbase_tableExists_name = 29;
-const int kSyncbase_tableGetPermissions_name = 30;
-const int kSyncbase_tableSetPermissions_name = 31;
-const int kSyncbase_tableDeleteRange_name = 32;
-const int kSyncbase_tableScan_name = 33;
-const int kSyncbase_tableGetPrefixPermissions_name = 34;
-const int kSyncbase_tableSetPrefixPermissions_name = 35;
-const int kSyncbase_tableDeletePrefixPermissions_name = 36;
-const int kSyncbase_rowExists_name = 37;
-const int kSyncbase_rowGet_name = 38;
-const int kSyncbase_rowPut_name = 39;
-const int kSyncbase_rowDelete_name = 40;
+const int kSyncbase_dbListTables_name = 18;
+const int kSyncbase_dbGetSyncgroupNames_name = 19;
+const int kSyncbase_dbCreateSyncgroup_name = 20;
+const int kSyncbase_dbJoinSyncgroup_name = 21;
+const int kSyncbase_dbLeaveSyncgroup_name = 22;
+const int kSyncbase_dbDestroySyncgroup_name = 23;
+const int kSyncbase_dbEjectFromSyncgroup_name = 24;
+const int kSyncbase_dbGetSyncgroupSpec_name = 25;
+const int kSyncbase_dbSetSyncgroupSpec_name = 26;
+const int kSyncbase_dbGetSyncgroupMembers_name = 27;
+const int kSyncbase_tableCreate_name = 28;
+const int kSyncbase_tableDestroy_name = 29;
+const int kSyncbase_tableExists_name = 30;
+const int kSyncbase_tableGetPermissions_name = 31;
+const int kSyncbase_tableSetPermissions_name = 32;
+const int kSyncbase_tableDeleteRange_name = 33;
+const int kSyncbase_tableScan_name = 34;
+const int kSyncbase_tableGetPrefixPermissions_name = 35;
+const int kSyncbase_tableSetPrefixPermissions_name = 36;
+const int kSyncbase_tableDeletePrefixPermissions_name = 37;
+const int kSyncbase_rowExists_name = 38;
+const int kSyncbase_rowGet_name = 39;
+const int kSyncbase_rowPut_name = 40;
+const int kSyncbase_rowDelete_name = 41;
 
 const String SyncbaseName =
       'mojo::Syncbase';
@@ -8148,6 +8305,7 @@ abstract class Syncbase {
   Future<SyncbaseDbSetPermissionsResponseParams> dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
   Future<SyncbaseDbWatchGlobResponseParams> dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]);
   Future<SyncbaseDbGetResumeMarkerResponseParams> dbGetResumeMarker(String name,[Function responseFactory = null]);
+  Future<SyncbaseDbListTablesResponseParams> dbListTables(String name,[Function responseFactory = null]);
   Future<SyncbaseDbGetSyncgroupNamesResponseParams> dbGetSyncgroupNames(String name,[Function responseFactory = null]);
   Future<SyncbaseDbCreateSyncgroupResponseParams> dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
   Future<SyncbaseDbJoinSyncgroupResponseParams> dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
@@ -8434,6 +8592,20 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         break;
       case kSyncbase_dbGetResumeMarker_name:
         var r = SyncbaseDbGetResumeMarkerResponseParams.deserialize(
+            message.payload);
+        if (!message.header.hasRequestId) {
+          throw 'Expected a message with a valid request Id.';
+        }
+        Completer c = completerMap[message.header.requestId];
+        if (c == null) {
+          throw 'Message had unknown request Id: ${message.header.requestId}';
+        }
+        completerMap.remove(message.header.requestId);
+        assert(!c.isCompleted);
+        c.complete(r);
+        break;
+      case kSyncbase_dbListTables_name:
+        var r = SyncbaseDbListTablesResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -8976,6 +9148,16 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
+    Future<SyncbaseDbListTablesResponseParams> dbListTables(String name,[Function responseFactory = null]) {
+      assert(_proxyImpl.isBound);
+      var params = new SyncbaseDbListTablesParams();
+      params.name = name;
+      return _proxyImpl.sendMessageWithRequestId(
+          params,
+          kSyncbase_dbListTables_name,
+          -1,
+          bindings.MessageHeader.kMessageExpectsResponse);
+    }
     Future<SyncbaseDbGetSyncgroupNamesResponseParams> dbGetSyncgroupNames(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupNamesParams();
@@ -9403,6 +9585,12 @@ class SyncbaseStub extends bindings.Stub {
     result.resumeMarker = resumeMarker;
     return result;
   }
+  SyncbaseDbListTablesResponseParams _SyncbaseDbListTablesResponseParamsFactory(Error err, List<String> tables) {
+    var result = new SyncbaseDbListTablesResponseParams();
+    result.err = err;
+    result.tables = tables;
+    return result;
+  }
   SyncbaseDbGetSyncgroupNamesResponseParams _SyncbaseDbGetSyncgroupNamesResponseParamsFactory(Error err, List<String> names) {
     var result = new SyncbaseDbGetSyncgroupNamesResponseParams();
     result.err = err;
@@ -9766,6 +9954,19 @@ class SyncbaseStub extends bindings.Stub {
             return buildResponseWithId(
                 response,
                 kSyncbase_dbGetResumeMarker_name,
+                message.header.requestId,
+                bindings.MessageHeader.kMessageIsResponse);
+          }
+        });
+        break;
+      case kSyncbase_dbListTables_name:
+        var params = SyncbaseDbListTablesParams.deserialize(
+            message.payload);
+        return _impl.dbListTables(params.name,_SyncbaseDbListTablesResponseParamsFactory).then((response) {
+          if (response != null) {
+            return buildResponseWithId(
+                response,
+                kSyncbase_dbListTables_name,
                 message.header.requestId,
                 bindings.MessageHeader.kMessageIsResponse);
           }

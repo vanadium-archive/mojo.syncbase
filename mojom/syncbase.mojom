@@ -96,7 +96,7 @@ interface WatchGlobStream {
 };
 
 // TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
-// TODO(sadovsky): Add ListApps, ListDatabases, and ListTables methods.
+// TODO(aghassemi): Add ListApps and ListDatabases methods. See v.io/i/794.
 // All 'name' params are service-relative object names.
 
 // Error handling modeled after:
@@ -132,6 +132,7 @@ interface Syncbase {
   DbSetPermissions(string name, Perms perms, string version) => (Error err);
   DbWatchGlob(string name, GlobRequest req, WatchGlobStream stream) => (Error err);
   DbGetResumeMarker(string name) => (Error err, array<uint8> resumeMarker);
+  DbListTables(string name) => (Error err, array<string> tables);
 
   // TODO(sadovsky): Add DatabaseWatcher, BlobManager, and SchemaManager
   // methods.

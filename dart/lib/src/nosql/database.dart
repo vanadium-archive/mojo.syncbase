@@ -86,6 +86,13 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     return v.resumeMarker;
   }
 
+  Future<List<SyncbaseTable>> listTables() async {
+    var v = await _proxy.ptr.dbListTables(fullName);
+    if (isError(v.err)) throw v.err;
+
+    return v.tables.map((tableName) => this.table(tableName)).toList();
+  }
+
   Future<String> beginBatch(mojom.BatchOptions opts) async {
     var v = await _proxy.ptr.dbBeginBatch(fullName, opts);
     if (isError(v.err)) throw v.err;
