@@ -19,13 +19,7 @@ main(List args) async {
     InitializedApplication app = new InitializedApplication.fromHandle(args[0]);
     await app.initialized;
 
-    // Application arguments are in app.args.
-    // app.args[0] = url of this service.  Rest of arguments follow.
-    if (app.args.length < 2 || app.args[1] == null || app.args[1] == '') {
-      throw 'mount table address must be first argument';
-    }
-
-    String mtAddr = app.args[1];
+    const String mtAddr = '/ns.dev.v.io:8101';
 
     sb.SyncbaseClient c = new sb.SyncbaseClient(
         app.connectToService, 'https://mojo.v.io/syncbase_server.mojo');
@@ -54,10 +48,10 @@ main(List args) async {
 startWatch(db, table) async {
   try {
     var s = db.watch(table.name, '', await db.getResumeMarker());
-    s.forEach((change) {
+    await for (var change in s) {
       print(
-          'GOT CHANGE: ${change.rowName} - ${UTF8.decode(change.valueBytes)} - ${change.fromSync}');
-    });
+          'GOT CHANGE: ${change.rowKey} - ${UTF8.decode(change.valueBytes)} - ${change.fromSync}');
+    }
   } catch (e) {
     print('ERROR in startWatch()');
     print(e);
@@ -79,7 +73,7 @@ startPuts(table) async {
     print(e);
   }
 
-  await new Future.delayed(new Duration(seconds: 5));
+  await new Future.delayed(new Duration(seconds: 2));
   startPuts(table);
 }
 
@@ -127,9 +121,7 @@ Future<sb.SyncbaseTable> createTable(
 
 Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
     String mtAddr, String tableName, String name) async {
-  // TODO(nlacasse): Get your email address out of here!  Figure out a way to
-  // get the mounttable name and path to this part of the code.
-  var mtName = naming.join(mtAddr, 'users/nlacasse@google.com');
+  var mtName = naming.join(mtAddr, 'users/vanadium.bot@gmail.com/apps/mojo-syncbase-example');
   // TODO(nlacasse): Make this %%sync thing a constant.
   var sgPrefix = naming.join(mtName, 'syncbase_mojo/%%sync');
   var sgName = naming.join(sgPrefix, 'testsg');
@@ -158,7 +150,13 @@ Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
 
     print('SGSPEC = $sgSpec');
 
-    await sg.create(sgSpec, myInfo);
+    try {
+      await sg.create(sgSpec, myInfo);
+    } catch (e) {
+      print('ERROR creating syncgroup');
+      print(e);
+    }
+
   }
 
   return sg;

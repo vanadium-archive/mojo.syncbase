@@ -7,13 +7,6 @@ include ../shared/mojo.mk
 # Flags for Syncbase service running as Mojo service.
 V23_MOJO_FLAGS := --v=0
 
-# MOUNTTABLE_ADDR := 127.0.0.1:4001
-ifdef MOUNTTABLE_ADDR
-	# TODO(nlacasse): Get your email address out of here!
-	MOUNT_NAME := users/nlacasse@google.com/syncbase_mojo
-	V23_MOJO_FLAGS += --name=$(MOUNT_NAME) --v23.proxy=proxy --v23.namespace.root=$(MOUNTTABLE_ADDR)
-endif
-
 ifdef ANDROID
 	ETHER_BUILD_DIR := $(PWD)/gen/mojo/android
 
@@ -113,7 +106,7 @@ run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart
 ifdef ANDROID
 	adb push -p $(PWD)/creds $(ANDROID_CREDS_DIR)
 endif
-	$(call MOJO_RUN,"https://mojo.v.io/syncbase_example.dart $(MOUNTTABLE_ADDR)")
+	$(call MOJO_RUN,"https://mojo.v.io/syncbase_example.dart")
 
 .PHONY: test
 test: test-unit test-integration
