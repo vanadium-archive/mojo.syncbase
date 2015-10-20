@@ -6,7 +6,7 @@ library naming_util_test;
 
 import 'package:test/test.dart';
 
-import 'package:ether/src/naming/util.dart' as naming;
+import 'package:syncbase/src/naming/util.dart' as naming;
 
 main() {
   var tests = [

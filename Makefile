@@ -1,5 +1,5 @@
 PWD := $(shell pwd)
-DART_FILES := $(shell find dart/bin dart/lib dart/test -name "*.dart" -not -path "dart/lib/gen/*")
+DART_FILES := $(shell find example lib test -name "*.dart" -not -path "lib/gen/*")
 V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
 
 include ../shared/mojo.mk
@@ -7,8 +7,10 @@ include ../shared/mojo.mk
 # Flags for Syncbase service running as Mojo service.
 V23_MOJO_FLAGS := --v=0
 
+MOJOM_FILE := mojom/syncbase.mojom
+
 ifdef ANDROID
-	ETHER_BUILD_DIR := $(PWD)/gen/mojo/android
+	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/android
 
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/android_arm
 
@@ -22,7 +24,7 @@ ifdef ANDROID
 	ANDROID_CREDS_DIR := /sdcard/v23creds
 	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(APP_HOME_DIR)/syncbase_data --v23.credentials=$(ANDROID_CREDS_DIR)
 else
-	ETHER_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
+	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/linux_amd64
 
@@ -35,8 +37,8 @@ endif
 # very large, and can interfere with C++ memory if they are in the same
 # process.
 MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
-	--config-alias ETHER_DIR=$(PWD) \
-	--config-alias ETHER_BUILD_DIR=$(ETHER_BUILD_DIR) \
+	--config-alias SYNCBASE_DIR=$(PWD) \
+	--config-alias SYNCBASE_BUILD_DIR=$(SYNCBASE_BUILD_DIR) \
 	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)"
 
 .DELETE_ON_ERROR:
@@ -44,7 +46,7 @@ MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 all: test
 
 .PHONY: build
-build: $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom
+build: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom
 
 # Builds mounttabled, principal, and syncbased.
 bin: $(V23_GO_FILES) | syncbase-env-check
@@ -58,51 +60,58 @@ creds: | bin
 	./bin/principal seekblessings --v23.credentials creds
 	touch $@
 
-.PHONY: gen-mojom
-gen-mojom: dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
-
-dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: mojom/syncbase.mojom | syncbase-env-check
-	$(call MOJOM_GEN,$<,.,dart/lib/gen,dart)
-	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
-	# files, so we delete them.  Stop doing this once the generator is fixed.
-	# See https://github.com/domokit/mojo/issues/386
-	rm -f dart/lib/gen/mojom/$(notdir $@)
-
-gen/go/src/mojom/syncbase/syncbase.mojom.go: mojom/syncbase.mojom | syncbase-env-check
-	$(call MOJOM_GEN,$<,.,gen,go)
-	gofmt -w $@
-
 # TODO(nlacasse): These target-specific variables will affect this task and all
 # pre-requisite tasks.  Luckily none of the prerequisites require that these
 # variables have their original value, so everything works.  Once we have a
 # prereq that requires the original value, we will need to re-work these
 # variables.
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
-$(ETHER_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
+$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
+$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
+$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
+$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
 	$(call MOGO_BUILD,v.io/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
 .PHONY: dartfmt
-dartfmt: dart/packages
+dartfmt: packages
 	dartfmt --overwrite $(DART_FILES)
 
 # Lints src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
-dartanalyzer: dart/packages gen-mojom
+dartanalyzer: packages gen-mojom
 	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
 	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
 	# hints and warnings from *.mojom.dart files.
-	cd dart && dartanalyzer bin/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
+	dartanalyzer example/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
-.PHONY: dart/packages
-dart/packages:
-	cd dart && pub upgrade
+.PHONY: packages
+packages:
+	pub upgrade
+
+.PHONY: gen-mojom
+gen-mojom: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
+
+# TODO(aghassemi): For now, since the mojom compiler changes often, we don't
+# depend on syncbase.mojom and specify the generated files as .PHONY
+# targets, this makes sure we regenerate every time to pick up any compiler
+# changes. Later when mojom compiler is stable and backward compatible, we can
+# reintroduce the dependency on the mojom file and not regenerate every time.
+.PHONY: gen/go/src/mojom/syncbase/syncbase.mojom.go
+gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
+	$(call MOJOM_GEN,$(MOJOM_FILE),.,gen,go)
+	gofmt -w $@
+
+.PHONY: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart
+lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
+	$(call MOJOM_GEN,$(MOJOM_FILE),.,lib/gen,dart)
+	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
+	# files, so we delete them.  Stop doing this once the generator is fixed.
+	# See https://github.com/domokit/mojo/issues/386
+	rm -f lib/gen/mojom/$(notdir $@)
 
 .PHONY: run-syncbase-example
-run-syncbase-example: $(ETHER_BUILD_DIR)/syncbase_server.mojo dart/packages dart/lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check creds
+run-syncbase-example: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo packages lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check creds
 ifdef ANDROID
 	adb push -p $(PWD)/creds $(ANDROID_CREDS_DIR)
 endif
@@ -112,11 +121,11 @@ endif
 test: test-unit test-integration
 
 .PHONY: test-unit
-test-unit: dart/packages
-	cd dart && pub run test test/unit/*.dart
+test-unit: packages
+	pub run test test/unit/*.dart
 
 .PHONY: test-integration
-test-integration: dart/packages $(ETHER_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
+test-integration: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
 ifdef MOUNTTABLE_ADDR
 	$(error please unset MOUNTTABLE_ADDR before running the tests)
 endif
@@ -139,13 +148,36 @@ else
 endif
 endif
 
+.PHONY: update-mojo
+update-mojo:
+	DESKTOP=1 ANDROID=1 ./tool/sync_repos.sh
+
+
+.PHONY: publish
+# NOTE(aghassemi): This must be inside lib or won't be accessible.
+PACKAGE_MOJO_BIN_DIR := lib/mojo_services
+ifdef DRYRUN
+	PUBLISH_FLAGS := --dry-run
+endif
+# NOTE(aghassemi): Do not forget to increment the version number, otherwise publish will fail.
+# Please follow https://www.dartlang.org/tools/pub/versioning.html for guidelines.
+publish: veryclean update-mojo packages
+	$(MAKE) test # Builds and tests for Linux
+	ANDROID=1 $(MAKE) build # Cross compile for Android
+	mkdir -p $(PACKAGE_MOJO_BIN_DIR)
+	cp -r gen/mojo/* $(PACKAGE_MOJO_BIN_DIR)
+	# - at the beginning tells make to ignore failure and continue to next line.
+	-pub publish $(PUBLISH_FLAGS)
+	rm -rf $(PACKAGE_MOJO_BIN_DIR)
+
 # TODO(aghassemi): Why does mojo generate dart-pkg and mojom dirs?
 .PHONY: clean
 clean:
 	rm -rf bin creds gen tmp
-	rm -rf dart/lib/gen/dart-pkg
-	rm -rf dart/lib/gen/mojom
+	rm -rf lib/gen/dart-pkg
+	rm -rf lib/gen/mojom
+	rm -rf $(PACKAGE_MOJO_BIN_DIR)
 
 .PHONY: veryclean
 veryclean: clean
-	rm -rf dart/{.packages,pubspec.lock,packages}
+	rm -rf {.packages,pubspec.lock,packages}

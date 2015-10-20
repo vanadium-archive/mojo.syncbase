@@ -8,8 +8,8 @@ import 'dart:async';
 import 'dart:convert' show UTF8;
 
 import 'package:mojo/bindings.dart' as bindings;
-import 'package:ether/src/naming/util.dart' as naming;
-import 'package:ether/src/testing_instrumentation.dart' as testing;
+import 'package:syncbase/src/naming/util.dart' as naming;
+import 'package:syncbase/src/testing_instrumentation.dart' as testing;
 
 import 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart' as mojom;
 

@@ -7,9 +7,9 @@ import 'dart:async';
 import 'dart:math' show Random;
 import 'dart:convert' show UTF8;
 
-import 'package:ether/initialized_application.dart' show InitializedApplication;
-import 'package:ether/src/naming/util.dart' as naming;
-import 'package:ether/syncbase_client.dart' as sb;
+import 'package:syncbase/initialized_application.dart' show InitializedApplication;
+import 'package:syncbase/src/naming/util.dart' as naming;
+import 'package:syncbase/syncbase_client.dart' as sb;
 
 main(List args) async {
   // mojo_shell does not print a stack trace when the dart program crashes.

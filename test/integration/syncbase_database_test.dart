@@ -9,8 +9,8 @@ import 'dart:convert' show UTF8;
 
 import 'package:test/test.dart';
 
-import 'package:ether/src/testing_instrumentation.dart' as testing;
-import 'package:ether/syncbase_client.dart'
+import 'package:syncbase/src/testing_instrumentation.dart' as testing;
+import 'package:syncbase/syncbase_client.dart'
     show SyncbaseClient, WatchChangeTypes, WatchChange, WatchGlobStreamImpl;
 
 import './utils.dart' as utils;

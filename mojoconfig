@@ -7,16 +7,16 @@
       'mappings': [
         ('', [
           # For syncbase_server.mojo.
-          '@{ETHER_BUILD_DIR}',
+          '@{SYNCBASE_BUILD_DIR}',
           # For syncbase_example.dart.
-          '@{ETHER_DIR}/dart/bin'
+          '@{SYNCBASE_DIR}/example'
         ]),
       ],
     },
     {
       'host': 'https://test.mojo.v.io/',
       'mappings': [
-        ('', ['@{ETHER_DIR}/dart/test']),
+        ('', ['@{SYNCBASE_DIR}/test']),
       ],
     },
   ],

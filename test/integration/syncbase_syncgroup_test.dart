@@ -6,7 +6,7 @@ library syncbase_syncgroup_test;
 
 import 'package:test/test.dart';
 
-import 'package:ether/syncbase_client.dart'
+import 'package:syncbase/syncbase_client.dart'
     show SyncbaseClient, SyncgroupPrefix, SyncgroupSpec;
 
 import './utils.dart' as utils;

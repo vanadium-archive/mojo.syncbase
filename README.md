@@ -1,4 +1,4 @@
-# Ether
+# Syncbase
 
 This project exposes Syncbase as a Mojo service.
 
@@ -41,7 +41,7 @@ See the [Mojo readme] for more comprehensive instructions.
 ## Update Mojo and compile resources
 
 This updates the Mojo repo to HEAD, and builds the Mojo resources needed to
-compile Ether.
+compile Syncbase.
 
 Run this while you grab your morning coffee.
 
@@ -82,7 +82,7 @@ this repo.
 The following command will run a single test file.  This is useful when the
 full test suite hangs with no output.
 
-    $(MOJO_DIR)/src/mojo/devtools/common/mojo_run -v --enable-multiprocess --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell dart/test/integration/<filename>
+    $(MOJO_DIR)/src/mojo/devtools/common/mojo_run -v --enable-multiprocess --shell-path $(MOJO_DIR)/src/out/Debug/mojo_shell test/integration/<filename>
 
 [architecture proposal]: https://docs.google.com/document/d/1TyxPYIhj9VBCtY7eAXu_MEV9y0dtRx7n7UY4jm76Qq4/edit
 [depot tools]: http://www.chromium.org/developers/how-tos/install-depot-tools

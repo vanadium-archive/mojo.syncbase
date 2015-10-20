@@ -4,7 +4,7 @@
 
 library utils;
 
-import 'package:ether/syncbase_client.dart' show Perms, SyncbaseClient;
+import 'package:syncbase/syncbase_client.dart' show Perms, SyncbaseClient;
 
 // Returns an empty Perms object.
 Perms emptyPerms() => SyncbaseClient.perms();

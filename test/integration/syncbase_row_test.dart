@@ -8,7 +8,7 @@ import 'dart:convert' show UTF8;
 
 import 'package:test/test.dart';
 
-import 'package:ether/syncbase_client.dart' show SyncbaseClient;
+import 'package:syncbase/syncbase_client.dart' show SyncbaseClient;
 
 import './utils.dart' as utils;
 

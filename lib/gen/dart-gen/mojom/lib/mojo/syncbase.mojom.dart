@@ -24,7 +24,9 @@ class Error extends bindings.Struct {
   static Error deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -105,7 +107,9 @@ class Perms extends bindings.Struct {
   static Perms deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -171,7 +175,9 @@ class BatchOptions extends bindings.Struct {
   static BatchOptions deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -245,7 +251,9 @@ class PrefixPerms extends bindings.Struct {
   static PrefixPerms deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -320,7 +328,9 @@ class SyncgroupPrefix extends bindings.Struct {
   static SyncgroupPrefix deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -397,7 +407,9 @@ class SyncgroupSpec extends bindings.Struct {
   static SyncgroupSpec deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -528,7 +540,9 @@ class SyncgroupMemberInfo extends bindings.Struct {
   static SyncgroupMemberInfo deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -593,7 +607,9 @@ class Result extends bindings.Struct {
   static Result deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -675,7 +691,9 @@ class KeyValue extends bindings.Struct {
   static KeyValue deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -754,7 +772,9 @@ class WatchChange extends bindings.Struct {
   static WatchChange deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -868,7 +888,9 @@ class GlobRequest extends bindings.Struct {
   static GlobRequest deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -941,7 +963,9 @@ class ExecStreamOnResultParams extends bindings.Struct {
   static ExecStreamOnResultParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1006,7 +1030,9 @@ class ExecStreamOnResultResponseParams extends bindings.Struct {
   static ExecStreamOnResultResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1063,7 +1089,9 @@ class ExecStreamOnDoneParams extends bindings.Struct {
   static ExecStreamOnDoneParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1129,7 +1157,9 @@ class ScanStreamOnKeyValueParams extends bindings.Struct {
   static ScanStreamOnKeyValueParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1194,7 +1224,9 @@ class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
   static ScanStreamOnKeyValueResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1251,7 +1283,9 @@ class ScanStreamOnDoneParams extends bindings.Struct {
   static ScanStreamOnDoneParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1317,7 +1351,9 @@ class WatchGlobStreamOnChangeParams extends bindings.Struct {
   static WatchGlobStreamOnChangeParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1382,7 +1418,9 @@ class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
   static WatchGlobStreamOnChangeResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1439,7 +1477,9 @@ class WatchGlobStreamOnErrorParams extends bindings.Struct {
   static WatchGlobStreamOnErrorParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1504,7 +1544,9 @@ class SyncbaseServiceGetPermissionsParams extends bindings.Struct {
   static SyncbaseServiceGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1563,7 +1605,9 @@ class SyncbaseServiceGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseServiceGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1647,7 +1691,9 @@ class SyncbaseServiceSetPermissionsParams extends bindings.Struct {
   static SyncbaseServiceSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1721,7 +1767,9 @@ class SyncbaseServiceSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseServiceSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1788,7 +1836,9 @@ class SyncbaseAppCreateParams extends bindings.Struct {
   static SyncbaseAppCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1862,7 +1912,9 @@ class SyncbaseAppCreateResponseParams extends bindings.Struct {
   static SyncbaseAppCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1928,7 +1980,9 @@ class SyncbaseAppDestroyParams extends bindings.Struct {
   static SyncbaseAppDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1993,7 +2047,9 @@ class SyncbaseAppDestroyResponseParams extends bindings.Struct {
   static SyncbaseAppDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2059,7 +2115,9 @@ class SyncbaseAppExistsParams extends bindings.Struct {
   static SyncbaseAppExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2125,7 +2183,9 @@ class SyncbaseAppExistsResponseParams extends bindings.Struct {
   static SyncbaseAppExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2199,7 +2259,9 @@ class SyncbaseAppGetPermissionsParams extends bindings.Struct {
   static SyncbaseAppGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2266,7 +2328,9 @@ class SyncbaseAppGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseAppGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2351,7 +2415,9 @@ class SyncbaseAppSetPermissionsParams extends bindings.Struct {
   static SyncbaseAppSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2433,7 +2499,9 @@ class SyncbaseAppSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseAppSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2500,7 +2568,9 @@ class SyncbaseDbCreateParams extends bindings.Struct {
   static SyncbaseDbCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2574,7 +2644,9 @@ class SyncbaseDbCreateResponseParams extends bindings.Struct {
   static SyncbaseDbCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2640,7 +2712,9 @@ class SyncbaseDbDestroyParams extends bindings.Struct {
   static SyncbaseDbDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2705,7 +2779,9 @@ class SyncbaseDbDestroyResponseParams extends bindings.Struct {
   static SyncbaseDbDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2771,7 +2847,9 @@ class SyncbaseDbExistsParams extends bindings.Struct {
   static SyncbaseDbExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2837,7 +2915,9 @@ class SyncbaseDbExistsResponseParams extends bindings.Struct {
   static SyncbaseDbExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2913,7 +2993,9 @@ class SyncbaseDbExecParams extends bindings.Struct {
   static SyncbaseDbExecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2991,7 +3073,9 @@ class SyncbaseDbExecResponseParams extends bindings.Struct {
   static SyncbaseDbExecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3058,7 +3142,9 @@ class SyncbaseDbBeginBatchParams extends bindings.Struct {
   static SyncbaseDbBeginBatchParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3133,7 +3219,9 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
   static SyncbaseDbBeginBatchResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3207,7 +3295,9 @@ class SyncbaseDbCommitParams extends bindings.Struct {
   static SyncbaseDbCommitParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3272,7 +3362,9 @@ class SyncbaseDbCommitResponseParams extends bindings.Struct {
   static SyncbaseDbCommitResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3338,7 +3430,9 @@ class SyncbaseDbAbortParams extends bindings.Struct {
   static SyncbaseDbAbortParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3403,7 +3497,9 @@ class SyncbaseDbAbortResponseParams extends bindings.Struct {
   static SyncbaseDbAbortResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3469,7 +3565,9 @@ class SyncbaseDbGetPermissionsParams extends bindings.Struct {
   static SyncbaseDbGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3536,7 +3634,9 @@ class SyncbaseDbGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseDbGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3621,7 +3721,9 @@ class SyncbaseDbSetPermissionsParams extends bindings.Struct {
   static SyncbaseDbSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3703,7 +3805,9 @@ class SyncbaseDbSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseDbSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3771,7 +3875,9 @@ class SyncbaseDbWatchGlobParams extends bindings.Struct {
   static SyncbaseDbWatchGlobParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3850,7 +3956,9 @@ class SyncbaseDbWatchGlobResponseParams extends bindings.Struct {
   static SyncbaseDbWatchGlobResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3916,7 +4024,9 @@ class SyncbaseDbGetResumeMarkerParams extends bindings.Struct {
   static SyncbaseDbGetResumeMarkerParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3982,7 +4092,9 @@ class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
   static SyncbaseDbGetResumeMarkerResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4056,7 +4168,9 @@ class SyncbaseDbListTablesParams extends bindings.Struct {
   static SyncbaseDbListTablesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4122,7 +4236,9 @@ class SyncbaseDbListTablesResponseParams extends bindings.Struct {
   static SyncbaseDbListTablesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4212,7 +4328,9 @@ class SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupNamesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4278,7 +4396,9 @@ class SyncbaseDbGetSyncgroupNamesResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupNamesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4371,7 +4491,9 @@ class SyncbaseDbCreateSyncgroupParams extends bindings.Struct {
   static SyncbaseDbCreateSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4462,7 +4584,9 @@ class SyncbaseDbCreateSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbCreateSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4530,7 +4654,9 @@ class SyncbaseDbJoinSyncgroupParams extends bindings.Struct {
   static SyncbaseDbJoinSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4613,7 +4739,9 @@ class SyncbaseDbJoinSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbJoinSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4689,7 +4817,9 @@ class SyncbaseDbLeaveSyncgroupParams extends bindings.Struct {
   static SyncbaseDbLeaveSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4762,7 +4892,9 @@ class SyncbaseDbLeaveSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbLeaveSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4829,7 +4961,9 @@ class SyncbaseDbDestroySyncgroupParams extends bindings.Struct {
   static SyncbaseDbDestroySyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4902,7 +5036,9 @@ class SyncbaseDbDestroySyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbDestroySyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4970,7 +5106,9 @@ class SyncbaseDbEjectFromSyncgroupParams extends bindings.Struct {
   static SyncbaseDbEjectFromSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5051,7 +5189,9 @@ class SyncbaseDbEjectFromSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbEjectFromSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5118,7 +5258,9 @@ class SyncbaseDbGetSyncgroupSpecParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5193,7 +5335,9 @@ class SyncbaseDbGetSyncgroupSpecResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5279,7 +5423,9 @@ class SyncbaseDbSetSyncgroupSpecParams extends bindings.Struct {
   static SyncbaseDbSetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5369,7 +5515,9 @@ class SyncbaseDbSetSyncgroupSpecResponseParams extends bindings.Struct {
   static SyncbaseDbSetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5436,7 +5584,9 @@ class SyncbaseDbGetSyncgroupMembersParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupMembersParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5510,7 +5660,9 @@ class SyncbaseDbGetSyncgroupMembersResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupMembersResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5640,7 +5792,9 @@ class SyncbaseTableCreateParams extends bindings.Struct {
   static SyncbaseTableCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5714,7 +5868,9 @@ class SyncbaseTableCreateResponseParams extends bindings.Struct {
   static SyncbaseTableCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5780,7 +5936,9 @@ class SyncbaseTableDestroyParams extends bindings.Struct {
   static SyncbaseTableDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5845,7 +6003,9 @@ class SyncbaseTableDestroyResponseParams extends bindings.Struct {
   static SyncbaseTableDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5911,7 +6071,9 @@ class SyncbaseTableExistsParams extends bindings.Struct {
   static SyncbaseTableExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5977,7 +6139,9 @@ class SyncbaseTableExistsResponseParams extends bindings.Struct {
   static SyncbaseTableExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6051,7 +6215,9 @@ class SyncbaseTableGetPermissionsParams extends bindings.Struct {
   static SyncbaseTableGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6117,7 +6283,9 @@ class SyncbaseTableGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6193,7 +6361,9 @@ class SyncbaseTableSetPermissionsParams extends bindings.Struct {
   static SyncbaseTableSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6267,7 +6437,9 @@ class SyncbaseTableSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6335,7 +6507,9 @@ class SyncbaseTableDeleteRangeParams extends bindings.Struct {
   static SyncbaseTableDeleteRangeParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6416,7 +6590,9 @@ class SyncbaseTableDeleteRangeResponseParams extends bindings.Struct {
   static SyncbaseTableDeleteRangeResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6485,7 +6661,9 @@ class SyncbaseTableScanParams extends bindings.Struct {
   static SyncbaseTableScanParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6570,7 +6748,9 @@ class SyncbaseTableScanResponseParams extends bindings.Struct {
   static SyncbaseTableScanResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6637,7 +6817,9 @@ class SyncbaseTableGetPrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableGetPrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6711,7 +6893,9 @@ class SyncbaseTableGetPrefixPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableGetPrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6804,7 +6988,9 @@ class SyncbaseTableSetPrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableSetPrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6886,7 +7072,9 @@ class SyncbaseTableSetPrefixPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableSetPrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6953,7 +7141,9 @@ class SyncbaseTableDeletePrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableDeletePrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7026,7 +7216,9 @@ class SyncbaseTableDeletePrefixPermissionsResponseParams extends bindings.Struct
   static SyncbaseTableDeletePrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7092,7 +7284,9 @@ class SyncbaseRowExistsParams extends bindings.Struct {
   static SyncbaseRowExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7158,7 +7352,9 @@ class SyncbaseRowExistsResponseParams extends bindings.Struct {
   static SyncbaseRowExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7232,7 +7428,9 @@ class SyncbaseRowGetParams extends bindings.Struct {
   static SyncbaseRowGetParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7298,7 +7496,9 @@ class SyncbaseRowGetResponseParams extends bindings.Struct {
   static SyncbaseRowGetResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7373,7 +7573,9 @@ class SyncbaseRowPutParams extends bindings.Struct {
   static SyncbaseRowPutParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7446,7 +7648,9 @@ class SyncbaseRowPutResponseParams extends bindings.Struct {
   static SyncbaseRowPutResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7512,7 +7716,9 @@ class SyncbaseRowDeleteParams extends bindings.Struct {
   static SyncbaseRowDeleteParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7577,7 +7783,9 @@ class SyncbaseRowDeleteResponseParams extends bindings.Struct {
   static SyncbaseRowDeleteResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7638,7 +7846,7 @@ const String ExecStreamName =
       'mojo::ExecStream';
 
 abstract class ExecStream {
-  Future<ExecStreamOnResultResponseParams> onResult(Result result,[Function responseFactory = null]);
+  dynamic onResult(Result result,[Function responseFactory = null]);
   void onDone(Error err);
 
 }
@@ -7694,7 +7902,7 @@ class _ExecStreamProxyCalls implements ExecStream {
   ExecStreamProxyImpl _proxyImpl;
 
   _ExecStreamProxyCalls(this._proxyImpl);
-    Future<ExecStreamOnResultResponseParams> onResult(Result result,[Function responseFactory = null]) {
+    dynamic onResult(Result result,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new ExecStreamOnResultParams();
       params.result = result;
@@ -7737,6 +7945,13 @@ class ExecStreamProxy implements bindings.ProxyBase {
   ExecStreamProxy.unbound() :
       impl = new ExecStreamProxyImpl.unbound() {
     ptr = new _ExecStreamProxyCalls(impl);
+  }
+
+  factory ExecStreamProxy.connectToService(
+      bindings.ServiceConnector s, String url) {
+    ExecStreamProxy p = new ExecStreamProxy.unbound();
+    s.connectToService(url, p);
+    return p;
   }
 
   static ExecStreamProxy newFromEndpoint(
@@ -7787,7 +8002,7 @@ class ExecStreamStub extends bindings.Stub {
     return result;
   }
 
-  Future<bindings.Message> handleMessage(bindings.ServiceMessage message) {
+  dynamic handleMessage(bindings.ServiceMessage message) {
     if (bindings.ControlMessageHandler.isControlMessage(message)) {
       return bindings.ControlMessageHandler.handleMessage(this,
                                                           0,
@@ -7798,15 +8013,24 @@ class ExecStreamStub extends bindings.Stub {
       case kExecStream_onResult_name:
         var params = ExecStreamOnResultParams.deserialize(
             message.payload);
-        return _impl.onResult(params.result,_ExecStreamOnResultResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kExecStream_onResult_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.onResult(params.result,_ExecStreamOnResultResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kExecStream_onResult_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kExecStream_onResult_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kExecStream_onDone_name:
         var params = ExecStreamOnDoneParams.deserialize(
@@ -7841,7 +8065,7 @@ const String ScanStreamName =
       'mojo::ScanStream';
 
 abstract class ScanStream {
-  Future<ScanStreamOnKeyValueResponseParams> onKeyValue(KeyValue keyValue,[Function responseFactory = null]);
+  dynamic onKeyValue(KeyValue keyValue,[Function responseFactory = null]);
   void onDone(Error err);
 
 }
@@ -7897,7 +8121,7 @@ class _ScanStreamProxyCalls implements ScanStream {
   ScanStreamProxyImpl _proxyImpl;
 
   _ScanStreamProxyCalls(this._proxyImpl);
-    Future<ScanStreamOnKeyValueResponseParams> onKeyValue(KeyValue keyValue,[Function responseFactory = null]) {
+    dynamic onKeyValue(KeyValue keyValue,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new ScanStreamOnKeyValueParams();
       params.keyValue = keyValue;
@@ -7940,6 +8164,13 @@ class ScanStreamProxy implements bindings.ProxyBase {
   ScanStreamProxy.unbound() :
       impl = new ScanStreamProxyImpl.unbound() {
     ptr = new _ScanStreamProxyCalls(impl);
+  }
+
+  factory ScanStreamProxy.connectToService(
+      bindings.ServiceConnector s, String url) {
+    ScanStreamProxy p = new ScanStreamProxy.unbound();
+    s.connectToService(url, p);
+    return p;
   }
 
   static ScanStreamProxy newFromEndpoint(
@@ -7990,7 +8221,7 @@ class ScanStreamStub extends bindings.Stub {
     return result;
   }
 
-  Future<bindings.Message> handleMessage(bindings.ServiceMessage message) {
+  dynamic handleMessage(bindings.ServiceMessage message) {
     if (bindings.ControlMessageHandler.isControlMessage(message)) {
       return bindings.ControlMessageHandler.handleMessage(this,
                                                           0,
@@ -8001,15 +8232,24 @@ class ScanStreamStub extends bindings.Stub {
       case kScanStream_onKeyValue_name:
         var params = ScanStreamOnKeyValueParams.deserialize(
             message.payload);
-        return _impl.onKeyValue(params.keyValue,_ScanStreamOnKeyValueResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kScanStream_onKeyValue_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.onKeyValue(params.keyValue,_ScanStreamOnKeyValueResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kScanStream_onKeyValue_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kScanStream_onKeyValue_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kScanStream_onDone_name:
         var params = ScanStreamOnDoneParams.deserialize(
@@ -8044,7 +8284,7 @@ const String WatchGlobStreamName =
       'mojo::WatchGlobStream';
 
 abstract class WatchGlobStream {
-  Future<WatchGlobStreamOnChangeResponseParams> onChange(WatchChange change,[Function responseFactory = null]);
+  dynamic onChange(WatchChange change,[Function responseFactory = null]);
   void onError(Error err);
 
 }
@@ -8100,7 +8340,7 @@ class _WatchGlobStreamProxyCalls implements WatchGlobStream {
   WatchGlobStreamProxyImpl _proxyImpl;
 
   _WatchGlobStreamProxyCalls(this._proxyImpl);
-    Future<WatchGlobStreamOnChangeResponseParams> onChange(WatchChange change,[Function responseFactory = null]) {
+    dynamic onChange(WatchChange change,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new WatchGlobStreamOnChangeParams();
       params.change = change;
@@ -8143,6 +8383,13 @@ class WatchGlobStreamProxy implements bindings.ProxyBase {
   WatchGlobStreamProxy.unbound() :
       impl = new WatchGlobStreamProxyImpl.unbound() {
     ptr = new _WatchGlobStreamProxyCalls(impl);
+  }
+
+  factory WatchGlobStreamProxy.connectToService(
+      bindings.ServiceConnector s, String url) {
+    WatchGlobStreamProxy p = new WatchGlobStreamProxy.unbound();
+    s.connectToService(url, p);
+    return p;
   }
 
   static WatchGlobStreamProxy newFromEndpoint(
@@ -8193,7 +8440,7 @@ class WatchGlobStreamStub extends bindings.Stub {
     return result;
   }
 
-  Future<bindings.Message> handleMessage(bindings.ServiceMessage message) {
+  dynamic handleMessage(bindings.ServiceMessage message) {
     if (bindings.ControlMessageHandler.isControlMessage(message)) {
       return bindings.ControlMessageHandler.handleMessage(this,
                                                           0,
@@ -8204,15 +8451,24 @@ class WatchGlobStreamStub extends bindings.Stub {
       case kWatchGlobStream_onChange_name:
         var params = WatchGlobStreamOnChangeParams.deserialize(
             message.payload);
-        return _impl.onChange(params.change,_WatchGlobStreamOnChangeResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kWatchGlobStream_onChange_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.onChange(params.change,_WatchGlobStreamOnChangeResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kWatchGlobStream_onChange_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kWatchGlobStream_onChange_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kWatchGlobStream_onError_name:
         var params = WatchGlobStreamOnErrorParams.deserialize(
@@ -8287,48 +8543,48 @@ const String SyncbaseName =
       'mojo::Syncbase';
 
 abstract class Syncbase {
-  Future<SyncbaseServiceGetPermissionsResponseParams> serviceGetPermissions([Function responseFactory = null]);
-  Future<SyncbaseServiceSetPermissionsResponseParams> serviceSetPermissions(Perms perms,String version,[Function responseFactory = null]);
-  Future<SyncbaseAppCreateResponseParams> appCreate(String name,Perms perms,[Function responseFactory = null]);
-  Future<SyncbaseAppDestroyResponseParams> appDestroy(String name,[Function responseFactory = null]);
-  Future<SyncbaseAppExistsResponseParams> appExists(String name,[Function responseFactory = null]);
-  Future<SyncbaseAppGetPermissionsResponseParams> appGetPermissions(String name,[Function responseFactory = null]);
-  Future<SyncbaseAppSetPermissionsResponseParams> appSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
-  Future<SyncbaseDbCreateResponseParams> dbCreate(String name,Perms perms,[Function responseFactory = null]);
-  Future<SyncbaseDbDestroyResponseParams> dbDestroy(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbExistsResponseParams> dbExists(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbExecResponseParams> dbExec(String name,String query,Object stream,[Function responseFactory = null]);
-  Future<SyncbaseDbBeginBatchResponseParams> dbBeginBatch(String name,BatchOptions bo,[Function responseFactory = null]);
-  Future<SyncbaseDbCommitResponseParams> dbCommit(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbAbortResponseParams> dbAbort(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbGetPermissionsResponseParams> dbGetPermissions(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbSetPermissionsResponseParams> dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
-  Future<SyncbaseDbWatchGlobResponseParams> dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]);
-  Future<SyncbaseDbGetResumeMarkerResponseParams> dbGetResumeMarker(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbListTablesResponseParams> dbListTables(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbGetSyncgroupNamesResponseParams> dbGetSyncgroupNames(String name,[Function responseFactory = null]);
-  Future<SyncbaseDbCreateSyncgroupResponseParams> dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
-  Future<SyncbaseDbJoinSyncgroupResponseParams> dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
-  Future<SyncbaseDbLeaveSyncgroupResponseParams> dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseDbDestroySyncgroupResponseParams> dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseDbEjectFromSyncgroupResponseParams> dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]);
-  Future<SyncbaseDbGetSyncgroupSpecResponseParams> dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseDbSetSyncgroupSpecResponseParams> dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]);
-  Future<SyncbaseDbGetSyncgroupMembersResponseParams> dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]);
-  Future<SyncbaseTableCreateResponseParams> tableCreate(String name,Perms perms,[Function responseFactory = null]);
-  Future<SyncbaseTableDestroyResponseParams> tableDestroy(String name,[Function responseFactory = null]);
-  Future<SyncbaseTableExistsResponseParams> tableExists(String name,[Function responseFactory = null]);
-  Future<SyncbaseTableGetPermissionsResponseParams> tableGetPermissions(String name,[Function responseFactory = null]);
-  Future<SyncbaseTableSetPermissionsResponseParams> tableSetPermissions(String name,Perms perms,[Function responseFactory = null]);
-  Future<SyncbaseTableDeleteRangeResponseParams> tableDeleteRange(String name,List<int> start,List<int> limit,[Function responseFactory = null]);
-  Future<SyncbaseTableScanResponseParams> tableScan(String name,List<int> start,List<int> limit,Object stream,[Function responseFactory = null]);
-  Future<SyncbaseTableGetPrefixPermissionsResponseParams> tableGetPrefixPermissions(String name,String key,[Function responseFactory = null]);
-  Future<SyncbaseTableSetPrefixPermissionsResponseParams> tableSetPrefixPermissions(String name,String prefix,Perms perms,[Function responseFactory = null]);
-  Future<SyncbaseTableDeletePrefixPermissionsResponseParams> tableDeletePrefixPermissions(String name,String prefix,[Function responseFactory = null]);
-  Future<SyncbaseRowExistsResponseParams> rowExists(String name,[Function responseFactory = null]);
-  Future<SyncbaseRowGetResponseParams> rowGet(String name,[Function responseFactory = null]);
-  Future<SyncbaseRowPutResponseParams> rowPut(String name,List<int> value,[Function responseFactory = null]);
-  Future<SyncbaseRowDeleteResponseParams> rowDelete(String name,[Function responseFactory = null]);
+  dynamic serviceGetPermissions([Function responseFactory = null]);
+  dynamic serviceSetPermissions(Perms perms,String version,[Function responseFactory = null]);
+  dynamic appCreate(String name,Perms perms,[Function responseFactory = null]);
+  dynamic appDestroy(String name,[Function responseFactory = null]);
+  dynamic appExists(String name,[Function responseFactory = null]);
+  dynamic appGetPermissions(String name,[Function responseFactory = null]);
+  dynamic appSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
+  dynamic dbCreate(String name,Perms perms,[Function responseFactory = null]);
+  dynamic dbDestroy(String name,[Function responseFactory = null]);
+  dynamic dbExists(String name,[Function responseFactory = null]);
+  dynamic dbExec(String name,String query,Object stream,[Function responseFactory = null]);
+  dynamic dbBeginBatch(String name,BatchOptions bo,[Function responseFactory = null]);
+  dynamic dbCommit(String name,[Function responseFactory = null]);
+  dynamic dbAbort(String name,[Function responseFactory = null]);
+  dynamic dbGetPermissions(String name,[Function responseFactory = null]);
+  dynamic dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
+  dynamic dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]);
+  dynamic dbGetResumeMarker(String name,[Function responseFactory = null]);
+  dynamic dbListTables(String name,[Function responseFactory = null]);
+  dynamic dbGetSyncgroupNames(String name,[Function responseFactory = null]);
+  dynamic dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
+  dynamic dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]);
+  dynamic dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]);
+  dynamic dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]);
+  dynamic dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]);
+  dynamic dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]);
+  dynamic dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]);
+  dynamic dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]);
+  dynamic tableCreate(String name,Perms perms,[Function responseFactory = null]);
+  dynamic tableDestroy(String name,[Function responseFactory = null]);
+  dynamic tableExists(String name,[Function responseFactory = null]);
+  dynamic tableGetPermissions(String name,[Function responseFactory = null]);
+  dynamic tableSetPermissions(String name,Perms perms,[Function responseFactory = null]);
+  dynamic tableDeleteRange(String name,List<int> start,List<int> limit,[Function responseFactory = null]);
+  dynamic tableScan(String name,List<int> start,List<int> limit,Object stream,[Function responseFactory = null]);
+  dynamic tableGetPrefixPermissions(String name,String key,[Function responseFactory = null]);
+  dynamic tableSetPrefixPermissions(String name,String prefix,Perms perms,[Function responseFactory = null]);
+  dynamic tableDeletePrefixPermissions(String name,String prefix,[Function responseFactory = null]);
+  dynamic rowExists(String name,[Function responseFactory = null]);
+  dynamic rowGet(String name,[Function responseFactory = null]);
+  dynamic rowPut(String name,List<int> value,[Function responseFactory = null]);
+  dynamic rowDelete(String name,[Function responseFactory = null]);
 
 }
 
@@ -8957,7 +9213,7 @@ class _SyncbaseProxyCalls implements Syncbase {
   SyncbaseProxyImpl _proxyImpl;
 
   _SyncbaseProxyCalls(this._proxyImpl);
-    Future<SyncbaseServiceGetPermissionsResponseParams> serviceGetPermissions([Function responseFactory = null]) {
+    dynamic serviceGetPermissions([Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseServiceGetPermissionsParams();
       return _proxyImpl.sendMessageWithRequestId(
@@ -8966,7 +9222,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseServiceSetPermissionsResponseParams> serviceSetPermissions(Perms perms,String version,[Function responseFactory = null]) {
+    dynamic serviceSetPermissions(Perms perms,String version,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseServiceSetPermissionsParams();
       params.perms = perms;
@@ -8977,7 +9233,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseAppCreateResponseParams> appCreate(String name,Perms perms,[Function responseFactory = null]) {
+    dynamic appCreate(String name,Perms perms,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseAppCreateParams();
       params.name = name;
@@ -8988,7 +9244,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseAppDestroyResponseParams> appDestroy(String name,[Function responseFactory = null]) {
+    dynamic appDestroy(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseAppDestroyParams();
       params.name = name;
@@ -8998,7 +9254,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseAppExistsResponseParams> appExists(String name,[Function responseFactory = null]) {
+    dynamic appExists(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseAppExistsParams();
       params.name = name;
@@ -9008,7 +9264,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseAppGetPermissionsResponseParams> appGetPermissions(String name,[Function responseFactory = null]) {
+    dynamic appGetPermissions(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseAppGetPermissionsParams();
       params.name = name;
@@ -9018,7 +9274,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseAppSetPermissionsResponseParams> appSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]) {
+    dynamic appSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseAppSetPermissionsParams();
       params.name = name;
@@ -9030,7 +9286,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbCreateResponseParams> dbCreate(String name,Perms perms,[Function responseFactory = null]) {
+    dynamic dbCreate(String name,Perms perms,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbCreateParams();
       params.name = name;
@@ -9041,7 +9297,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbDestroyResponseParams> dbDestroy(String name,[Function responseFactory = null]) {
+    dynamic dbDestroy(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbDestroyParams();
       params.name = name;
@@ -9051,7 +9307,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbExistsResponseParams> dbExists(String name,[Function responseFactory = null]) {
+    dynamic dbExists(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbExistsParams();
       params.name = name;
@@ -9061,7 +9317,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbExecResponseParams> dbExec(String name,String query,Object stream,[Function responseFactory = null]) {
+    dynamic dbExec(String name,String query,Object stream,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbExecParams();
       params.name = name;
@@ -9073,7 +9329,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbBeginBatchResponseParams> dbBeginBatch(String name,BatchOptions bo,[Function responseFactory = null]) {
+    dynamic dbBeginBatch(String name,BatchOptions bo,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbBeginBatchParams();
       params.name = name;
@@ -9084,7 +9340,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbCommitResponseParams> dbCommit(String name,[Function responseFactory = null]) {
+    dynamic dbCommit(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbCommitParams();
       params.name = name;
@@ -9094,7 +9350,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbAbortResponseParams> dbAbort(String name,[Function responseFactory = null]) {
+    dynamic dbAbort(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbAbortParams();
       params.name = name;
@@ -9104,7 +9360,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetPermissionsResponseParams> dbGetPermissions(String name,[Function responseFactory = null]) {
+    dynamic dbGetPermissions(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetPermissionsParams();
       params.name = name;
@@ -9114,7 +9370,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbSetPermissionsResponseParams> dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]) {
+    dynamic dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbSetPermissionsParams();
       params.name = name;
@@ -9126,7 +9382,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbWatchGlobResponseParams> dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]) {
+    dynamic dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbWatchGlobParams();
       params.name = name;
@@ -9138,7 +9394,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetResumeMarkerResponseParams> dbGetResumeMarker(String name,[Function responseFactory = null]) {
+    dynamic dbGetResumeMarker(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetResumeMarkerParams();
       params.name = name;
@@ -9148,7 +9404,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbListTablesResponseParams> dbListTables(String name,[Function responseFactory = null]) {
+    dynamic dbListTables(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbListTablesParams();
       params.name = name;
@@ -9158,7 +9414,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetSyncgroupNamesResponseParams> dbGetSyncgroupNames(String name,[Function responseFactory = null]) {
+    dynamic dbGetSyncgroupNames(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupNamesParams();
       params.name = name;
@@ -9168,7 +9424,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbCreateSyncgroupResponseParams> dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
+    dynamic dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbCreateSyncgroupParams();
       params.name = name;
@@ -9181,7 +9437,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbJoinSyncgroupResponseParams> dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
+    dynamic dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbJoinSyncgroupParams();
       params.name = name;
@@ -9193,7 +9449,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbLeaveSyncgroupResponseParams> dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]) {
+    dynamic dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbLeaveSyncgroupParams();
       params.name = name;
@@ -9204,7 +9460,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbDestroySyncgroupResponseParams> dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]) {
+    dynamic dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbDestroySyncgroupParams();
       params.name = name;
@@ -9215,7 +9471,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbEjectFromSyncgroupResponseParams> dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]) {
+    dynamic dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbEjectFromSyncgroupParams();
       params.name = name;
@@ -9227,7 +9483,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetSyncgroupSpecResponseParams> dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]) {
+    dynamic dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupSpecParams();
       params.name = name;
@@ -9238,7 +9494,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbSetSyncgroupSpecResponseParams> dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]) {
+    dynamic dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbSetSyncgroupSpecParams();
       params.name = name;
@@ -9251,7 +9507,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseDbGetSyncgroupMembersResponseParams> dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]) {
+    dynamic dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupMembersParams();
       params.name = name;
@@ -9262,7 +9518,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableCreateResponseParams> tableCreate(String name,Perms perms,[Function responseFactory = null]) {
+    dynamic tableCreate(String name,Perms perms,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableCreateParams();
       params.name = name;
@@ -9273,7 +9529,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableDestroyResponseParams> tableDestroy(String name,[Function responseFactory = null]) {
+    dynamic tableDestroy(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableDestroyParams();
       params.name = name;
@@ -9283,7 +9539,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableExistsResponseParams> tableExists(String name,[Function responseFactory = null]) {
+    dynamic tableExists(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableExistsParams();
       params.name = name;
@@ -9293,7 +9549,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableGetPermissionsResponseParams> tableGetPermissions(String name,[Function responseFactory = null]) {
+    dynamic tableGetPermissions(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableGetPermissionsParams();
       params.name = name;
@@ -9303,7 +9559,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableSetPermissionsResponseParams> tableSetPermissions(String name,Perms perms,[Function responseFactory = null]) {
+    dynamic tableSetPermissions(String name,Perms perms,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableSetPermissionsParams();
       params.name = name;
@@ -9314,7 +9570,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableDeleteRangeResponseParams> tableDeleteRange(String name,List<int> start,List<int> limit,[Function responseFactory = null]) {
+    dynamic tableDeleteRange(String name,List<int> start,List<int> limit,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableDeleteRangeParams();
       params.name = name;
@@ -9326,7 +9582,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableScanResponseParams> tableScan(String name,List<int> start,List<int> limit,Object stream,[Function responseFactory = null]) {
+    dynamic tableScan(String name,List<int> start,List<int> limit,Object stream,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableScanParams();
       params.name = name;
@@ -9339,7 +9595,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableGetPrefixPermissionsResponseParams> tableGetPrefixPermissions(String name,String key,[Function responseFactory = null]) {
+    dynamic tableGetPrefixPermissions(String name,String key,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableGetPrefixPermissionsParams();
       params.name = name;
@@ -9350,7 +9606,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableSetPrefixPermissionsResponseParams> tableSetPrefixPermissions(String name,String prefix,Perms perms,[Function responseFactory = null]) {
+    dynamic tableSetPrefixPermissions(String name,String prefix,Perms perms,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableSetPrefixPermissionsParams();
       params.name = name;
@@ -9362,7 +9618,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseTableDeletePrefixPermissionsResponseParams> tableDeletePrefixPermissions(String name,String prefix,[Function responseFactory = null]) {
+    dynamic tableDeletePrefixPermissions(String name,String prefix,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseTableDeletePrefixPermissionsParams();
       params.name = name;
@@ -9373,7 +9629,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseRowExistsResponseParams> rowExists(String name,[Function responseFactory = null]) {
+    dynamic rowExists(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseRowExistsParams();
       params.name = name;
@@ -9383,7 +9639,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseRowGetResponseParams> rowGet(String name,[Function responseFactory = null]) {
+    dynamic rowGet(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseRowGetParams();
       params.name = name;
@@ -9393,7 +9649,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseRowPutResponseParams> rowPut(String name,List<int> value,[Function responseFactory = null]) {
+    dynamic rowPut(String name,List<int> value,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseRowPutParams();
       params.name = name;
@@ -9404,7 +9660,7 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    Future<SyncbaseRowDeleteResponseParams> rowDelete(String name,[Function responseFactory = null]) {
+    dynamic rowDelete(String name,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseRowDeleteParams();
       params.name = name;
@@ -9440,6 +9696,13 @@ class SyncbaseProxy implements bindings.ProxyBase {
   SyncbaseProxy.unbound() :
       impl = new SyncbaseProxyImpl.unbound() {
     ptr = new _SyncbaseProxyCalls(impl);
+  }
+
+  factory SyncbaseProxy.connectToService(
+      bindings.ServiceConnector s, String url) {
+    SyncbaseProxy p = new SyncbaseProxy.unbound();
+    s.connectToService(url, p);
+    return p;
   }
 
   static SyncbaseProxy newFromEndpoint(
@@ -9717,7 +9980,7 @@ class SyncbaseStub extends bindings.Stub {
     return result;
   }
 
-  Future<bindings.Message> handleMessage(bindings.ServiceMessage message) {
+  dynamic handleMessage(bindings.ServiceMessage message) {
     if (bindings.ControlMessageHandler.isControlMessage(message)) {
       return bindings.ControlMessageHandler.handleMessage(this,
                                                           0,
@@ -9728,548 +9991,926 @@ class SyncbaseStub extends bindings.Stub {
       case kSyncbase_serviceGetPermissions_name:
         var params = SyncbaseServiceGetPermissionsParams.deserialize(
             message.payload);
-        return _impl.serviceGetPermissions(_SyncbaseServiceGetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_serviceGetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.serviceGetPermissions(_SyncbaseServiceGetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_serviceGetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_serviceGetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_serviceSetPermissions_name:
         var params = SyncbaseServiceSetPermissionsParams.deserialize(
             message.payload);
-        return _impl.serviceSetPermissions(params.perms,params.version,_SyncbaseServiceSetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_serviceSetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.serviceSetPermissions(params.perms,params.version,_SyncbaseServiceSetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_serviceSetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_serviceSetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_appCreate_name:
         var params = SyncbaseAppCreateParams.deserialize(
             message.payload);
-        return _impl.appCreate(params.name,params.perms,_SyncbaseAppCreateResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_appCreate_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.appCreate(params.name,params.perms,_SyncbaseAppCreateResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_appCreate_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_appCreate_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_appDestroy_name:
         var params = SyncbaseAppDestroyParams.deserialize(
             message.payload);
-        return _impl.appDestroy(params.name,_SyncbaseAppDestroyResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_appDestroy_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.appDestroy(params.name,_SyncbaseAppDestroyResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_appDestroy_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_appDestroy_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_appExists_name:
         var params = SyncbaseAppExistsParams.deserialize(
             message.payload);
-        return _impl.appExists(params.name,_SyncbaseAppExistsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_appExists_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.appExists(params.name,_SyncbaseAppExistsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_appExists_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_appExists_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_appGetPermissions_name:
         var params = SyncbaseAppGetPermissionsParams.deserialize(
             message.payload);
-        return _impl.appGetPermissions(params.name,_SyncbaseAppGetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_appGetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.appGetPermissions(params.name,_SyncbaseAppGetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_appGetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_appGetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_appSetPermissions_name:
         var params = SyncbaseAppSetPermissionsParams.deserialize(
             message.payload);
-        return _impl.appSetPermissions(params.name,params.perms,params.version,_SyncbaseAppSetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_appSetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.appSetPermissions(params.name,params.perms,params.version,_SyncbaseAppSetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_appSetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_appSetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbCreate_name:
         var params = SyncbaseDbCreateParams.deserialize(
             message.payload);
-        return _impl.dbCreate(params.name,params.perms,_SyncbaseDbCreateResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbCreate_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbCreate(params.name,params.perms,_SyncbaseDbCreateResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbCreate_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbCreate_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbDestroy_name:
         var params = SyncbaseDbDestroyParams.deserialize(
             message.payload);
-        return _impl.dbDestroy(params.name,_SyncbaseDbDestroyResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbDestroy_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbDestroy(params.name,_SyncbaseDbDestroyResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbDestroy_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbDestroy_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbExists_name:
         var params = SyncbaseDbExistsParams.deserialize(
             message.payload);
-        return _impl.dbExists(params.name,_SyncbaseDbExistsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbExists_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbExists(params.name,_SyncbaseDbExistsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbExists_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbExists_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbExec_name:
         var params = SyncbaseDbExecParams.deserialize(
             message.payload);
-        return _impl.dbExec(params.name,params.query,params.stream,_SyncbaseDbExecResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbExec_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbExec(params.name,params.query,params.stream,_SyncbaseDbExecResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbExec_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbExec_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbBeginBatch_name:
         var params = SyncbaseDbBeginBatchParams.deserialize(
             message.payload);
-        return _impl.dbBeginBatch(params.name,params.bo,_SyncbaseDbBeginBatchResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbBeginBatch_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbBeginBatch(params.name,params.bo,_SyncbaseDbBeginBatchResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbBeginBatch_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbBeginBatch_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbCommit_name:
         var params = SyncbaseDbCommitParams.deserialize(
             message.payload);
-        return _impl.dbCommit(params.name,_SyncbaseDbCommitResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbCommit_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbCommit(params.name,_SyncbaseDbCommitResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbCommit_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbCommit_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbAbort_name:
         var params = SyncbaseDbAbortParams.deserialize(
             message.payload);
-        return _impl.dbAbort(params.name,_SyncbaseDbAbortResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbAbort_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbAbort(params.name,_SyncbaseDbAbortResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbAbort_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbAbort_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbGetPermissions_name:
         var params = SyncbaseDbGetPermissionsParams.deserialize(
             message.payload);
-        return _impl.dbGetPermissions(params.name,_SyncbaseDbGetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbGetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbGetPermissions(params.name,_SyncbaseDbGetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbGetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbGetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbSetPermissions_name:
         var params = SyncbaseDbSetPermissionsParams.deserialize(
             message.payload);
-        return _impl.dbSetPermissions(params.name,params.perms,params.version,_SyncbaseDbSetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbSetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbSetPermissions(params.name,params.perms,params.version,_SyncbaseDbSetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbSetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbSetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbWatchGlob_name:
         var params = SyncbaseDbWatchGlobParams.deserialize(
             message.payload);
-        return _impl.dbWatchGlob(params.name,params.req,params.stream,_SyncbaseDbWatchGlobResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbWatchGlob_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbWatchGlob(params.name,params.req,params.stream,_SyncbaseDbWatchGlobResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbWatchGlob_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbWatchGlob_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbGetResumeMarker_name:
         var params = SyncbaseDbGetResumeMarkerParams.deserialize(
             message.payload);
-        return _impl.dbGetResumeMarker(params.name,_SyncbaseDbGetResumeMarkerResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbGetResumeMarker_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbGetResumeMarker(params.name,_SyncbaseDbGetResumeMarkerResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbGetResumeMarker_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbGetResumeMarker_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbListTables_name:
         var params = SyncbaseDbListTablesParams.deserialize(
             message.payload);
-        return _impl.dbListTables(params.name,_SyncbaseDbListTablesResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbListTables_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbListTables(params.name,_SyncbaseDbListTablesResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbListTables_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbListTables_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbGetSyncgroupNames_name:
         var params = SyncbaseDbGetSyncgroupNamesParams.deserialize(
             message.payload);
-        return _impl.dbGetSyncgroupNames(params.name,_SyncbaseDbGetSyncgroupNamesResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbGetSyncgroupNames_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbGetSyncgroupNames(params.name,_SyncbaseDbGetSyncgroupNamesResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbGetSyncgroupNames_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbGetSyncgroupNames_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbCreateSyncgroup_name:
         var params = SyncbaseDbCreateSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbCreateSyncgroup(params.name,params.sgName,params.spec,params.myInfo,_SyncbaseDbCreateSyncgroupResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbCreateSyncgroup_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbCreateSyncgroup(params.name,params.sgName,params.spec,params.myInfo,_SyncbaseDbCreateSyncgroupResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbCreateSyncgroup_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbCreateSyncgroup_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbJoinSyncgroup_name:
         var params = SyncbaseDbJoinSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbJoinSyncgroup(params.name,params.sgName,params.myInfo,_SyncbaseDbJoinSyncgroupResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbJoinSyncgroup_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbJoinSyncgroup(params.name,params.sgName,params.myInfo,_SyncbaseDbJoinSyncgroupResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbJoinSyncgroup_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbJoinSyncgroup_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbLeaveSyncgroup_name:
         var params = SyncbaseDbLeaveSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbLeaveSyncgroup(params.name,params.sgName,_SyncbaseDbLeaveSyncgroupResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbLeaveSyncgroup_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbLeaveSyncgroup(params.name,params.sgName,_SyncbaseDbLeaveSyncgroupResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbLeaveSyncgroup_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbLeaveSyncgroup_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbDestroySyncgroup_name:
         var params = SyncbaseDbDestroySyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbDestroySyncgroup(params.name,params.sgName,_SyncbaseDbDestroySyncgroupResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbDestroySyncgroup_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbDestroySyncgroup(params.name,params.sgName,_SyncbaseDbDestroySyncgroupResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbDestroySyncgroup_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbDestroySyncgroup_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbEjectFromSyncgroup_name:
         var params = SyncbaseDbEjectFromSyncgroupParams.deserialize(
             message.payload);
-        return _impl.dbEjectFromSyncgroup(params.name,params.sgName,params.member,_SyncbaseDbEjectFromSyncgroupResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbEjectFromSyncgroup_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbEjectFromSyncgroup(params.name,params.sgName,params.member,_SyncbaseDbEjectFromSyncgroupResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbEjectFromSyncgroup_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbEjectFromSyncgroup_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbGetSyncgroupSpec_name:
         var params = SyncbaseDbGetSyncgroupSpecParams.deserialize(
             message.payload);
-        return _impl.dbGetSyncgroupSpec(params.name,params.sgName,_SyncbaseDbGetSyncgroupSpecResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbGetSyncgroupSpec_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbGetSyncgroupSpec(params.name,params.sgName,_SyncbaseDbGetSyncgroupSpecResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbGetSyncgroupSpec_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbGetSyncgroupSpec_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbSetSyncgroupSpec_name:
         var params = SyncbaseDbSetSyncgroupSpecParams.deserialize(
             message.payload);
-        return _impl.dbSetSyncgroupSpec(params.name,params.sgName,params.spec,params.version,_SyncbaseDbSetSyncgroupSpecResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbSetSyncgroupSpec_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbSetSyncgroupSpec(params.name,params.sgName,params.spec,params.version,_SyncbaseDbSetSyncgroupSpecResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbSetSyncgroupSpec_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbSetSyncgroupSpec_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_dbGetSyncgroupMembers_name:
         var params = SyncbaseDbGetSyncgroupMembersParams.deserialize(
             message.payload);
-        return _impl.dbGetSyncgroupMembers(params.name,params.sgName,_SyncbaseDbGetSyncgroupMembersResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_dbGetSyncgroupMembers_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.dbGetSyncgroupMembers(params.name,params.sgName,_SyncbaseDbGetSyncgroupMembersResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_dbGetSyncgroupMembers_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_dbGetSyncgroupMembers_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableCreate_name:
         var params = SyncbaseTableCreateParams.deserialize(
             message.payload);
-        return _impl.tableCreate(params.name,params.perms,_SyncbaseTableCreateResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableCreate_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableCreate(params.name,params.perms,_SyncbaseTableCreateResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableCreate_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableCreate_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableDestroy_name:
         var params = SyncbaseTableDestroyParams.deserialize(
             message.payload);
-        return _impl.tableDestroy(params.name,_SyncbaseTableDestroyResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableDestroy_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableDestroy(params.name,_SyncbaseTableDestroyResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableDestroy_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableDestroy_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableExists_name:
         var params = SyncbaseTableExistsParams.deserialize(
             message.payload);
-        return _impl.tableExists(params.name,_SyncbaseTableExistsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableExists_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableExists(params.name,_SyncbaseTableExistsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableExists_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableExists_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableGetPermissions_name:
         var params = SyncbaseTableGetPermissionsParams.deserialize(
             message.payload);
-        return _impl.tableGetPermissions(params.name,_SyncbaseTableGetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableGetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableGetPermissions(params.name,_SyncbaseTableGetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableGetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableGetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableSetPermissions_name:
         var params = SyncbaseTableSetPermissionsParams.deserialize(
             message.payload);
-        return _impl.tableSetPermissions(params.name,params.perms,_SyncbaseTableSetPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableSetPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableSetPermissions(params.name,params.perms,_SyncbaseTableSetPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableSetPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableSetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableDeleteRange_name:
         var params = SyncbaseTableDeleteRangeParams.deserialize(
             message.payload);
-        return _impl.tableDeleteRange(params.name,params.start,params.limit,_SyncbaseTableDeleteRangeResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableDeleteRange_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableDeleteRange(params.name,params.start,params.limit,_SyncbaseTableDeleteRangeResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableDeleteRange_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableDeleteRange_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableScan_name:
         var params = SyncbaseTableScanParams.deserialize(
             message.payload);
-        return _impl.tableScan(params.name,params.start,params.limit,params.stream,_SyncbaseTableScanResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableScan_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableScan(params.name,params.start,params.limit,params.stream,_SyncbaseTableScanResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableScan_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableScan_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableGetPrefixPermissions_name:
         var params = SyncbaseTableGetPrefixPermissionsParams.deserialize(
             message.payload);
-        return _impl.tableGetPrefixPermissions(params.name,params.key,_SyncbaseTableGetPrefixPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableGetPrefixPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableGetPrefixPermissions(params.name,params.key,_SyncbaseTableGetPrefixPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableGetPrefixPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableGetPrefixPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableSetPrefixPermissions_name:
         var params = SyncbaseTableSetPrefixPermissionsParams.deserialize(
             message.payload);
-        return _impl.tableSetPrefixPermissions(params.name,params.prefix,params.perms,_SyncbaseTableSetPrefixPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableSetPrefixPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableSetPrefixPermissions(params.name,params.prefix,params.perms,_SyncbaseTableSetPrefixPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableSetPrefixPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableSetPrefixPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_tableDeletePrefixPermissions_name:
         var params = SyncbaseTableDeletePrefixPermissionsParams.deserialize(
             message.payload);
-        return _impl.tableDeletePrefixPermissions(params.name,params.prefix,_SyncbaseTableDeletePrefixPermissionsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_tableDeletePrefixPermissions_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.tableDeletePrefixPermissions(params.name,params.prefix,_SyncbaseTableDeletePrefixPermissionsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_tableDeletePrefixPermissions_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_tableDeletePrefixPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_rowExists_name:
         var params = SyncbaseRowExistsParams.deserialize(
             message.payload);
-        return _impl.rowExists(params.name,_SyncbaseRowExistsResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_rowExists_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.rowExists(params.name,_SyncbaseRowExistsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_rowExists_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_rowExists_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_rowGet_name:
         var params = SyncbaseRowGetParams.deserialize(
             message.payload);
-        return _impl.rowGet(params.name,_SyncbaseRowGetResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_rowGet_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.rowGet(params.name,_SyncbaseRowGetResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_rowGet_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_rowGet_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_rowPut_name:
         var params = SyncbaseRowPutParams.deserialize(
             message.payload);
-        return _impl.rowPut(params.name,params.value,_SyncbaseRowPutResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_rowPut_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.rowPut(params.name,params.value,_SyncbaseRowPutResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_rowPut_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_rowPut_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       case kSyncbase_rowDelete_name:
         var params = SyncbaseRowDeleteParams.deserialize(
             message.payload);
-        return _impl.rowDelete(params.name,_SyncbaseRowDeleteResponseParamsFactory).then((response) {
-          if (response != null) {
-            return buildResponseWithId(
-                response,
-                kSyncbase_rowDelete_name,
-                message.header.requestId,
-                bindings.MessageHeader.kMessageIsResponse);
-          }
-        });
+        var response = _impl.rowDelete(params.name,_SyncbaseRowDeleteResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_rowDelete_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_rowDelete_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
         break;
       default:
         throw new bindings.MojoCodecError("Unexpected message name");

@@ -8,9 +8,9 @@ import 'dart:async';
 import 'package:mojo/core.dart' show MojoHandle;
 import 'package:test/test.dart';
 
-import 'package:ether/src/testing_instrumentation.dart' as testing;
-import 'package:ether/initialized_application.dart' show InitializedApplication;
-import 'package:ether/syncbase_client.dart' show SyncbaseClient;
+import 'package:syncbase/src/testing_instrumentation.dart' as testing;
+import 'package:syncbase/initialized_application.dart' show InitializedApplication;
+import 'package:syncbase/syncbase_client.dart' show SyncbaseClient;
 
 // Import other test files.
 import './syncbase_app_test.dart' show runAppTests;

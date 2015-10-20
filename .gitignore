@@ -6,8 +6,8 @@
 /bin
 /creds
 /gen
-/dart/lib/gen/dart-pkg
-/dart/lib/gen/mojom
+/lib/gen/dart-pkg
+/lib/gen/mojom
 
 # Tmp dir for syncbase data, logs, etc.
 /tmp
