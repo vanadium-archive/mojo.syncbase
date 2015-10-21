@@ -24,9 +24,7 @@ class Error extends bindings.Struct {
   static Error deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -107,9 +105,7 @@ class Perms extends bindings.Struct {
   static Perms deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -175,9 +171,7 @@ class BatchOptions extends bindings.Struct {
   static BatchOptions deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -251,9 +245,7 @@ class PrefixPerms extends bindings.Struct {
   static PrefixPerms deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -328,9 +320,7 @@ class SyncgroupPrefix extends bindings.Struct {
   static SyncgroupPrefix deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -407,9 +397,7 @@ class SyncgroupSpec extends bindings.Struct {
   static SyncgroupSpec deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -540,9 +528,7 @@ class SyncgroupMemberInfo extends bindings.Struct {
   static SyncgroupMemberInfo deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -607,9 +593,7 @@ class Result extends bindings.Struct {
   static Result deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -691,9 +675,7 @@ class KeyValue extends bindings.Struct {
   static KeyValue deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -772,9 +754,7 @@ class WatchChange extends bindings.Struct {
   static WatchChange deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -888,9 +868,7 @@ class GlobRequest extends bindings.Struct {
   static GlobRequest deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -963,9 +941,7 @@ class ExecStreamOnResultParams extends bindings.Struct {
   static ExecStreamOnResultParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1030,9 +1006,7 @@ class ExecStreamOnResultResponseParams extends bindings.Struct {
   static ExecStreamOnResultResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1089,9 +1063,7 @@ class ExecStreamOnDoneParams extends bindings.Struct {
   static ExecStreamOnDoneParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1157,9 +1129,7 @@ class ScanStreamOnKeyValueParams extends bindings.Struct {
   static ScanStreamOnKeyValueParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1224,9 +1194,7 @@ class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
   static ScanStreamOnKeyValueResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1283,9 +1251,7 @@ class ScanStreamOnDoneParams extends bindings.Struct {
   static ScanStreamOnDoneParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1351,9 +1317,7 @@ class WatchGlobStreamOnChangeParams extends bindings.Struct {
   static WatchGlobStreamOnChangeParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1418,9 +1382,7 @@ class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
   static WatchGlobStreamOnChangeResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1477,9 +1439,7 @@ class WatchGlobStreamOnErrorParams extends bindings.Struct {
   static WatchGlobStreamOnErrorParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1544,9 +1504,7 @@ class SyncbaseServiceGetPermissionsParams extends bindings.Struct {
   static SyncbaseServiceGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1605,9 +1563,7 @@ class SyncbaseServiceGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseServiceGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1691,9 +1647,7 @@ class SyncbaseServiceSetPermissionsParams extends bindings.Struct {
   static SyncbaseServiceSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1767,9 +1721,7 @@ class SyncbaseServiceSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseServiceSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1836,9 +1788,7 @@ class SyncbaseAppCreateParams extends bindings.Struct {
   static SyncbaseAppCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1912,9 +1862,7 @@ class SyncbaseAppCreateResponseParams extends bindings.Struct {
   static SyncbaseAppCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -1980,9 +1928,7 @@ class SyncbaseAppDestroyParams extends bindings.Struct {
   static SyncbaseAppDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2047,9 +1993,7 @@ class SyncbaseAppDestroyResponseParams extends bindings.Struct {
   static SyncbaseAppDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2115,9 +2059,7 @@ class SyncbaseAppExistsParams extends bindings.Struct {
   static SyncbaseAppExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2183,9 +2125,7 @@ class SyncbaseAppExistsResponseParams extends bindings.Struct {
   static SyncbaseAppExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2259,9 +2199,7 @@ class SyncbaseAppGetPermissionsParams extends bindings.Struct {
   static SyncbaseAppGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2328,9 +2266,7 @@ class SyncbaseAppGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseAppGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2415,9 +2351,7 @@ class SyncbaseAppSetPermissionsParams extends bindings.Struct {
   static SyncbaseAppSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2499,9 +2433,7 @@ class SyncbaseAppSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseAppSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2568,9 +2500,7 @@ class SyncbaseDbCreateParams extends bindings.Struct {
   static SyncbaseDbCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2644,9 +2574,7 @@ class SyncbaseDbCreateResponseParams extends bindings.Struct {
   static SyncbaseDbCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2712,9 +2640,7 @@ class SyncbaseDbDestroyParams extends bindings.Struct {
   static SyncbaseDbDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2779,9 +2705,7 @@ class SyncbaseDbDestroyResponseParams extends bindings.Struct {
   static SyncbaseDbDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2847,9 +2771,7 @@ class SyncbaseDbExistsParams extends bindings.Struct {
   static SyncbaseDbExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2915,9 +2837,7 @@ class SyncbaseDbExistsResponseParams extends bindings.Struct {
   static SyncbaseDbExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -2993,9 +2913,7 @@ class SyncbaseDbExecParams extends bindings.Struct {
   static SyncbaseDbExecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3073,9 +2991,7 @@ class SyncbaseDbExecResponseParams extends bindings.Struct {
   static SyncbaseDbExecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3142,9 +3058,7 @@ class SyncbaseDbBeginBatchParams extends bindings.Struct {
   static SyncbaseDbBeginBatchParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3219,9 +3133,7 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
   static SyncbaseDbBeginBatchResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3295,9 +3207,7 @@ class SyncbaseDbCommitParams extends bindings.Struct {
   static SyncbaseDbCommitParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3362,9 +3272,7 @@ class SyncbaseDbCommitResponseParams extends bindings.Struct {
   static SyncbaseDbCommitResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3430,9 +3338,7 @@ class SyncbaseDbAbortParams extends bindings.Struct {
   static SyncbaseDbAbortParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3497,9 +3403,7 @@ class SyncbaseDbAbortResponseParams extends bindings.Struct {
   static SyncbaseDbAbortResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3565,9 +3469,7 @@ class SyncbaseDbGetPermissionsParams extends bindings.Struct {
   static SyncbaseDbGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3634,9 +3536,7 @@ class SyncbaseDbGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseDbGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3721,9 +3621,7 @@ class SyncbaseDbSetPermissionsParams extends bindings.Struct {
   static SyncbaseDbSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3805,9 +3703,7 @@ class SyncbaseDbSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseDbSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3875,9 +3771,7 @@ class SyncbaseDbWatchGlobParams extends bindings.Struct {
   static SyncbaseDbWatchGlobParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -3956,9 +3850,7 @@ class SyncbaseDbWatchGlobResponseParams extends bindings.Struct {
   static SyncbaseDbWatchGlobResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4024,9 +3916,7 @@ class SyncbaseDbGetResumeMarkerParams extends bindings.Struct {
   static SyncbaseDbGetResumeMarkerParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4092,9 +3982,7 @@ class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
   static SyncbaseDbGetResumeMarkerResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4168,9 +4056,7 @@ class SyncbaseDbListTablesParams extends bindings.Struct {
   static SyncbaseDbListTablesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4236,9 +4122,7 @@ class SyncbaseDbListTablesResponseParams extends bindings.Struct {
   static SyncbaseDbListTablesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4328,9 +4212,7 @@ class SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupNamesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4396,9 +4278,7 @@ class SyncbaseDbGetSyncgroupNamesResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupNamesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4491,9 +4371,7 @@ class SyncbaseDbCreateSyncgroupParams extends bindings.Struct {
   static SyncbaseDbCreateSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4584,9 +4462,7 @@ class SyncbaseDbCreateSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbCreateSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4654,9 +4530,7 @@ class SyncbaseDbJoinSyncgroupParams extends bindings.Struct {
   static SyncbaseDbJoinSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4739,9 +4613,7 @@ class SyncbaseDbJoinSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbJoinSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4817,9 +4689,7 @@ class SyncbaseDbLeaveSyncgroupParams extends bindings.Struct {
   static SyncbaseDbLeaveSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4892,9 +4762,7 @@ class SyncbaseDbLeaveSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbLeaveSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -4961,9 +4829,7 @@ class SyncbaseDbDestroySyncgroupParams extends bindings.Struct {
   static SyncbaseDbDestroySyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5036,9 +4902,7 @@ class SyncbaseDbDestroySyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbDestroySyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5106,9 +4970,7 @@ class SyncbaseDbEjectFromSyncgroupParams extends bindings.Struct {
   static SyncbaseDbEjectFromSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5189,9 +5051,7 @@ class SyncbaseDbEjectFromSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbEjectFromSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5258,9 +5118,7 @@ class SyncbaseDbGetSyncgroupSpecParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5335,9 +5193,7 @@ class SyncbaseDbGetSyncgroupSpecResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5423,9 +5279,7 @@ class SyncbaseDbSetSyncgroupSpecParams extends bindings.Struct {
   static SyncbaseDbSetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5515,9 +5369,7 @@ class SyncbaseDbSetSyncgroupSpecResponseParams extends bindings.Struct {
   static SyncbaseDbSetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5584,9 +5436,7 @@ class SyncbaseDbGetSyncgroupMembersParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupMembersParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5660,9 +5510,7 @@ class SyncbaseDbGetSyncgroupMembersResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupMembersResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5792,9 +5640,7 @@ class SyncbaseTableCreateParams extends bindings.Struct {
   static SyncbaseTableCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5868,9 +5714,7 @@ class SyncbaseTableCreateResponseParams extends bindings.Struct {
   static SyncbaseTableCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -5936,9 +5780,7 @@ class SyncbaseTableDestroyParams extends bindings.Struct {
   static SyncbaseTableDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6003,9 +5845,7 @@ class SyncbaseTableDestroyResponseParams extends bindings.Struct {
   static SyncbaseTableDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6071,9 +5911,7 @@ class SyncbaseTableExistsParams extends bindings.Struct {
   static SyncbaseTableExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6139,9 +5977,7 @@ class SyncbaseTableExistsResponseParams extends bindings.Struct {
   static SyncbaseTableExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6215,9 +6051,7 @@ class SyncbaseTableGetPermissionsParams extends bindings.Struct {
   static SyncbaseTableGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6283,9 +6117,7 @@ class SyncbaseTableGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6361,9 +6193,7 @@ class SyncbaseTableSetPermissionsParams extends bindings.Struct {
   static SyncbaseTableSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6437,9 +6267,7 @@ class SyncbaseTableSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6507,9 +6335,7 @@ class SyncbaseTableDeleteRangeParams extends bindings.Struct {
   static SyncbaseTableDeleteRangeParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6590,9 +6416,7 @@ class SyncbaseTableDeleteRangeResponseParams extends bindings.Struct {
   static SyncbaseTableDeleteRangeResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6661,9 +6485,7 @@ class SyncbaseTableScanParams extends bindings.Struct {
   static SyncbaseTableScanParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6748,9 +6570,7 @@ class SyncbaseTableScanResponseParams extends bindings.Struct {
   static SyncbaseTableScanResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6817,9 +6637,7 @@ class SyncbaseTableGetPrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableGetPrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6893,9 +6711,7 @@ class SyncbaseTableGetPrefixPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableGetPrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -6988,9 +6804,7 @@ class SyncbaseTableSetPrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableSetPrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7072,9 +6886,7 @@ class SyncbaseTableSetPrefixPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableSetPrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7141,9 +6953,7 @@ class SyncbaseTableDeletePrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableDeletePrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7216,9 +7026,7 @@ class SyncbaseTableDeletePrefixPermissionsResponseParams extends bindings.Struct
   static SyncbaseTableDeletePrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7284,9 +7092,7 @@ class SyncbaseRowExistsParams extends bindings.Struct {
   static SyncbaseRowExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7352,9 +7158,7 @@ class SyncbaseRowExistsResponseParams extends bindings.Struct {
   static SyncbaseRowExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7428,9 +7232,7 @@ class SyncbaseRowGetParams extends bindings.Struct {
   static SyncbaseRowGetParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7496,9 +7298,7 @@ class SyncbaseRowGetResponseParams extends bindings.Struct {
   static SyncbaseRowGetResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7573,9 +7373,7 @@ class SyncbaseRowPutParams extends bindings.Struct {
   static SyncbaseRowPutParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7648,9 +7446,7 @@ class SyncbaseRowPutResponseParams extends bindings.Struct {
   static SyncbaseRowPutResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7716,9 +7512,7 @@ class SyncbaseRowDeleteParams extends bindings.Struct {
   static SyncbaseRowDeleteParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
@@ -7783,9 +7577,7 @@ class SyncbaseRowDeleteResponseParams extends bindings.Struct {
   static SyncbaseRowDeleteResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    if (decoder.excessHandles != null) {
-      decoder.excessHandles.forEach((h) => h.close());
-    }
+    decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
