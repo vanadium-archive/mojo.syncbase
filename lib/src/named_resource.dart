@@ -6,14 +6,14 @@ part of syncbase_client;
 
 // NamedResource is the superclass of resources with names.
 class NamedResource {
-  final mojom.SyncbaseProxy _proxy;
+  final ClientContext _ctx;
   final String _parentFullName;
   final String name;
   final String fullName;
 
-  NamedResource._internal(mojom.SyncbaseProxy _proxy, String _parentFullName,
-      String name, String fullName)
-      : this._proxy = _proxy,
+  NamedResource._internal(
+      ClientContext _ctx, String _parentFullName, String name, String fullName)
+      : this._ctx = _ctx,
         this._parentFullName = _parentFullName,
         this.name = name,
         this.fullName = fullName {}

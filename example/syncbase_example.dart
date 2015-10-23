@@ -7,7 +7,8 @@ import 'dart:async';
 import 'dart:math' show Random;
 import 'dart:convert' show UTF8;
 
-import 'package:syncbase/initialized_application.dart' show InitializedApplication;
+import 'package:syncbase/initialized_application.dart'
+    show InitializedApplication;
 import 'package:syncbase/src/naming/util.dart' as naming;
 import 'package:syncbase/syncbase_client.dart' as sb;
 
@@ -121,7 +122,8 @@ Future<sb.SyncbaseTable> createTable(
 
 Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
     String mtAddr, String tableName, String name) async {
-  var mtName = naming.join(mtAddr, 'users/vanadium.bot@gmail.com/apps/mojo-syncbase-example');
+  var mtName = naming.join(
+      mtAddr, 'users/vanadium.bot@gmail.com/apps/mojo-syncbase-example');
   // TODO(nlacasse): Make this %%sync thing a constant.
   var sgPrefix = naming.join(mtName, 'syncbase_mojo/%%sync');
   var sgName = naming.join(sgPrefix, 'testsg');
@@ -156,7 +158,6 @@ Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
       print('ERROR creating syncgroup');
       print(e);
     }
-
   }
 
   return sg;

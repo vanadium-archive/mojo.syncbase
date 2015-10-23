@@ -5,39 +5,39 @@
 part of syncbase_client;
 
 class SyncbaseTable extends NamedResource {
-  SyncbaseTable._internal(_proxy, _parentFullName, relativeName)
-      : super._internal(_proxy, _parentFullName, relativeName,
+  SyncbaseTable._internal(_ctx, _parentFullName, relativeName)
+      : super._internal(_ctx, _parentFullName, relativeName,
             naming.join(_parentFullName, escape(relativeName)));
 
   // row returns a row with the given key.
   SyncbaseRow row(String key) {
-    return new SyncbaseRow._internal(_proxy, fullName, key);
+    return new SyncbaseRow._internal(_ctx, fullName, key);
   }
 
   Future create(mojom.Perms perms) async {
-    var v = await _proxy.ptr.tableCreate(fullName, perms);
+    var v = await _ctx.syncbase.tableCreate(fullName, perms);
     if (isError(v.err)) throw v.err;
   }
 
   Future destroy() async {
-    var v = await _proxy.ptr.tableDestroy(fullName);
+    var v = await _ctx.syncbase.tableDestroy(fullName);
     if (isError(v.err)) throw v.err;
   }
 
   Future<bool> exists() async {
-    var v = await _proxy.ptr.tableExists(fullName);
+    var v = await _ctx.syncbase.tableExists(fullName);
     if (isError(v.err)) throw v.err;
     return v.exists;
   }
 
   Future<mojom.Perms> getPermissions() async {
-    var v = await _proxy.ptr.tableGetPermissions(fullName);
+    var v = await _ctx.syncbase.tableGetPermissions(fullName);
     if (isError(v.err)) throw v.err;
     return v.perms;
   }
 
   Future setPermissions(mojom.Perms perms) async {
-    var v = await _proxy.ptr.tableSetPermissions(fullName, perms);
+    var v = await _ctx.syncbase.tableSetPermissions(fullName, perms);
     if (isError(v.err)) throw v.err;
   }
 
@@ -54,8 +54,8 @@ class SyncbaseTable extends NamedResource {
   }
 
   Future deleteRange(RowRange range) async {
-    var v =
-        await _proxy.ptr.tableDeleteRange(fullName, range.start, range.limit);
+    var v = await _ctx.syncbase
+        .tableDeleteRange(fullName, range.start, range.limit);
     if (isError(v.err)) throw v.err;
   }
 
@@ -63,10 +63,12 @@ class SyncbaseTable extends NamedResource {
     StreamController<mojom.KeyValue> sc = new StreamController();
 
     mojom.ScanStreamStub stub = new mojom.ScanStreamStub.unbound();
-    stub.impl = new ScanStreamImpl._fromStreamController(sc);
+    stub.impl = new ScanStreamImpl._fromStreamController(_ctx, sc, stub);
+
+    _ctx.unclosedStubsManager.register(stub);
 
     // Call tableScan asynchronously.
-    _proxy.ptr.tableScan(fullName, range.start, range.limit, stub).then((v) {
+    _ctx.syncbase.tableScan(fullName, range.start, range.limit, stub).then((v) {
       // TODO(nlacasse): Is throwing the correct behavior here?  Consider
       // returning a tuple (Stream<mojom.KeyValue>, Future) and resolve the
       // Future at the end of the RPC (with an error if applicable).  Then
@@ -81,18 +83,19 @@ class SyncbaseTable extends NamedResource {
   }
 
   Future<List<mojom.PrefixPerms>> getPrefixPermissions(String key) async {
-    var v = await _proxy.ptr.tableGetPrefixPermissions(fullName, key);
+    var v = await _ctx.syncbase.tableGetPrefixPermissions(fullName, key);
     if (isError(v.err)) throw v.err;
     return v.permsArr;
   }
 
   Future setPrefixPermissions(String prefix, mojom.Perms perms) async {
-    var v = await _proxy.ptr.tableSetPrefixPermissions(fullName, prefix, perms);
+    var v =
+        await _ctx.syncbase.tableSetPrefixPermissions(fullName, prefix, perms);
     if (isError(v.err)) throw v.err;
   }
 
   Future deletePrefixPermissions(String prefix) async {
-    var v = await _proxy.ptr.tableDeletePrefixPermissions(fullName, prefix);
+    var v = await _ctx.syncbase.tableDeletePrefixPermissions(fullName, prefix);
     if (isError(v.err)) throw v.err;
   }
 }
@@ -100,10 +103,12 @@ class SyncbaseTable extends NamedResource {
 class ScanStreamImpl extends Object
     with StreamFlowControl
     implements mojom.ScanStream {
-  final StreamController<mojom.KeyValue> sc;
+  final ClientContext _ctx;
+  final StreamController<mojom.KeyValue> _sc;
+  final mojom.ScanStreamStub _stub;
 
-  ScanStreamImpl._fromStreamController(this.sc) {
-    initFlowControl(this.sc);
+  ScanStreamImpl._fromStreamController(this._ctx, this._sc, this._stub) {
+    initFlowControl(this._sc);
   }
 
   Future onKeyValue(mojom.KeyValue keyValue, [Function newAck = null]) {
@@ -113,7 +118,7 @@ class ScanStreamImpl extends Object
       throw new ArgumentError('newAck can not be null');
     }
 
-    sc.add(keyValue);
+    _sc.add(keyValue);
 
     // Only ack after we get unlocked.
     // If we are not locked, onNextUnlock returns immediately.
@@ -123,8 +128,9 @@ class ScanStreamImpl extends Object
   // Called by the mojom proxy when the Go function call returns.
   onDone(mojom.Error err) {
     if (isError(err)) {
-      sc.addError(err);
+      _sc.addError(err);
     }
-    sc.close();
+    _sc.close();
+    _ctx.unclosedStubsManager.close(_stub);
   }
 }

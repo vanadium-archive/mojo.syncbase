@@ -25,8 +25,10 @@ export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
         WatchChange;
 
 part 'src/app.dart';
+part 'src/client_context.dart';
 part 'src/named_resource.dart';
 part 'src/stream_flow_control.dart';
+part 'src/unclosed_stubs_manager.dart';
 part 'src/util.dart';
 part 'src/nosql/database.dart';
 part 'src/nosql/row.dart';
@@ -43,26 +45,29 @@ bool isError(mojom.Error err) {
 
 // TODO(sadovsky): Add listApps method.
 class SyncbaseClient {
-  final mojom.SyncbaseProxy _proxy;
+  final ClientContext _ctx;
 
   SyncbaseClient(ConnectToServiceFn cts, String url)
-      : _proxy = new mojom.SyncbaseProxy.unbound() {
+      : _ctx = new ClientContext._internal(new mojom.SyncbaseProxy.unbound(),
+            new UnclosedStubsManager._internal()) {
     print('connecting to $url');
-    cts(url, _proxy);
+    cts(url, _ctx.proxy);
     print('connected');
   }
 
   // Closes the connection to the syncbase server.
-  // TODO(nlacasse): Is this necessary?
   Future close({bool immediate: false}) {
-    return _proxy.close(immediate: immediate);
+    return Future.wait([
+      _ctx.unclosedStubsManager.closeAll(immediate: immediate),
+      _ctx.proxy.close(immediate: immediate)
+    ]);
   }
 
   // app returns the app with the given name.
-  SyncbaseApp app(String name) => new SyncbaseApp._internal(_proxy, name);
+  SyncbaseApp app(String name) => new SyncbaseApp._internal(_ctx, name);
 
   Future<mojom.Perms> getPermissions() async {
-    var v = await _proxy.ptr.serviceGetPermissions();
+    var v = await _ctx.syncbase.serviceGetPermissions();
     if (isError(v.err)) throw v.err;
     // TODO(nlacasse): We need to return the version too.  Create a struct type
     // that combines perms and version?
@@ -70,7 +75,7 @@ class SyncbaseClient {
   }
 
   Future setPermissions(mojom.Perms perms, String version) async {
-    var v = await _proxy.ptr.serviceSetPermissions(perms, version);
+    var v = await _ctx.syncbase.serviceSetPermissions(perms, version);
     if (isError(v.err)) throw v.err;
   }
 
