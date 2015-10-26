@@ -39,7 +39,9 @@ endif
 MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 	--config-alias SYNCBASE_DIR=$(PWD) \
 	--config-alias SYNCBASE_BUILD_DIR=$(SYNCBASE_BUILD_DIR) \
-	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)"
+	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)" \
+	"--args-for=mojo:dart_content_handler --enable-strict-mode"
+
 
 .DELETE_ON_ERROR:
 
