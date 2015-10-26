@@ -1,6 +1,9 @@
 PWD := $(shell pwd)
-DART_FILES := $(shell find example lib test -name "*.dart" -not -path "lib/gen/*")
-V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
+
+ifndef NOFIND
+	DART_FILES := $(shell find example lib test -name "*.dart" -not -path "lib/gen/*")
+	V23_GO_FILES := $(shell find $(JIRI_ROOT) -name "*.go")
+endif
 
 include ../shared/mojo.mk
 
