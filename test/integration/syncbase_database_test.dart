@@ -43,11 +43,7 @@ runDatabaseTests(SyncbaseClient c) {
     var db = app.noSqlDatabase(utils.uniqueName('db'));
     await db.create(utils.emptyPerms());
 
-    var tableNames = [
-      utils.uniqueName('table'),
-      utils.uniqueName('table'),
-      utils.uniqueName('table'),
-    ];
+    var tableNames = [utils.uniqueName('table1'), utils.uniqueName('table2')];
     tableNames.sort();
 
     for (var tableName in tableNames) {
@@ -57,7 +53,7 @@ runDatabaseTests(SyncbaseClient c) {
     var tables = await db.listTables();
     tables.sort((t1, t2) => t1.name.compareTo(t2.name));
     expect(tables.length, equals(tableNames.length));
-    for (var i = 0; i < tables.length; i++) {
+    for (var i = 0; i < tableNames.length; i++) {
       expect(tables[i].name, equals(tableNames[i]));
     }
   });

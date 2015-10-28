@@ -4,7 +4,6 @@
 
 part of syncbase_client;
 
-// TODO(sadovsky): Add listTables method.
 class SyncbaseNoSqlDatabase extends NamedResource {
   SyncbaseNoSqlDatabase._internal(
       _ctx, _parentFullName, relativeName, batchSuffix)
