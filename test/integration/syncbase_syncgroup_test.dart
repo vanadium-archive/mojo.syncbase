@@ -7,12 +7,12 @@ library syncbase_syncgroup_test;
 import 'package:test/test.dart';
 
 import 'package:syncbase/syncbase_client.dart'
-    show SyncbaseClient, SyncgroupPrefix, SyncgroupSpec;
+    show SyncbaseClient, TableRow, SyncgroupSpec;
 
 import './utils.dart' as utils;
 
-List<SyncgroupPrefix> mkPfxs(List<String> strs) {
-  List<SyncgroupPrefix> res = [];
+List<TableRow> mkPfxs(List<String> strs) {
+  List<TableRow> res = [];
   for (var str in strs) {
     var parts = str.split(':');
     assert(parts.length == 2);
@@ -34,12 +34,12 @@ bool specsAreEqual(SyncgroupSpec s1, SyncgroupSpec s2) {
     return false;
   }
 
-  // Sort prefixes by tableName then rowPrefix.
+  // Sort prefixes by tableName then row.
   int comparePrefixes(p1, p2) {
     if (p1.tableName != p2.tableName) {
       return p1.tableName.compareTo(p2.tableName);
     }
-    return p1.rowPrefix.compareTo(p2.rowPrefix);
+    return p1.row.compareTo(p2.row);
   }
 
   s1.prefixes.sort(comparePrefixes);
@@ -49,7 +49,7 @@ bool specsAreEqual(SyncgroupSpec s1, SyncgroupSpec s2) {
     if (s1.prefixes[i].tableName != s2.prefixes[i].tableName) {
       return false;
     }
-    if (s1.prefixes[i].rowPrefix != s2.prefixes[i].rowPrefix) {
+    if (s1.prefixes[i].row != s2.prefixes[i].row) {
       return false;
     }
   }

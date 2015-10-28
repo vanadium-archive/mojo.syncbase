@@ -20,7 +20,7 @@ export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
         KeyValue,
         Perms,
         SyncgroupMemberInfo,
-        SyncgroupPrefix,
+        TableRow,
         SyncgroupSpec,
         WatchChange;
 
@@ -97,14 +97,14 @@ class SyncbaseClient {
     return new mojom.SyncgroupMemberInfo()..syncPriority = syncPriority;
   }
 
-  static mojom.SyncgroupPrefix syncgroupPrefix(
-      String tableName, String rowPrefix) {
-    return new mojom.SyncgroupPrefix()
+  static mojom.TableRow syncgroupPrefix(
+      String tableName, String row) {
+    return new mojom.TableRow()
       ..tableName = tableName
-      ..rowPrefix = rowPrefix;
+      ..row = row;
   }
 
-  static mojom.SyncgroupSpec syncgroupSpec(List<mojom.SyncgroupPrefix> prefixes,
+  static mojom.SyncgroupSpec syncgroupSpec(List<mojom.TableRow> prefixes,
       {String description: '',
       bool isPrivate: false,
       mojom.Perms perms: null,

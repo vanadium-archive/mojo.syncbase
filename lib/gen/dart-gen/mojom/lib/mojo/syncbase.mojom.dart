@@ -308,27 +308,27 @@ class PrefixPerms extends bindings.Struct {
 }
 
 
-class SyncgroupPrefix extends bindings.Struct {
+class TableRow extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
   ];
   String tableName = null;
-  String rowPrefix = null;
+  String row = null;
 
-  SyncgroupPrefix() : super(kVersions.last.size);
+  TableRow() : super(kVersions.last.size);
 
-  static SyncgroupPrefix deserialize(bindings.Message message) {
+  static TableRow deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
     decoder.excessHandles.forEach((h) => h.close());
     return result;
   }
 
-  static SyncgroupPrefix decode(bindings.Decoder decoder0) {
+  static TableRow decode(bindings.Decoder decoder0) {
     if (decoder0 == null) {
       return null;
     }
-    SyncgroupPrefix result = new SyncgroupPrefix();
+    TableRow result = new TableRow();
 
     var mainDataHeader = decoder0.decodeStructDataHeader();
     if (mainDataHeader.version <= kVersions.last.version) {
@@ -354,7 +354,7 @@ class SyncgroupPrefix extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      result.rowPrefix = decoder0.decodeString(16, false);
+      result.row = decoder0.decodeString(16, false);
     }
     return result;
   }
@@ -364,19 +364,19 @@ class SyncgroupPrefix extends bindings.Struct {
     
     encoder0.encodeString(tableName, 8, false);
     
-    encoder0.encodeString(rowPrefix, 16, false);
+    encoder0.encodeString(row, 16, false);
   }
 
   String toString() {
-    return "SyncgroupPrefix("
+    return "TableRow("
            "tableName: $tableName" ", "
-           "rowPrefix: $rowPrefix" ")";
+           "row: $row" ")";
   }
 
   Map toJson() {
     Map map = new Map();
     map["tableName"] = tableName;
-    map["rowPrefix"] = rowPrefix;
+    map["row"] = row;
     return map;
   }
 }
@@ -388,7 +388,7 @@ class SyncgroupSpec extends bindings.Struct {
   ];
   String description = null;
   Perms perms = null;
-  List<SyncgroupPrefix> prefixes = null;
+  List<TableRow> prefixes = null;
   List<String> mountTables = null;
   bool isPrivate = false;
 
@@ -439,11 +439,11 @@ class SyncgroupSpec extends bindings.Struct {
       var decoder1 = decoder0.decodePointer(24, false);
       {
         var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
-        result.prefixes = new List<SyncgroupPrefix>(si1.numElements);
+        result.prefixes = new List<TableRow>(si1.numElements);
         for (int i1 = 0; i1 < si1.numElements; ++i1) {
           
           var decoder2 = decoder1.decodePointer(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
-          result.prefixes[i1] = SyncgroupPrefix.decode(decoder2);
+          result.prefixes[i1] = TableRow.decode(decoder2);
         }
       }
     }

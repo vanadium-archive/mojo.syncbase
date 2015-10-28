@@ -141,7 +141,7 @@ Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
     // Syncgroup does not exist.
     print('syncgroup does not exist, creating it');
 
-    List<sb.SyncgroupPrefix> prefixes = [];
+    List<sb.TableRow> prefixes = [];
     prefixes.add(sb.SyncbaseClient.syncgroupPrefix('$tableName', ''));
 
     var sgSpec = sb.SyncbaseClient.syncgroupSpec(prefixes,
