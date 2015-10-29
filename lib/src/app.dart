@@ -41,6 +41,15 @@ class SyncbaseApp extends NamedResource {
     return v.perms;
   }
 
+  // TODO(aghassemi): Maybe add an abstract class for SyncbaseDatabase so we can
+  // return either NoSqlDatabase or SqlDatabase (when both exist).
+  Future<List<SyncbaseNoSqlDatabase>> listDatabases() async {
+    var v = await _ctx.syncbase.appListDatabases(fullName);
+    if (isError(v.err)) throw v.err;
+
+    return v.databases.map((dbName) => this.noSqlDatabase(dbName)).toList();
+  }
+
   Future setPermissions(mojom.Perms perms, String version) async {
     var v = await _ctx.syncbase.appSetPermissions(fullName, perms, version);
     if (isError(v.err)) throw v.err;

@@ -1776,6 +1776,153 @@ class SyncbaseServiceSetPermissionsResponseParams extends bindings.Struct {
 }
 
 
+class SyncbaseServiceListAppsParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(8, 0)
+  ];
+
+  SyncbaseServiceListAppsParams() : super(kVersions.last.size);
+
+  static SyncbaseServiceListAppsParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncbaseServiceListAppsParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncbaseServiceListAppsParams result = new SyncbaseServiceListAppsParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    encoder.getStructEncoderAtOffset(kVersions.last);
+  }
+
+  String toString() {
+    return "SyncbaseServiceListAppsParams("")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    return map;
+  }
+}
+
+
+class SyncbaseServiceListAppsResponseParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(24, 0)
+  ];
+  Error err = null;
+  List<String> apps = null;
+
+  SyncbaseServiceListAppsResponseParams() : super(kVersions.last.size);
+
+  static SyncbaseServiceListAppsResponseParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncbaseServiceListAppsResponseParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncbaseServiceListAppsResponseParams result = new SyncbaseServiceListAppsResponseParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(8, false);
+      result.err = Error.decode(decoder1);
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(16, false);
+      {
+        var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+        result.apps = new List<String>(si1.numElements);
+        for (int i1 = 0; i1 < si1.numElements; ++i1) {
+          
+          result.apps[i1] = decoder1.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+        }
+      }
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeStruct(err, 8, false);
+    
+    if (apps == null) {
+      encoder0.encodeNullPointer(16, false);
+    } else {
+      var encoder1 = encoder0.encodePointerArray(apps.length, 16, bindings.kUnspecifiedArrayLength);
+      for (int i0 = 0; i0 < apps.length; ++i0) {
+        
+        encoder1.encodeString(apps[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+      }
+    }
+  }
+
+  String toString() {
+    return "SyncbaseServiceListAppsResponseParams("
+           "err: $err" ", "
+           "apps: $apps" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["err"] = err;
+    map["apps"] = apps;
+    return map;
+  }
+}
+
+
 class SyncbaseAppCreateParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -2333,6 +2480,162 @@ class SyncbaseAppGetPermissionsResponseParams extends bindings.Struct {
     map["err"] = err;
     map["perms"] = perms;
     map["version"] = version;
+    return map;
+  }
+}
+
+
+class SyncbaseAppListDatabasesParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(16, 0)
+  ];
+  String name = null;
+
+  SyncbaseAppListDatabasesParams() : super(kVersions.last.size);
+
+  static SyncbaseAppListDatabasesParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncbaseAppListDatabasesParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncbaseAppListDatabasesParams result = new SyncbaseAppListDatabasesParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.name = decoder0.decodeString(8, false);
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeString(name, 8, false);
+  }
+
+  String toString() {
+    return "SyncbaseAppListDatabasesParams("
+           "name: $name" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["name"] = name;
+    return map;
+  }
+}
+
+
+class SyncbaseAppListDatabasesResponseParams extends bindings.Struct {
+  static const List<bindings.StructDataHeader> kVersions = const [
+    const bindings.StructDataHeader(24, 0)
+  ];
+  Error err = null;
+  List<String> databases = null;
+
+  SyncbaseAppListDatabasesResponseParams() : super(kVersions.last.size);
+
+  static SyncbaseAppListDatabasesResponseParams deserialize(bindings.Message message) {
+    var decoder = new bindings.Decoder(message);
+    var result = decode(decoder);
+    decoder.excessHandles.forEach((h) => h.close());
+    return result;
+  }
+
+  static SyncbaseAppListDatabasesResponseParams decode(bindings.Decoder decoder0) {
+    if (decoder0 == null) {
+      return null;
+    }
+    SyncbaseAppListDatabasesResponseParams result = new SyncbaseAppListDatabasesResponseParams();
+
+    var mainDataHeader = decoder0.decodeStructDataHeader();
+    if (mainDataHeader.version <= kVersions.last.version) {
+      // Scan in reverse order to optimize for more recent versions.
+      for (int i = kVersions.length - 1; i >= 0; --i) {
+        if (mainDataHeader.version >= kVersions[i].version) {
+          if (mainDataHeader.size == kVersions[i].size) {
+            // Found a match.
+            break;
+          }
+          throw new bindings.MojoCodecError(
+              'Header size doesn\'t correspond to known version size.');
+        }
+      }
+    } else if (mainDataHeader.size < kVersions.last.size) {
+      throw new bindings.MojoCodecError(
+        'Message newer than the last known version cannot be shorter than '
+        'required by the last known version.');
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(8, false);
+      result.err = Error.decode(decoder1);
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      var decoder1 = decoder0.decodePointer(16, false);
+      {
+        var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+        result.databases = new List<String>(si1.numElements);
+        for (int i1 = 0; i1 < si1.numElements; ++i1) {
+          
+          result.databases[i1] = decoder1.decodeString(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, false);
+        }
+      }
+    }
+    return result;
+  }
+
+  void encode(bindings.Encoder encoder) {
+    var encoder0 = encoder.getStructEncoderAtOffset(kVersions.last);
+    
+    encoder0.encodeStruct(err, 8, false);
+    
+    if (databases == null) {
+      encoder0.encodeNullPointer(16, false);
+    } else {
+      var encoder1 = encoder0.encodePointerArray(databases.length, 16, bindings.kUnspecifiedArrayLength);
+      for (int i0 = 0; i0 < databases.length; ++i0) {
+        
+        encoder1.encodeString(databases[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, false);
+      }
+    }
+  }
+
+  String toString() {
+    return "SyncbaseAppListDatabasesResponseParams("
+           "err: $err" ", "
+           "databases: $databases" ")";
+  }
+
+  Map toJson() {
+    Map map = new Map();
+    map["err"] = err;
+    map["databases"] = databases;
     return map;
   }
 }
@@ -8290,46 +8593,48 @@ class WatchGlobStreamStub extends bindings.Stub {
 
 const int kSyncbase_serviceGetPermissions_name = 0;
 const int kSyncbase_serviceSetPermissions_name = 1;
-const int kSyncbase_appCreate_name = 2;
-const int kSyncbase_appDestroy_name = 3;
-const int kSyncbase_appExists_name = 4;
-const int kSyncbase_appGetPermissions_name = 5;
-const int kSyncbase_appSetPermissions_name = 6;
-const int kSyncbase_dbCreate_name = 7;
-const int kSyncbase_dbDestroy_name = 8;
-const int kSyncbase_dbExists_name = 9;
-const int kSyncbase_dbExec_name = 10;
-const int kSyncbase_dbBeginBatch_name = 11;
-const int kSyncbase_dbCommit_name = 12;
-const int kSyncbase_dbAbort_name = 13;
-const int kSyncbase_dbGetPermissions_name = 14;
-const int kSyncbase_dbSetPermissions_name = 15;
-const int kSyncbase_dbWatchGlob_name = 16;
-const int kSyncbase_dbGetResumeMarker_name = 17;
-const int kSyncbase_dbListTables_name = 18;
-const int kSyncbase_dbGetSyncgroupNames_name = 19;
-const int kSyncbase_dbCreateSyncgroup_name = 20;
-const int kSyncbase_dbJoinSyncgroup_name = 21;
-const int kSyncbase_dbLeaveSyncgroup_name = 22;
-const int kSyncbase_dbDestroySyncgroup_name = 23;
-const int kSyncbase_dbEjectFromSyncgroup_name = 24;
-const int kSyncbase_dbGetSyncgroupSpec_name = 25;
-const int kSyncbase_dbSetSyncgroupSpec_name = 26;
-const int kSyncbase_dbGetSyncgroupMembers_name = 27;
-const int kSyncbase_tableCreate_name = 28;
-const int kSyncbase_tableDestroy_name = 29;
-const int kSyncbase_tableExists_name = 30;
-const int kSyncbase_tableGetPermissions_name = 31;
-const int kSyncbase_tableSetPermissions_name = 32;
-const int kSyncbase_tableDeleteRange_name = 33;
-const int kSyncbase_tableScan_name = 34;
-const int kSyncbase_tableGetPrefixPermissions_name = 35;
-const int kSyncbase_tableSetPrefixPermissions_name = 36;
-const int kSyncbase_tableDeletePrefixPermissions_name = 37;
-const int kSyncbase_rowExists_name = 38;
-const int kSyncbase_rowGet_name = 39;
-const int kSyncbase_rowPut_name = 40;
-const int kSyncbase_rowDelete_name = 41;
+const int kSyncbase_serviceListApps_name = 2;
+const int kSyncbase_appCreate_name = 3;
+const int kSyncbase_appDestroy_name = 4;
+const int kSyncbase_appExists_name = 5;
+const int kSyncbase_appGetPermissions_name = 6;
+const int kSyncbase_appListDatabases_name = 7;
+const int kSyncbase_appSetPermissions_name = 8;
+const int kSyncbase_dbCreate_name = 9;
+const int kSyncbase_dbDestroy_name = 10;
+const int kSyncbase_dbExists_name = 11;
+const int kSyncbase_dbExec_name = 12;
+const int kSyncbase_dbBeginBatch_name = 13;
+const int kSyncbase_dbCommit_name = 14;
+const int kSyncbase_dbAbort_name = 15;
+const int kSyncbase_dbGetPermissions_name = 16;
+const int kSyncbase_dbSetPermissions_name = 17;
+const int kSyncbase_dbWatchGlob_name = 18;
+const int kSyncbase_dbGetResumeMarker_name = 19;
+const int kSyncbase_dbListTables_name = 20;
+const int kSyncbase_dbGetSyncgroupNames_name = 21;
+const int kSyncbase_dbCreateSyncgroup_name = 22;
+const int kSyncbase_dbJoinSyncgroup_name = 23;
+const int kSyncbase_dbLeaveSyncgroup_name = 24;
+const int kSyncbase_dbDestroySyncgroup_name = 25;
+const int kSyncbase_dbEjectFromSyncgroup_name = 26;
+const int kSyncbase_dbGetSyncgroupSpec_name = 27;
+const int kSyncbase_dbSetSyncgroupSpec_name = 28;
+const int kSyncbase_dbGetSyncgroupMembers_name = 29;
+const int kSyncbase_tableCreate_name = 30;
+const int kSyncbase_tableDestroy_name = 31;
+const int kSyncbase_tableExists_name = 32;
+const int kSyncbase_tableGetPermissions_name = 33;
+const int kSyncbase_tableSetPermissions_name = 34;
+const int kSyncbase_tableDeleteRange_name = 35;
+const int kSyncbase_tableScan_name = 36;
+const int kSyncbase_tableGetPrefixPermissions_name = 37;
+const int kSyncbase_tableSetPrefixPermissions_name = 38;
+const int kSyncbase_tableDeletePrefixPermissions_name = 39;
+const int kSyncbase_rowExists_name = 40;
+const int kSyncbase_rowGet_name = 41;
+const int kSyncbase_rowPut_name = 42;
+const int kSyncbase_rowDelete_name = 43;
 
 const String SyncbaseName =
       'mojo::Syncbase';
@@ -8337,10 +8642,12 @@ const String SyncbaseName =
 abstract class Syncbase {
   dynamic serviceGetPermissions([Function responseFactory = null]);
   dynamic serviceSetPermissions(Perms perms,String version,[Function responseFactory = null]);
+  dynamic serviceListApps([Function responseFactory = null]);
   dynamic appCreate(String name,Perms perms,[Function responseFactory = null]);
   dynamic appDestroy(String name,[Function responseFactory = null]);
   dynamic appExists(String name,[Function responseFactory = null]);
   dynamic appGetPermissions(String name,[Function responseFactory = null]);
+  dynamic appListDatabases(String name,[Function responseFactory = null]);
   dynamic appSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]);
   dynamic dbCreate(String name,Perms perms,[Function responseFactory = null]);
   dynamic dbDestroy(String name,[Function responseFactory = null]);
@@ -8428,6 +8735,20 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         assert(!c.isCompleted);
         c.complete(r);
         break;
+      case kSyncbase_serviceListApps_name:
+        var r = SyncbaseServiceListAppsResponseParams.deserialize(
+            message.payload);
+        if (!message.header.hasRequestId) {
+          throw 'Expected a message with a valid request Id.';
+        }
+        Completer c = completerMap[message.header.requestId];
+        if (c == null) {
+          throw 'Message had unknown request Id: ${message.header.requestId}';
+        }
+        completerMap.remove(message.header.requestId);
+        assert(!c.isCompleted);
+        c.complete(r);
+        break;
       case kSyncbase_appCreate_name:
         var r = SyncbaseAppCreateResponseParams.deserialize(
             message.payload);
@@ -8472,6 +8793,20 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         break;
       case kSyncbase_appGetPermissions_name:
         var r = SyncbaseAppGetPermissionsResponseParams.deserialize(
+            message.payload);
+        if (!message.header.hasRequestId) {
+          throw 'Expected a message with a valid request Id.';
+        }
+        Completer c = completerMap[message.header.requestId];
+        if (c == null) {
+          throw 'Message had unknown request Id: ${message.header.requestId}';
+        }
+        completerMap.remove(message.header.requestId);
+        assert(!c.isCompleted);
+        c.complete(r);
+        break;
+      case kSyncbase_appListDatabases_name:
+        var r = SyncbaseAppListDatabasesResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
           throw 'Expected a message with a valid request Id.';
@@ -9025,6 +9360,15 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
+    dynamic serviceListApps([Function responseFactory = null]) {
+      assert(_proxyImpl.isBound);
+      var params = new SyncbaseServiceListAppsParams();
+      return _proxyImpl.sendMessageWithRequestId(
+          params,
+          kSyncbase_serviceListApps_name,
+          -1,
+          bindings.MessageHeader.kMessageExpectsResponse);
+    }
     dynamic appCreate(String name,Perms perms,[Function responseFactory = null]) {
       assert(_proxyImpl.isBound);
       var params = new SyncbaseAppCreateParams();
@@ -9063,6 +9407,16 @@ class _SyncbaseProxyCalls implements Syncbase {
       return _proxyImpl.sendMessageWithRequestId(
           params,
           kSyncbase_appGetPermissions_name,
+          -1,
+          bindings.MessageHeader.kMessageExpectsResponse);
+    }
+    dynamic appListDatabases(String name,[Function responseFactory = null]) {
+      assert(_proxyImpl.isBound);
+      var params = new SyncbaseAppListDatabasesParams();
+      params.name = name;
+      return _proxyImpl.sendMessageWithRequestId(
+          params,
+          kSyncbase_appListDatabases_name,
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
@@ -9552,6 +9906,12 @@ class SyncbaseStub extends bindings.Stub {
     result.err = err;
     return result;
   }
+  SyncbaseServiceListAppsResponseParams _SyncbaseServiceListAppsResponseParamsFactory(Error err, List<String> apps) {
+    var result = new SyncbaseServiceListAppsResponseParams();
+    result.err = err;
+    result.apps = apps;
+    return result;
+  }
   SyncbaseAppCreateResponseParams _SyncbaseAppCreateResponseParamsFactory(Error err) {
     var result = new SyncbaseAppCreateResponseParams();
     result.err = err;
@@ -9573,6 +9933,12 @@ class SyncbaseStub extends bindings.Stub {
     result.err = err;
     result.perms = perms;
     result.version = version;
+    return result;
+  }
+  SyncbaseAppListDatabasesResponseParams _SyncbaseAppListDatabasesResponseParamsFactory(Error err, List<String> databases) {
+    var result = new SyncbaseAppListDatabasesResponseParams();
+    result.err = err;
+    result.databases = databases;
     return result;
   }
   SyncbaseAppSetPermissionsResponseParams _SyncbaseAppSetPermissionsResponseParamsFactory(Error err) {
@@ -9824,6 +10190,28 @@ class SyncbaseStub extends bindings.Stub {
               bindings.MessageHeader.kMessageIsResponse);
         }
         break;
+      case kSyncbase_serviceListApps_name:
+        var params = SyncbaseServiceListAppsParams.deserialize(
+            message.payload);
+        var response = _impl.serviceListApps(_SyncbaseServiceListAppsResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_serviceListApps_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_serviceListApps_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
+        break;
       case kSyncbase_appCreate_name:
         var params = SyncbaseAppCreateParams.deserialize(
             message.payload);
@@ -9908,6 +10296,28 @@ class SyncbaseStub extends bindings.Stub {
           return buildResponseWithId(
               response,
               kSyncbase_appGetPermissions_name,
+              message.header.requestId,
+              bindings.MessageHeader.kMessageIsResponse);
+        }
+        break;
+      case kSyncbase_appListDatabases_name:
+        var params = SyncbaseAppListDatabasesParams.deserialize(
+            message.payload);
+        var response = _impl.appListDatabases(params.name,_SyncbaseAppListDatabasesResponseParamsFactory);
+        if (response is Future) {
+          return response.then((response) {
+            if (response != null) {
+              return buildResponseWithId(
+                  response,
+                  kSyncbase_appListDatabases_name,
+                  message.header.requestId,
+                  bindings.MessageHeader.kMessageIsResponse);
+            }
+          });
+        } else if (response != null) {
+          return buildResponseWithId(
+              response,
+              kSyncbase_appListDatabases_name,
               message.header.requestId,
               bindings.MessageHeader.kMessageIsResponse);
         }

@@ -96,7 +96,6 @@ interface WatchGlobStream {
 };
 
 // TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
-// TODO(aghassemi): Add ListApps and ListDatabases methods. See v.io/i/794.
 // All 'name' params are service-relative object names.
 
 // Error handling modeled after:
@@ -107,6 +106,7 @@ interface Syncbase {
 
   ServiceGetPermissions() => (Error err, Perms perms, string version);
   ServiceSetPermissions(Perms perms, string version) => (Error err);
+  ServiceListApps() => (Error err, array<string> apps);
 
   ////////////////////////////////////////
   // App
@@ -115,6 +115,7 @@ interface Syncbase {
   AppDestroy(string name) => (Error err);
   AppExists(string name) => (Error err, bool exists);
   AppGetPermissions(string name) => (Error err, Perms perms, string version);
+  AppListDatabases(string name) => (Error err, array<string> databases);
   AppSetPermissions(string name, Perms perms, string version) => (Error err);
 
   ////////////////////////////////////////

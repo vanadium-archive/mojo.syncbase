@@ -74,6 +74,13 @@ class SyncbaseClient {
     return v.perms;
   }
 
+  Future<List<SyncbaseApp>> listApps() async {
+    var v = await _ctx.syncbase.serviceListApps();
+    if (isError(v.err)) throw v.err;
+
+    return v.apps.map((appName) => this.app(appName)).toList();
+  }
+
   Future setPermissions(mojom.Perms perms, String version) async {
     var v = await _ctx.syncbase.serviceSetPermissions(perms, version);
     if (isError(v.err)) throw v.err;
