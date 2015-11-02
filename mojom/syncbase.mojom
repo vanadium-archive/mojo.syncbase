@@ -32,7 +32,7 @@ struct PrefixPerms {
 
 struct TableRow {
   string table_name;
-  string row_prefix;
+  string row;
 };
 
 struct SyncgroupSpec {
