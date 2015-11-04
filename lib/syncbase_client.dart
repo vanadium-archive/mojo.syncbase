@@ -19,9 +19,10 @@ export 'gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart'
         BatchOptions,
         KeyValue,
         Perms,
+        Result,
         SyncgroupMemberInfo,
-        TableRow,
         SyncgroupSpec,
+        TableRow,
         WatchChange;
 
 part 'src/app.dart';
@@ -104,8 +105,7 @@ class SyncbaseClient {
     return new mojom.SyncgroupMemberInfo()..syncPriority = syncPriority;
   }
 
-  static mojom.TableRow syncgroupPrefix(
-      String tableName, String row) {
+  static mojom.TableRow syncgroupPrefix(String tableName, String row) {
     return new mojom.TableRow()
       ..tableName = tableName
       ..row = row;
