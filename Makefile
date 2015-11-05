@@ -15,7 +15,7 @@ MOJOM_FILE := mojom/syncbase.mojom
 ifdef ANDROID
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/android
 
-	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/android_arm
+	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/arm_android
 
 	# NOTE(nlacasse): Trying to write to a directory that the app does not have
 	# permission to causes a crash with no stack trace.  Because of this, we
@@ -29,7 +29,7 @@ ifdef ANDROID
 else
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 
-	THIRD_PARTY_LIBS := $(JIRI_ROOT)/third_party/cout/linux_amd64
+	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/amd64_linux
 
 	SYNCBASE_ROOT_DIR := $(PWD)/tmp/syncbase_data
 	V23_MOJO_FLAGS += --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(PWD)/creds
@@ -147,9 +147,9 @@ endif
 syncbase-env-check: | mojo-env-check
 ifeq ($(wildcard $(THIRD_PARTY_LIBS)),)
 ifdef ANDROID
-	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "GOOS=android GOARCH=arm jiri profile install syncbase")
+	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "jiri v23-profile install --target=arm-android syncbase")
 else
-	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "jiri profile install syncbase")
+	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "jiri v23-profile install syncbase")
 endif
 endif
 
