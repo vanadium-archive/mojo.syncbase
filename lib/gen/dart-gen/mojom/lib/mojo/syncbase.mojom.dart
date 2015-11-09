@@ -24,7 +24,9 @@ class Error extends bindings.Struct {
   static Error deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -105,7 +107,9 @@ class Perms extends bindings.Struct {
   static Perms deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -171,7 +175,9 @@ class BatchOptions extends bindings.Struct {
   static BatchOptions deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -245,7 +251,9 @@ class PrefixPerms extends bindings.Struct {
   static PrefixPerms deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -320,7 +328,9 @@ class TableRow extends bindings.Struct {
   static TableRow deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -397,7 +407,9 @@ class SyncgroupSpec extends bindings.Struct {
   static SyncgroupSpec deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -528,7 +540,9 @@ class SyncgroupMemberInfo extends bindings.Struct {
   static SyncgroupMemberInfo deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -593,7 +607,9 @@ class Result extends bindings.Struct {
   static Result deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -675,7 +691,9 @@ class KeyValue extends bindings.Struct {
   static KeyValue deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -754,7 +772,9 @@ class WatchChange extends bindings.Struct {
   static WatchChange deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -868,7 +888,9 @@ class GlobRequest extends bindings.Struct {
   static GlobRequest deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -941,7 +963,9 @@ class ExecStreamOnResultParams extends bindings.Struct {
   static ExecStreamOnResultParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1006,7 +1030,9 @@ class ExecStreamOnResultResponseParams extends bindings.Struct {
   static ExecStreamOnResultResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1063,7 +1089,9 @@ class ExecStreamOnDoneParams extends bindings.Struct {
   static ExecStreamOnDoneParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1129,7 +1157,9 @@ class ScanStreamOnKeyValueParams extends bindings.Struct {
   static ScanStreamOnKeyValueParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1194,7 +1224,9 @@ class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
   static ScanStreamOnKeyValueResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1251,7 +1283,9 @@ class ScanStreamOnDoneParams extends bindings.Struct {
   static ScanStreamOnDoneParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1317,7 +1351,9 @@ class WatchGlobStreamOnChangeParams extends bindings.Struct {
   static WatchGlobStreamOnChangeParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1382,7 +1418,9 @@ class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
   static WatchGlobStreamOnChangeResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1439,7 +1477,9 @@ class WatchGlobStreamOnErrorParams extends bindings.Struct {
   static WatchGlobStreamOnErrorParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1504,7 +1544,9 @@ class SyncbaseServiceGetPermissionsParams extends bindings.Struct {
   static SyncbaseServiceGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1563,7 +1605,9 @@ class SyncbaseServiceGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseServiceGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1647,7 +1691,9 @@ class SyncbaseServiceSetPermissionsParams extends bindings.Struct {
   static SyncbaseServiceSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1721,7 +1767,9 @@ class SyncbaseServiceSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseServiceSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1786,7 +1834,9 @@ class SyncbaseServiceListAppsParams extends bindings.Struct {
   static SyncbaseServiceListAppsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1844,7 +1894,9 @@ class SyncbaseServiceListAppsResponseParams extends bindings.Struct {
   static SyncbaseServiceListAppsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -1935,7 +1987,9 @@ class SyncbaseAppCreateParams extends bindings.Struct {
   static SyncbaseAppCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2009,7 +2063,9 @@ class SyncbaseAppCreateResponseParams extends bindings.Struct {
   static SyncbaseAppCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2075,7 +2131,9 @@ class SyncbaseAppDestroyParams extends bindings.Struct {
   static SyncbaseAppDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2140,7 +2198,9 @@ class SyncbaseAppDestroyResponseParams extends bindings.Struct {
   static SyncbaseAppDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2206,7 +2266,9 @@ class SyncbaseAppExistsParams extends bindings.Struct {
   static SyncbaseAppExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2272,7 +2334,9 @@ class SyncbaseAppExistsResponseParams extends bindings.Struct {
   static SyncbaseAppExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2346,7 +2410,9 @@ class SyncbaseAppGetPermissionsParams extends bindings.Struct {
   static SyncbaseAppGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2413,7 +2479,9 @@ class SyncbaseAppGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseAppGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2496,7 +2564,9 @@ class SyncbaseAppListDatabasesParams extends bindings.Struct {
   static SyncbaseAppListDatabasesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2562,7 +2632,9 @@ class SyncbaseAppListDatabasesResponseParams extends bindings.Struct {
   static SyncbaseAppListDatabasesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2654,7 +2726,9 @@ class SyncbaseAppSetPermissionsParams extends bindings.Struct {
   static SyncbaseAppSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2736,7 +2810,9 @@ class SyncbaseAppSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseAppSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2803,7 +2879,9 @@ class SyncbaseDbCreateParams extends bindings.Struct {
   static SyncbaseDbCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2877,7 +2955,9 @@ class SyncbaseDbCreateResponseParams extends bindings.Struct {
   static SyncbaseDbCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -2943,7 +3023,9 @@ class SyncbaseDbDestroyParams extends bindings.Struct {
   static SyncbaseDbDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3008,7 +3090,9 @@ class SyncbaseDbDestroyResponseParams extends bindings.Struct {
   static SyncbaseDbDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3074,7 +3158,9 @@ class SyncbaseDbExistsParams extends bindings.Struct {
   static SyncbaseDbExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3140,7 +3226,9 @@ class SyncbaseDbExistsResponseParams extends bindings.Struct {
   static SyncbaseDbExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3216,7 +3304,9 @@ class SyncbaseDbExecParams extends bindings.Struct {
   static SyncbaseDbExecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3294,7 +3384,9 @@ class SyncbaseDbExecResponseParams extends bindings.Struct {
   static SyncbaseDbExecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3361,7 +3453,9 @@ class SyncbaseDbBeginBatchParams extends bindings.Struct {
   static SyncbaseDbBeginBatchParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3436,7 +3530,9 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
   static SyncbaseDbBeginBatchResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3510,7 +3606,9 @@ class SyncbaseDbCommitParams extends bindings.Struct {
   static SyncbaseDbCommitParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3575,7 +3673,9 @@ class SyncbaseDbCommitResponseParams extends bindings.Struct {
   static SyncbaseDbCommitResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3641,7 +3741,9 @@ class SyncbaseDbAbortParams extends bindings.Struct {
   static SyncbaseDbAbortParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3706,7 +3808,9 @@ class SyncbaseDbAbortResponseParams extends bindings.Struct {
   static SyncbaseDbAbortResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3772,7 +3876,9 @@ class SyncbaseDbGetPermissionsParams extends bindings.Struct {
   static SyncbaseDbGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3839,7 +3945,9 @@ class SyncbaseDbGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseDbGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -3924,7 +4032,9 @@ class SyncbaseDbSetPermissionsParams extends bindings.Struct {
   static SyncbaseDbSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4006,7 +4116,9 @@ class SyncbaseDbSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseDbSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4074,7 +4186,9 @@ class SyncbaseDbWatchGlobParams extends bindings.Struct {
   static SyncbaseDbWatchGlobParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4153,7 +4267,9 @@ class SyncbaseDbWatchGlobResponseParams extends bindings.Struct {
   static SyncbaseDbWatchGlobResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4219,7 +4335,9 @@ class SyncbaseDbGetResumeMarkerParams extends bindings.Struct {
   static SyncbaseDbGetResumeMarkerParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4285,7 +4403,9 @@ class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
   static SyncbaseDbGetResumeMarkerResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4359,7 +4479,9 @@ class SyncbaseDbListTablesParams extends bindings.Struct {
   static SyncbaseDbListTablesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4425,7 +4547,9 @@ class SyncbaseDbListTablesResponseParams extends bindings.Struct {
   static SyncbaseDbListTablesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4515,7 +4639,9 @@ class SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupNamesParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4581,7 +4707,9 @@ class SyncbaseDbGetSyncgroupNamesResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupNamesResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4674,7 +4802,9 @@ class SyncbaseDbCreateSyncgroupParams extends bindings.Struct {
   static SyncbaseDbCreateSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4765,7 +4895,9 @@ class SyncbaseDbCreateSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbCreateSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4833,7 +4965,9 @@ class SyncbaseDbJoinSyncgroupParams extends bindings.Struct {
   static SyncbaseDbJoinSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4916,7 +5050,9 @@ class SyncbaseDbJoinSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbJoinSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -4992,7 +5128,9 @@ class SyncbaseDbLeaveSyncgroupParams extends bindings.Struct {
   static SyncbaseDbLeaveSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5065,7 +5203,9 @@ class SyncbaseDbLeaveSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbLeaveSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5132,7 +5272,9 @@ class SyncbaseDbDestroySyncgroupParams extends bindings.Struct {
   static SyncbaseDbDestroySyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5205,7 +5347,9 @@ class SyncbaseDbDestroySyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbDestroySyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5273,7 +5417,9 @@ class SyncbaseDbEjectFromSyncgroupParams extends bindings.Struct {
   static SyncbaseDbEjectFromSyncgroupParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5354,7 +5500,9 @@ class SyncbaseDbEjectFromSyncgroupResponseParams extends bindings.Struct {
   static SyncbaseDbEjectFromSyncgroupResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5421,7 +5569,9 @@ class SyncbaseDbGetSyncgroupSpecParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5496,7 +5646,9 @@ class SyncbaseDbGetSyncgroupSpecResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5582,7 +5734,9 @@ class SyncbaseDbSetSyncgroupSpecParams extends bindings.Struct {
   static SyncbaseDbSetSyncgroupSpecParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5672,7 +5826,9 @@ class SyncbaseDbSetSyncgroupSpecResponseParams extends bindings.Struct {
   static SyncbaseDbSetSyncgroupSpecResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5739,7 +5895,9 @@ class SyncbaseDbGetSyncgroupMembersParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupMembersParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5813,7 +5971,9 @@ class SyncbaseDbGetSyncgroupMembersResponseParams extends bindings.Struct {
   static SyncbaseDbGetSyncgroupMembersResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -5943,7 +6103,9 @@ class SyncbaseTableCreateParams extends bindings.Struct {
   static SyncbaseTableCreateParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6017,7 +6179,9 @@ class SyncbaseTableCreateResponseParams extends bindings.Struct {
   static SyncbaseTableCreateResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6083,7 +6247,9 @@ class SyncbaseTableDestroyParams extends bindings.Struct {
   static SyncbaseTableDestroyParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6148,7 +6314,9 @@ class SyncbaseTableDestroyResponseParams extends bindings.Struct {
   static SyncbaseTableDestroyResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6214,7 +6382,9 @@ class SyncbaseTableExistsParams extends bindings.Struct {
   static SyncbaseTableExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6280,7 +6450,9 @@ class SyncbaseTableExistsResponseParams extends bindings.Struct {
   static SyncbaseTableExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6354,7 +6526,9 @@ class SyncbaseTableGetPermissionsParams extends bindings.Struct {
   static SyncbaseTableGetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6420,7 +6594,9 @@ class SyncbaseTableGetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableGetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6496,7 +6672,9 @@ class SyncbaseTableSetPermissionsParams extends bindings.Struct {
   static SyncbaseTableSetPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6570,7 +6748,9 @@ class SyncbaseTableSetPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableSetPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6638,7 +6818,9 @@ class SyncbaseTableDeleteRangeParams extends bindings.Struct {
   static SyncbaseTableDeleteRangeParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6719,7 +6901,9 @@ class SyncbaseTableDeleteRangeResponseParams extends bindings.Struct {
   static SyncbaseTableDeleteRangeResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6788,7 +6972,9 @@ class SyncbaseTableScanParams extends bindings.Struct {
   static SyncbaseTableScanParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6873,7 +7059,9 @@ class SyncbaseTableScanResponseParams extends bindings.Struct {
   static SyncbaseTableScanResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -6940,7 +7128,9 @@ class SyncbaseTableGetPrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableGetPrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7014,7 +7204,9 @@ class SyncbaseTableGetPrefixPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableGetPrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7107,7 +7299,9 @@ class SyncbaseTableSetPrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableSetPrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7189,7 +7383,9 @@ class SyncbaseTableSetPrefixPermissionsResponseParams extends bindings.Struct {
   static SyncbaseTableSetPrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7256,7 +7452,9 @@ class SyncbaseTableDeletePrefixPermissionsParams extends bindings.Struct {
   static SyncbaseTableDeletePrefixPermissionsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7329,7 +7527,9 @@ class SyncbaseTableDeletePrefixPermissionsResponseParams extends bindings.Struct
   static SyncbaseTableDeletePrefixPermissionsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7395,7 +7595,9 @@ class SyncbaseRowExistsParams extends bindings.Struct {
   static SyncbaseRowExistsParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7461,7 +7663,9 @@ class SyncbaseRowExistsResponseParams extends bindings.Struct {
   static SyncbaseRowExistsResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7535,7 +7739,9 @@ class SyncbaseRowGetParams extends bindings.Struct {
   static SyncbaseRowGetParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7601,7 +7807,9 @@ class SyncbaseRowGetResponseParams extends bindings.Struct {
   static SyncbaseRowGetResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7676,7 +7884,9 @@ class SyncbaseRowPutParams extends bindings.Struct {
   static SyncbaseRowPutParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7749,7 +7959,9 @@ class SyncbaseRowPutResponseParams extends bindings.Struct {
   static SyncbaseRowPutResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7815,7 +8027,9 @@ class SyncbaseRowDeleteParams extends bindings.Struct {
   static SyncbaseRowDeleteParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7880,7 +8094,9 @@ class SyncbaseRowDeleteResponseParams extends bindings.Struct {
   static SyncbaseRowDeleteResponseParams deserialize(bindings.Message message) {
     var decoder = new bindings.Decoder(message);
     var result = decode(decoder);
-    decoder.excessHandles.forEach((h) => h.close());
+    if (decoder.excessHandles != null) {
+      decoder.excessHandles.forEach((h) => h.close());
+    }
     return result;
   }
 
@@ -7970,18 +8186,25 @@ class ExecStreamProxyImpl extends bindings.Proxy {
         var r = ExecStreamOnResultResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       default:
-        throw new bindings.MojoCodecError("Unexpected message name");
+        proxyError("Unexpected message type: ${message.header.type}");
+        close(immediate: true);
         break;
     }
   }
@@ -7998,7 +8221,6 @@ class _ExecStreamProxyCalls implements ExecStream {
 
   _ExecStreamProxyCalls(this._proxyImpl);
     dynamic onResult(Result result,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new ExecStreamOnResultParams();
       params.result = result;
       return _proxyImpl.sendMessageWithRequestId(
@@ -8008,7 +8230,10 @@ class _ExecStreamProxyCalls implements ExecStream {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     void onDone(Error err) {
-      assert(_proxyImpl.isBound);
+      if (!_proxyImpl.isBound) {
+        _proxyImpl.proxyError("The Proxy is closed.");
+        return;
+      }
       var params = new ExecStreamOnDoneParams();
       params.err = err;
       _proxyImpl.sendMessage(params, kExecStream_onDone_name);
@@ -8056,6 +8281,10 @@ class ExecStreamProxy implements bindings.ProxyBase {
   }
 
   Future close({bool immediate: false}) => impl.close(immediate: immediate);
+
+  Future responseOrError(Future f) => impl.responseOrError(f);
+
+  Future get errorFuture => impl.errorFuture;
 
   int get version => impl.version;
 
@@ -8189,18 +8418,25 @@ class ScanStreamProxyImpl extends bindings.Proxy {
         var r = ScanStreamOnKeyValueResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       default:
-        throw new bindings.MojoCodecError("Unexpected message name");
+        proxyError("Unexpected message type: ${message.header.type}");
+        close(immediate: true);
         break;
     }
   }
@@ -8217,7 +8453,6 @@ class _ScanStreamProxyCalls implements ScanStream {
 
   _ScanStreamProxyCalls(this._proxyImpl);
     dynamic onKeyValue(KeyValue keyValue,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new ScanStreamOnKeyValueParams();
       params.keyValue = keyValue;
       return _proxyImpl.sendMessageWithRequestId(
@@ -8227,7 +8462,10 @@ class _ScanStreamProxyCalls implements ScanStream {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     void onDone(Error err) {
-      assert(_proxyImpl.isBound);
+      if (!_proxyImpl.isBound) {
+        _proxyImpl.proxyError("The Proxy is closed.");
+        return;
+      }
       var params = new ScanStreamOnDoneParams();
       params.err = err;
       _proxyImpl.sendMessage(params, kScanStream_onDone_name);
@@ -8275,6 +8513,10 @@ class ScanStreamProxy implements bindings.ProxyBase {
   }
 
   Future close({bool immediate: false}) => impl.close(immediate: immediate);
+
+  Future responseOrError(Future f) => impl.responseOrError(f);
+
+  Future get errorFuture => impl.errorFuture;
 
   int get version => impl.version;
 
@@ -8408,18 +8650,25 @@ class WatchGlobStreamProxyImpl extends bindings.Proxy {
         var r = WatchGlobStreamOnChangeResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       default:
-        throw new bindings.MojoCodecError("Unexpected message name");
+        proxyError("Unexpected message type: ${message.header.type}");
+        close(immediate: true);
         break;
     }
   }
@@ -8436,7 +8685,6 @@ class _WatchGlobStreamProxyCalls implements WatchGlobStream {
 
   _WatchGlobStreamProxyCalls(this._proxyImpl);
     dynamic onChange(WatchChange change,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new WatchGlobStreamOnChangeParams();
       params.change = change;
       return _proxyImpl.sendMessageWithRequestId(
@@ -8446,7 +8694,10 @@ class _WatchGlobStreamProxyCalls implements WatchGlobStream {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     void onError(Error err) {
-      assert(_proxyImpl.isBound);
+      if (!_proxyImpl.isBound) {
+        _proxyImpl.proxyError("The Proxy is closed.");
+        return;
+      }
       var params = new WatchGlobStreamOnErrorParams();
       params.err = err;
       _proxyImpl.sendMessage(params, kWatchGlobStream_onError_name);
@@ -8494,6 +8745,10 @@ class WatchGlobStreamProxy implements bindings.ProxyBase {
   }
 
   Future close({bool immediate: false}) => impl.close(immediate: immediate);
+
+  Future responseOrError(Future f) => impl.responseOrError(f);
+
+  Future get errorFuture => impl.errorFuture;
 
   int get version => impl.version;
 
@@ -8711,620 +8966,885 @@ class SyncbaseProxyImpl extends bindings.Proxy {
         var r = SyncbaseServiceGetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_serviceSetPermissions_name:
         var r = SyncbaseServiceSetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_serviceListApps_name:
         var r = SyncbaseServiceListAppsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_appCreate_name:
         var r = SyncbaseAppCreateResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_appDestroy_name:
         var r = SyncbaseAppDestroyResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_appExists_name:
         var r = SyncbaseAppExistsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_appGetPermissions_name:
         var r = SyncbaseAppGetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_appListDatabases_name:
         var r = SyncbaseAppListDatabasesResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_appSetPermissions_name:
         var r = SyncbaseAppSetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbCreate_name:
         var r = SyncbaseDbCreateResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbDestroy_name:
         var r = SyncbaseDbDestroyResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbExists_name:
         var r = SyncbaseDbExistsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbExec_name:
         var r = SyncbaseDbExecResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbBeginBatch_name:
         var r = SyncbaseDbBeginBatchResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbCommit_name:
         var r = SyncbaseDbCommitResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbAbort_name:
         var r = SyncbaseDbAbortResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbGetPermissions_name:
         var r = SyncbaseDbGetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbSetPermissions_name:
         var r = SyncbaseDbSetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbWatchGlob_name:
         var r = SyncbaseDbWatchGlobResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbGetResumeMarker_name:
         var r = SyncbaseDbGetResumeMarkerResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbListTables_name:
         var r = SyncbaseDbListTablesResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbGetSyncgroupNames_name:
         var r = SyncbaseDbGetSyncgroupNamesResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbCreateSyncgroup_name:
         var r = SyncbaseDbCreateSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbJoinSyncgroup_name:
         var r = SyncbaseDbJoinSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbLeaveSyncgroup_name:
         var r = SyncbaseDbLeaveSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbDestroySyncgroup_name:
         var r = SyncbaseDbDestroySyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbEjectFromSyncgroup_name:
         var r = SyncbaseDbEjectFromSyncgroupResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbGetSyncgroupSpec_name:
         var r = SyncbaseDbGetSyncgroupSpecResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbSetSyncgroupSpec_name:
         var r = SyncbaseDbSetSyncgroupSpecResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_dbGetSyncgroupMembers_name:
         var r = SyncbaseDbGetSyncgroupMembersResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableCreate_name:
         var r = SyncbaseTableCreateResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableDestroy_name:
         var r = SyncbaseTableDestroyResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableExists_name:
         var r = SyncbaseTableExistsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableGetPermissions_name:
         var r = SyncbaseTableGetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableSetPermissions_name:
         var r = SyncbaseTableSetPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableDeleteRange_name:
         var r = SyncbaseTableDeleteRangeResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableScan_name:
         var r = SyncbaseTableScanResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableGetPrefixPermissions_name:
         var r = SyncbaseTableGetPrefixPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableSetPrefixPermissions_name:
         var r = SyncbaseTableSetPrefixPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_tableDeletePrefixPermissions_name:
         var r = SyncbaseTableDeletePrefixPermissionsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_rowExists_name:
         var r = SyncbaseRowExistsResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_rowGet_name:
         var r = SyncbaseRowGetResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_rowPut_name:
         var r = SyncbaseRowPutResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       case kSyncbase_rowDelete_name:
         var r = SyncbaseRowDeleteResponseParams.deserialize(
             message.payload);
         if (!message.header.hasRequestId) {
-          throw 'Expected a message with a valid request Id.';
+          proxyError("Expected a message with a valid request Id.");
+          return;
         }
         Completer c = completerMap[message.header.requestId];
         if (c == null) {
-          throw 'Message had unknown request Id: ${message.header.requestId}';
+          proxyError(
+              "Message had unknown request Id: ${message.header.requestId}");
+          return;
         }
         completerMap.remove(message.header.requestId);
-        assert(!c.isCompleted);
+        if (c.isCompleted) {
+          proxyError("Response completer already completed");
+          return;
+        }
         c.complete(r);
         break;
       default:
-        throw new bindings.MojoCodecError("Unexpected message name");
+        proxyError("Unexpected message type: ${message.header.type}");
+        close(immediate: true);
         break;
     }
   }
@@ -9341,7 +9861,6 @@ class _SyncbaseProxyCalls implements Syncbase {
 
   _SyncbaseProxyCalls(this._proxyImpl);
     dynamic serviceGetPermissions([Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseServiceGetPermissionsParams();
       return _proxyImpl.sendMessageWithRequestId(
           params,
@@ -9350,7 +9869,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic serviceSetPermissions(Perms perms,String version,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseServiceSetPermissionsParams();
       params.perms = perms;
       params.version = version;
@@ -9361,7 +9879,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic serviceListApps([Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseServiceListAppsParams();
       return _proxyImpl.sendMessageWithRequestId(
           params,
@@ -9370,7 +9887,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic appCreate(String name,Perms perms,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseAppCreateParams();
       params.name = name;
       params.perms = perms;
@@ -9381,7 +9897,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic appDestroy(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseAppDestroyParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9391,7 +9906,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic appExists(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseAppExistsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9401,7 +9915,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic appGetPermissions(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseAppGetPermissionsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9411,7 +9924,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic appListDatabases(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseAppListDatabasesParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9421,7 +9933,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic appSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseAppSetPermissionsParams();
       params.name = name;
       params.perms = perms;
@@ -9433,7 +9944,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbCreate(String name,Perms perms,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbCreateParams();
       params.name = name;
       params.perms = perms;
@@ -9444,7 +9954,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbDestroy(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbDestroyParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9454,7 +9963,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbExists(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbExistsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9464,7 +9972,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbExec(String name,String query,Object stream,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbExecParams();
       params.name = name;
       params.query = query;
@@ -9476,7 +9983,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbBeginBatch(String name,BatchOptions bo,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbBeginBatchParams();
       params.name = name;
       params.bo = bo;
@@ -9487,7 +9993,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbCommit(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbCommitParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9497,7 +10002,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbAbort(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbAbortParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9507,7 +10011,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbGetPermissions(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetPermissionsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9517,7 +10020,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbSetPermissions(String name,Perms perms,String version,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbSetPermissionsParams();
       params.name = name;
       params.perms = perms;
@@ -9529,7 +10031,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbWatchGlob(String name,GlobRequest req,Object stream,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbWatchGlobParams();
       params.name = name;
       params.req = req;
@@ -9541,7 +10042,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbGetResumeMarker(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetResumeMarkerParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9551,7 +10051,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbListTables(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbListTablesParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9561,7 +10060,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbGetSyncgroupNames(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupNamesParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9571,7 +10069,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbCreateSyncgroup(String name,String sgName,SyncgroupSpec spec,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbCreateSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
@@ -9584,7 +10081,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbJoinSyncgroup(String name,String sgName,SyncgroupMemberInfo myInfo,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbJoinSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
@@ -9596,7 +10092,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbLeaveSyncgroup(String name,String sgName,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbLeaveSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
@@ -9607,7 +10102,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbDestroySyncgroup(String name,String sgName,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbDestroySyncgroupParams();
       params.name = name;
       params.sgName = sgName;
@@ -9618,7 +10112,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbEjectFromSyncgroup(String name,String sgName,String member,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbEjectFromSyncgroupParams();
       params.name = name;
       params.sgName = sgName;
@@ -9630,7 +10123,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbGetSyncgroupSpec(String name,String sgName,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupSpecParams();
       params.name = name;
       params.sgName = sgName;
@@ -9641,7 +10133,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbSetSyncgroupSpec(String name,String sgName,SyncgroupSpec spec,String version,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbSetSyncgroupSpecParams();
       params.name = name;
       params.sgName = sgName;
@@ -9654,7 +10145,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic dbGetSyncgroupMembers(String name,String sgName,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseDbGetSyncgroupMembersParams();
       params.name = name;
       params.sgName = sgName;
@@ -9665,7 +10155,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableCreate(String name,Perms perms,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableCreateParams();
       params.name = name;
       params.perms = perms;
@@ -9676,7 +10165,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableDestroy(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableDestroyParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9686,7 +10174,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableExists(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableExistsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9696,7 +10183,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableGetPermissions(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableGetPermissionsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9706,7 +10192,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableSetPermissions(String name,Perms perms,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableSetPermissionsParams();
       params.name = name;
       params.perms = perms;
@@ -9717,7 +10202,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableDeleteRange(String name,List<int> start,List<int> limit,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableDeleteRangeParams();
       params.name = name;
       params.start = start;
@@ -9729,7 +10213,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableScan(String name,List<int> start,List<int> limit,Object stream,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableScanParams();
       params.name = name;
       params.start = start;
@@ -9742,7 +10225,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableGetPrefixPermissions(String name,String key,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableGetPrefixPermissionsParams();
       params.name = name;
       params.key = key;
@@ -9753,7 +10235,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableSetPrefixPermissions(String name,String prefix,Perms perms,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableSetPrefixPermissionsParams();
       params.name = name;
       params.prefix = prefix;
@@ -9765,7 +10246,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic tableDeletePrefixPermissions(String name,String prefix,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseTableDeletePrefixPermissionsParams();
       params.name = name;
       params.prefix = prefix;
@@ -9776,7 +10256,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic rowExists(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseRowExistsParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9786,7 +10265,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic rowGet(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseRowGetParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9796,7 +10274,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic rowPut(String name,List<int> value,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseRowPutParams();
       params.name = name;
       params.value = value;
@@ -9807,7 +10284,6 @@ class _SyncbaseProxyCalls implements Syncbase {
           bindings.MessageHeader.kMessageExpectsResponse);
     }
     dynamic rowDelete(String name,[Function responseFactory = null]) {
-      assert(_proxyImpl.isBound);
       var params = new SyncbaseRowDeleteParams();
       params.name = name;
       return _proxyImpl.sendMessageWithRequestId(
@@ -9858,6 +10334,10 @@ class SyncbaseProxy implements bindings.ProxyBase {
   }
 
   Future close({bool immediate: false}) => impl.close(immediate: immediate);
+
+  Future responseOrError(Future f) => impl.responseOrError(f);
+
+  Future get errorFuture => impl.errorFuture;
 
   int get version => impl.version;
 
