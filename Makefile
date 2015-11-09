@@ -15,7 +15,7 @@ MOJOM_FILE := mojom/syncbase.mojom
 ifdef ANDROID
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/android
 
-	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/arm_android
+	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/arm_android_armv7
 
 	# NOTE(nlacasse): Trying to write to a directory that the app does not have
 	# permission to causes a crash with no stack trace.  Because of this, we
