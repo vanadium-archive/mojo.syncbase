@@ -115,7 +115,7 @@ class ScanStreamImpl extends Object
     // NOTE(aghassemi): We need to make newAck optional to match mojo's
     // define class, but newAck is always provided by mojo when called.
     if (newAck == null) {
-      throw new ArgumentError('newAck can not be null');
+      throw new ArgumentError('newAck must not be null');
     }
 
     _sc.add(keyValue);

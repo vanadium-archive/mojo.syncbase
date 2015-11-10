@@ -4,17 +4,16 @@
 
 part of syncbase_client;
 
-// ClientContext holds references to objects that other layers need from the
-// SyncbaseClient, e.g. the Mojo proxy and stub manager.
+// ClientContext holds references to objects that other layers need from
+// SyncbaseClient.
 class ClientContext {
   // Handle to the Syncbase Mojo proxy.
   mojom.SyncbaseProxy proxy;
 
-  // Just a convenience getter for the Mojo proxy's Syncbase pointer.
+  // Convenience getter for the Mojo proxy's Syncbase pointer.
   mojom.Syncbase get syncbase => proxy.ptr;
 
-  // Handle to the unclosed stubs manager. Used by layers that need to track
-  // Mojo stubs that need to be closed when the Syncbase client is closed.
+  // Used to track Mojo stubs to close when the Syncbase client is closed.
   UnclosedStubsManager unclosedStubsManager;
 
   ClientContext._internal(this.proxy, this.unclosedStubsManager);

@@ -44,7 +44,6 @@ bool isError(mojom.Error err) {
   return err != null && err.id != '';
 }
 
-// TODO(sadovsky): Add listApps method.
 class SyncbaseClient {
   final ClientContext _ctx;
 
@@ -78,8 +77,7 @@ class SyncbaseClient {
   Future<List<SyncbaseApp>> listApps() async {
     var v = await _ctx.syncbase.serviceListApps();
     if (isError(v.err)) throw v.err;
-
-    return v.apps.map((appName) => this.app(appName)).toList();
+    return v.apps;
   }
 
   Future setPermissions(mojom.Perms perms, String version) async {

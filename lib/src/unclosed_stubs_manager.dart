@@ -4,8 +4,8 @@
 
 part of syncbase_client;
 
-// UnclosedStubsManager allows different layers to keep track of the Mojo stubs
-// that need to be closed when the Syncbase client is closed.
+// UnclosedStubsManager is used to track Mojo stubs to close when the Syncbase
+// client is closed.
 class UnclosedStubsManager {
   List _stubs = [];
 
@@ -19,7 +19,7 @@ class UnclosedStubsManager {
     bool exists = _stubs.remove(stub);
     if (!exists) {
       throw new ArgumentError.value(stub, 'stub',
-          'Does not exist. Please ensure it is registered before calling close.');
+          'Stub has not been registered, or has already been closed.');
     }
     stub.close();
   }

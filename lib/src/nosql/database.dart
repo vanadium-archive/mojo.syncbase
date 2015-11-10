@@ -69,7 +69,8 @@ class SyncbaseNoSqlDatabase extends NamedResource {
 
     _ctx.unclosedStubsManager.register(stub);
 
-    // TODO(aghassemi): Implement naming utilities such as Join in Dart and use them instead.
+    // TODO(aghassemi): Implement naming utilities such as Join in Dart and use
+    // them instead.
     var pattern = naming.join(tableName, prefix) + '*';
     var req = new mojom.GlobRequest();
     req.pattern = pattern;
@@ -93,8 +94,7 @@ class SyncbaseNoSqlDatabase extends NamedResource {
   Future<List<SyncbaseTable>> listTables() async {
     var v = await _ctx.syncbase.dbListTables(fullName);
     if (isError(v.err)) throw v.err;
-
-    return v.tables.map((tableName) => this.table(tableName)).toList();
+    return v.tables;
   }
 
   Future<String> beginBatch(mojom.BatchOptions opts) async {
@@ -142,7 +142,7 @@ class ExecStreamImpl extends Object
     // NOTE(aghassemi): We need to make newAck optional to match mojo's
     // define class, but newAck is always provided by mojo when called.
     if (newAck == null) {
-      throw new ArgumentError('newAck can not be null');
+      throw new ArgumentError('newAck must not be null');
     }
     _sc.add(result);
 
@@ -176,7 +176,7 @@ class WatchGlobStreamImpl extends Object
     // NOTE(aghassemi): We need to make newAck optional to match mojo's
     // define class, but newAck is always provided by mojo when called.
     if (newAck == null) {
-      throw new ArgumentError('newAck can not be null');
+      throw new ArgumentError('newAck must not be null');
     }
     // Testing instrumentation for testing flow control.
     if (testing.isTesting) {

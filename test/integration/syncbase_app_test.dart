@@ -35,12 +35,10 @@ runAppTests(SyncbaseClient c) {
 
     var apps = await c.listApps();
 
-    // NOTE(aghassemi): Since the Syncbase instance is shared between all tests,
-    // we will get a lot more than just 1 app, so we simply verify that our
-    // appName is in the returned list.
-    expect(apps.length, greaterThan(0));
-    var ourApp = apps.firstWhere((e) => e.name == appName);
-    expect(ourApp.name, equals(appName));
+    // Note: The Syncbase instance is shared among all tests, so listApps() will
+    // return lots of apps; here, we simply verify that our appName is in the
+    // returned list.
+    expect(apps.contains(appName), equals(true));
   });
 
   test('listing databases', () async {
@@ -48,18 +46,18 @@ runAppTests(SyncbaseClient c) {
     var app = c.app(appName);
     await app.create(utils.emptyPerms());
 
-    var dbNames = [utils.uniqueName('db1'), utils.uniqueName('db2')];
-    dbNames.sort();
+    var want = [utils.uniqueName('db1'), utils.uniqueName('db2')];
+    want.sort();
 
-    for (var dbName in dbNames) {
+    for (var dbName in want) {
       await app.noSqlDatabase(dbName).create(utils.emptyPerms());
     }
 
-    var dbs = await app.listDatabases();
-    dbs.sort((d1, d2) => d1.name.compareTo(d2.name));
-    expect(dbs.length, equals(dbNames.length));
-    for (var i = 0; i < dbNames.length; i++) {
-      expect(dbs[i].name, equals(dbNames[i]));
+    var got = await app.listDatabases();
+    got.sort((d1, d2) => d1.compareTo(d2));
+    expect(got.length, equals(want.length));
+    for (var i = 0; i < got.length; i++) {
+      expect(got[i], equals(want[i]));
     }
   });
 

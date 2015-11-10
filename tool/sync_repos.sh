@@ -13,6 +13,9 @@ ANDROID="${ANDROID:-1}"
 
 cd $MOJO_DIR/src
 git pull
+# If needed, git checkout at a specific commit as follows.
+# git fetch
+# git checkout -f f871196158df873c7ff8498225bd011e0148174e
 gclient sync
 if [[ "${DESKTOP}" = "1" ]]; then
   ./mojo/tools/mojob.py gn

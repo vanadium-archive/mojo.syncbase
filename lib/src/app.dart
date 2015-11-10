@@ -4,7 +4,6 @@
 
 part of syncbase_client;
 
-// TODO(sadovsky): Add listDatabases method.
 class SyncbaseApp extends NamedResource {
   // NOTE(sadovsky): For the Mojo Syncbase service, we only store names from app
   // down - i.e. there is no service name.
@@ -41,13 +40,10 @@ class SyncbaseApp extends NamedResource {
     return v.perms;
   }
 
-  // TODO(aghassemi): Maybe add an abstract class for SyncbaseDatabase so we can
-  // return either NoSqlDatabase or SqlDatabase (when both exist).
-  Future<List<SyncbaseNoSqlDatabase>> listDatabases() async {
+  Future<List<String>> listDatabases() async {
     var v = await _ctx.syncbase.appListDatabases(fullName);
     if (isError(v.err)) throw v.err;
-
-    return v.databases.map((dbName) => this.noSqlDatabase(dbName)).toList();
+    return v.databases;
   }
 
   Future setPermissions(mojom.Perms perms, String version) async {
