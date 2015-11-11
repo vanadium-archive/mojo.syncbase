@@ -45,7 +45,6 @@ MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)" \
 	"--args-for=mojo:dart_content_handler --enable-strict-mode"
 
-
 .DELETE_ON_ERROR:
 
 all: test
@@ -97,11 +96,11 @@ packages:
 .PHONY: gen-mojom
 gen-mojom: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/syncbase/syncbase.mojom.go
 
-# TODO(aghassemi): For now, since the mojom compiler changes often, we don't
-# depend on syncbase.mojom and specify the generated files as .PHONY
-# targets, this makes sure we regenerate every time to pick up any compiler
-# changes. Later when mojom compiler is stable and backward compatible, we can
-# reintroduce the dependency on the mojom file and not regenerate every time.
+# TODO(aghassemi): The mojom compiler is in flux, and updates to it are
+# typically not backwards-compatible, so for now we mark this rule as .PHONY in
+# order to force recompilation of mojom files with every build. Once the mojom
+# compiler stabilizes, we can remove the .PHONY label and avoid recompiling our
+# mojom files unnecessarily.
 .PHONY: gen/go/src/mojom/syncbase/syncbase.mojom.go
 gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
 	$(call MOJOM_GEN,$(MOJOM_FILE),.,gen,go)
@@ -139,8 +138,9 @@ endif
 	# TODO(nlacasse): Figure out why tests time out with dev.v.io credentials.
 	# Maybe caveat validation?
 	rm -rf $(PWD)/creds
-	# NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS" flags,
-	# otherwise mojo_test's argument parser gets confused and exits with an error.
+	# NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS"
+	# flags, otherwise mojo_test's argument parser gets confused and exits with an
+	# error.
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test tests --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL_PATH) $(MOJO_ANDROID_FLAGS) $(MOJO_SHELL_FLAGS)
 
 .PHONY: syncbase-env-check
@@ -159,19 +159,21 @@ update-mojo:
 
 
 .PHONY: publish
-# NOTE(aghassemi): This must be inside lib or won't be accessible.
+# NOTE(aghassemi): This must be inside lib in order to be accessible.
 PACKAGE_MOJO_BIN_DIR := lib/mojo_services
 ifdef DRYRUN
 	PUBLISH_FLAGS := --dry-run
 endif
-# NOTE(aghassemi): Do not forget to increment the version number, otherwise publish will fail.
-# Please follow https://www.dartlang.org/tools/pub/versioning.html for guidelines.
+# NOTE(aghassemi): Publishing will fail unless you increment the version number
+# in pubspec.yaml. See https://www.dartlang.org/tools/pub/versioning.html for
+# guidelines.
 publish: veryclean update-mojo packages
-	$(MAKE) test # Builds and tests for Linux
-	ANDROID=1 $(MAKE) build # Cross compile for Android
+	$(MAKE) test  # Build and test on Linux.
+	ANDROID=1 $(MAKE) build  # Cross-compile for Android.
 	mkdir -p $(PACKAGE_MOJO_BIN_DIR)
 	cp -r gen/mojo/* $(PACKAGE_MOJO_BIN_DIR)
-	# - at the beginning tells make to ignore failure and continue to next line.
+	# Note: The '-' at the beginning of the following command tells make to ignore
+	# failures and always continue to the next command.
 	-pub publish $(PUBLISH_FLAGS)
 	rm -rf $(PACKAGE_MOJO_BIN_DIR)
 
