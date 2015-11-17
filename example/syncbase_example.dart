@@ -26,7 +26,7 @@ main(List args) async {
         app.connectToService, 'https://mojo.v.io/syncbase_server.mojo');
 
     sb.SyncbaseApp sbApp = await createApp(c, 'testapp');
-    sb.SyncbaseNoSqlDatabase sbDb = await createDb(sbApp, 'testdb');
+    sb.SyncbaseDatabase sbDb = await createDb(sbApp, 'testdb');
     sb.SyncbaseTable sbTable = await createTable(sbDb, 'testtable');
     await joinOrCreateSyncgroup(sbDb, mtAddr, sbTable.name, 'testsg');
 
@@ -94,8 +94,7 @@ Future<sb.SyncbaseApp> createApp(sb.SyncbaseClient c, String name) async {
   return app;
 }
 
-Future<sb.SyncbaseNoSqlDatabase> createDb(
-    sb.SyncbaseApp app, String name) async {
+Future<sb.SyncbaseDatabase> createDb(sb.SyncbaseApp app, String name) async {
   var db = app.noSqlDatabase(name);
   var exists = await db.exists();
   if (exists) {
@@ -108,7 +107,7 @@ Future<sb.SyncbaseNoSqlDatabase> createDb(
 }
 
 Future<sb.SyncbaseTable> createTable(
-    sb.SyncbaseNoSqlDatabase db, String name) async {
+    sb.SyncbaseDatabase db, String name) async {
   var table = db.table(name);
   var exists = await table.exists();
   if (exists) {
@@ -120,7 +119,7 @@ Future<sb.SyncbaseTable> createTable(
   return table;
 }
 
-Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseNoSqlDatabase db,
+Future<sb.SyncbaseSyncgroup> joinOrCreateSyncgroup(sb.SyncbaseDatabase db,
     String mtAddr, String tableName, String name) async {
   var mtName = naming.join(
       mtAddr, 'users/vanadium.bot@gmail.com/apps/mojo-syncbase-example');

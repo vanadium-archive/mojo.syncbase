@@ -31,6 +31,8 @@ part 'src/named_resource.dart';
 part 'src/stream_flow_control.dart';
 part 'src/unclosed_stubs_manager.dart';
 part 'src/util.dart';
+part 'src/nosql/abstract_database.dart';
+part 'src/nosql/batch.dart';
 part 'src/nosql/database.dart';
 part 'src/nosql/row.dart';
 part 'src/nosql/rowrange.dart';
@@ -66,18 +68,18 @@ class SyncbaseClient {
   // app returns the app with the given name.
   SyncbaseApp app(String name) => new SyncbaseApp._internal(_ctx, name);
 
+  Future<List<SyncbaseApp>> listApps() async {
+    var v = await _ctx.syncbase.serviceListApps();
+    if (isError(v.err)) throw v.err;
+    return v.apps;
+  }
+
   Future<mojom.Perms> getPermissions() async {
     var v = await _ctx.syncbase.serviceGetPermissions();
     if (isError(v.err)) throw v.err;
     // TODO(nlacasse): We need to return the version too.  Create a struct type
     // that combines perms and version?
     return v.perms;
-  }
-
-  Future<List<SyncbaseApp>> listApps() async {
-    var v = await _ctx.syncbase.serviceListApps();
-    if (isError(v.err)) throw v.err;
-    return v.apps;
   }
 
   Future setPermissions(mojom.Perms perms, String version) async {
@@ -89,7 +91,7 @@ class SyncbaseClient {
   // generated constructors take zero arguments, so they are difficult to use.
 
   static mojom.BatchOptions batchOptions(
-      {String hint: null, bool readOnly: false}) {
+      {String hint: '', bool readOnly: false}) {
     return new mojom.BatchOptions()
       ..hint = hint
       ..readOnly = readOnly;

@@ -4,7 +4,7 @@
 
 part of syncbase_client;
 
-// NamedResource is the superclass of resources with names.
+// NamedResource is a base class for Syncbase layers with names.
 class NamedResource {
   final ClientContext _ctx;
   final String _parentFullName;

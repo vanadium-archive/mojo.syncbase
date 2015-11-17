@@ -14,25 +14,22 @@ MOJOM_FILE := mojom/syncbase.mojom
 
 ifdef ANDROID
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/android
-
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/arm_android_armv7
 
-	# NOTE(nlacasse): Trying to write to a directory that the app does not have
-	# permission to causes a crash with no stack trace.  Because of this, we
-	# set logtostderr=true to prevent vlog from writing logs to directories we
-	# don't have permissions on.  (Alternatively, we could set --log_dir to a
-	# directory inside APP_HOME_DIR.)  We set syncbase root-dir inside
-	# APP_HOME_DIR for the same reason.
+# NOTE(nlacasse): Trying to write to a directory that the app does not have
+# permission to causes a crash with no stack trace. Because of this, we set
+# logtostderr=true to prevent vlog from writing logs to directories we don't
+# have permissions on. (Alternatively, we could set --log_dir to a directory
+# inside APP_HOME_DIR.) We set syncbase root-dir inside APP_HOME_DIR for the
+# same reason.
 	APP_HOME_DIR = /data/data/org.chromium.mojo.shell/app_home
 	ANDROID_CREDS_DIR := /sdcard/v23creds
 	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(APP_HOME_DIR)/syncbase_data --v23.credentials=$(ANDROID_CREDS_DIR)
 else
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
-
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/amd64_linux
 
-	SYNCBASE_ROOT_DIR := $(PWD)/tmp/syncbase_data
-	V23_MOJO_FLAGS += --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(PWD)/creds
+	V23_MOJO_FLAGS += --root-dir=$(PWD)/tmp/syncbase_data --v23.credentials=$(PWD)/creds
 endif
 
 # NOTE(nlacasse): Running Go Mojo services requires passing the
@@ -83,9 +80,9 @@ dartfmt: packages
 # Lints src and test files with dartanalyzer. This takes a few seconds.
 .PHONY: dartanalyzer
 dartanalyzer: packages gen-mojom
-	# TODO(nlacasse): Fix dart mojom binding generator so it does not produce
-	# files that violate dartanalyzer.  For now, we use "grep -v" to hide all
-	# hints and warnings from *.mojom.dart files.
+# TODO(nlacasse): Fix dart mojom binding generator so it does not produce files
+# that violate dartanalyzer. For now, we use "grep -v" to hide all hints and
+# warnings from *.mojom.dart files.
 	dartanalyzer example/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
@@ -109,9 +106,9 @@ gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
 .PHONY: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart
 lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
 	$(call MOJOM_GEN,$(MOJOM_FILE),.,lib/gen,dart)
-	# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart
-	# files, so we delete them.  Stop doing this once the generator is fixed.
-	# See https://github.com/domokit/mojo/issues/386
+# TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart files,
+# so we delete them. Stop doing this once the generator is fixed. See
+# https://github.com/domokit/mojo/issues/386
 	rm -f lib/gen/mojom/$(notdir $@)
 
 .PHONY: run-syncbase-example
@@ -121,6 +118,9 @@ ifdef ANDROID
 endif
 	$(call MOJO_RUN,"https://mojo.v.io/syncbase_example.dart")
 
+# Note: If "make test" fails with "Connection error to the shell" messages, it
+# could be that the Dart VM has crashed (e.g. due to a missing import). In this
+# case, "make dartanalyzer" often reveals the problem.
 .PHONY: test
 test: test-unit test-integration
 
@@ -133,14 +133,14 @@ test-integration: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom 
 ifdef MOUNTTABLE_ADDR
 	$(error please unset MOUNTTABLE_ADDR before running the tests)
 endif
-	# Delete the 'creds' dir to make sure we are running with in-memory
-	# credentials.  Otherwise tests time out.
-	# TODO(nlacasse): Figure out why tests time out with dev.v.io credentials.
-	# Maybe caveat validation?
+# Delete the 'creds' dir to make sure we are running with in-memory credentials.
+# Otherwise tests time out.
+# TODO(nlacasse): Figure out why tests time out with dev.v.io credentials. Maybe
+# caveat validation?
 	rm -rf $(PWD)/creds
-	# NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS"
-	# flags, otherwise mojo_test's argument parser gets confused and exits with an
-	# error.
+# NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS"
+# flags, otherwise mojo_test's argument parser gets confused and exits with an
+# error.
 	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test tests --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL_PATH) $(MOJO_ANDROID_FLAGS) $(MOJO_SHELL_FLAGS)
 
 .PHONY: syncbase-env-check
@@ -172,8 +172,8 @@ publish: veryclean update-mojo packages
 	ANDROID=1 $(MAKE) build  # Cross-compile for Android.
 	mkdir -p $(PACKAGE_MOJO_BIN_DIR)
 	cp -r gen/mojo/* $(PACKAGE_MOJO_BIN_DIR)
-	# Note: The '-' at the beginning of the following command tells make to ignore
-	# failures and always continue to the next command.
+# Note: The '-' at the beginning of the following command tells make to ignore
+# failures and always continue to the next command.
 	-pub publish $(PUBLISH_FLAGS)
 	rm -rf $(PACKAGE_MOJO_BIN_DIR)
 

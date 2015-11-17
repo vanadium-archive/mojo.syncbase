@@ -4,27 +4,9 @@
 
 part of syncbase_client;
 
-class SyncbaseNoSqlDatabase extends NamedResource {
-  SyncbaseNoSqlDatabase._internal(
-      _ctx, _parentFullName, relativeName, batchSuffix)
-      : super._internal(_ctx, _parentFullName, relativeName,
-            naming.join(_parentFullName, escape(relativeName) + batchSuffix));
-
-  // table returns a table with the given relativeName.
-  SyncbaseTable table(String relativeName) {
-    return new SyncbaseTable._internal(_ctx, fullName, relativeName);
-  }
-
-  // syncgroup returns a syncgroup with the given name.
-  SyncbaseSyncgroup syncgroup(String name) {
-    return new SyncbaseSyncgroup._internal(_ctx, this.fullName, name);
-  }
-
-  Future<List<String>> getSyncgroupNames() async {
-    var v = await _ctx.syncbase.dbGetSyncgroupNames(fullName);
-    if (isError(v.err)) throw v.err;
-    return v.names;
-  }
+class SyncbaseDatabase extends AbstractDatabase {
+  SyncbaseDatabase._internal(_ctx, _parentFullName, relativeName)
+      : super._internal(_ctx, _parentFullName, relativeName, '');
 
   Future create(mojom.Perms perms) async {
     var v = await _ctx.syncbase.dbCreate(fullName, perms);
@@ -42,21 +24,17 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     return v.exists;
   }
 
-  Stream<mojom.Result> exec(String query) {
-    StreamController<mojom.Result> sc = new StreamController();
+  Future<mojom.Perms> getPermissions() async {
+    var v = await _ctx.syncbase.dbGetPermissions(fullName);
+    if (isError(v.err)) throw v.err;
+    // TODO(nlacasse): We need to return the version too.  Create a struct type
+    // that combines perms and version?
+    return v.perms;
+  }
 
-    mojom.ExecStreamStub stub = new mojom.ExecStreamStub.unbound();
-    stub.impl = new ExecStreamImpl._fromStreamController(_ctx, sc, stub);
-
-    _ctx.unclosedStubsManager.register(stub);
-
-    // Call dbExec asynchronously.
-    _ctx.syncbase.dbExec(fullName, query, stub).then((v) {
-      // TODO(nlacasse): Same question regarding throwing behavior as TableScan.
-      if (isError(v.err)) throw v.err;
-    });
-
-    return sc.stream;
+  Future setPermissions(mojom.Perms perms, String version) async {
+    var v = await _ctx.syncbase.dbSetPermissions(fullName, perms, version);
+    if (isError(v.err)) throw v.err;
   }
 
   Stream<mojom.WatchChange> watch(
@@ -85,79 +63,22 @@ class SyncbaseNoSqlDatabase extends NamedResource {
     return sc.stream;
   }
 
-  Future<List<int>> getResumeMarker() async {
-    var v = await _ctx.syncbase.dbGetResumeMarker(fullName);
-    if (isError(v.err)) throw v.err;
-    return v.resumeMarker;
-  }
-
-  Future<List<SyncbaseTable>> listTables() async {
-    var v = await _ctx.syncbase.dbListTables(fullName);
-    if (isError(v.err)) throw v.err;
-    return v.tables;
-  }
-
-  Future<String> beginBatch(mojom.BatchOptions opts) async {
+  Future<SyncbaseBatchDatabase> beginBatch(mojom.BatchOptions opts) async {
     var v = await _ctx.syncbase.dbBeginBatch(fullName, opts);
     if (isError(v.err)) throw v.err;
-    return v.batchSuffix;
+    return new SyncbaseBatchDatabase._internal(
+        _ctx, _parentFullName, name, v.batchSuffix);
   }
 
-  Future commit() async {
-    var v = await _ctx.syncbase.dbCommit(fullName);
+  // syncgroup returns a syncgroup with the given name.
+  SyncbaseSyncgroup syncgroup(String name) {
+    return new SyncbaseSyncgroup._internal(_ctx, fullName, name);
+  }
+
+  Future<List<String>> getSyncgroupNames() async {
+    var v = await _ctx.syncbase.dbGetSyncgroupNames(fullName);
     if (isError(v.err)) throw v.err;
-  }
-
-  Future abort() async {
-    var v = await _ctx.syncbase.dbAbort(fullName);
-    if (isError(v.err)) throw v.err;
-  }
-
-  Future<mojom.Perms> getPermissions() async {
-    var v = await _ctx.syncbase.dbGetPermissions(fullName);
-    if (isError(v.err)) throw v.err;
-    // TODO(nlacasse): We need to return the version too.  Create a struct type
-    // that combines perms and version?
-    return v.perms;
-  }
-
-  Future setPermissions(mojom.Perms perms, String version) async {
-    var v = await _ctx.syncbase.dbSetPermissions(fullName, perms, version);
-    if (isError(v.err)) throw v.err;
-  }
-}
-
-class ExecStreamImpl extends Object
-    with StreamFlowControl
-    implements mojom.ExecStream {
-  final ClientContext _ctx;
-  final StreamController<mojom.Result> _sc;
-  final mojom.ExecStreamStub _stub;
-
-  ExecStreamImpl._fromStreamController(this._ctx, this._sc, this._stub) {
-    initFlowControl(this._sc);
-  }
-
-  onResult(mojom.Result result, [Function newAck = null]) {
-    // NOTE(aghassemi): We need to make newAck optional to match mojo's
-    // define class, but newAck is always provided by mojo when called.
-    if (newAck == null) {
-      throw new ArgumentError('newAck must not be null');
-    }
-    _sc.add(result);
-
-    // Only ack after we get unlocked.
-    // If we are not locked, onNextUnlock returns immediately.
-    return onNextUnlock().then((_) => newAck());
-  }
-
-  // Called by the mojo proxy when the Go function call returns.
-  onDone(mojom.Error err) {
-    if (isError(err)) {
-      _sc.addError(err);
-    }
-    _sc.close();
-    _ctx.unclosedStubsManager.close(_stub);
+    return v.names;
   }
 }
 
@@ -173,25 +94,26 @@ class WatchGlobStreamImpl extends Object
   }
 
   Future onChange(mojom.WatchChange change, [Function newAck = null]) {
-    // NOTE(aghassemi): We need to make newAck optional to match mojo's
-    // define class, but newAck is always provided by mojo when called.
+    // NOTE(aghassemi): newAck must be optional to match the mojom-generated
+    // Dart interface, but in practice the Mojo IPC framework always provides
+    // it.
     if (newAck == null) {
       throw new ArgumentError('newAck must not be null');
     }
-    // Testing instrumentation for testing flow control.
+    // Test instrumentation, for testing flow control.
     if (testing.isTesting) {
       testing.DatabaseWatch.onChangeCounter.increment();
     }
 
     _sc.add(change);
 
-    // Only ack after we get unlocked.
-    // If we are not locked, onNextUnlock returns immediately.
+    // Only ack after we become unlocked.
+    // If we are unlocked, onNextUnlock returns immediately.
     return onNextUnlock().then((_) => newAck());
   }
 
-  // Called by the mojo proxy when the Go function call returns.
-  // Watch technically never returns unless there is an error.
+  // Called by the Mojo proxy when the Go function call returns.
+  // (Note, watch never terminates unless there is an error.)
   onError(mojom.Error err) {
     if (isError(err)) {
       _sc.addError(err);

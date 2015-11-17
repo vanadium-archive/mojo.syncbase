@@ -4,7 +4,11 @@
 
 library utils;
 
-import 'package:syncbase/syncbase_client.dart' show Perms, SyncbaseClient;
+import 'dart:async';
+
+import 'dart:convert' show UTF8;
+
+import 'package:syncbase/syncbase_client.dart';
 
 // Returns an empty Perms object.
 Perms emptyPerms() => SyncbaseClient.perms();
@@ -19,4 +23,32 @@ String uniqueName(String type) {
   type ??= 'unknown';
   _nameCounter++;
   return type + '_' + _nameCounter.toString();
+}
+
+class KV {
+  final String k, v;
+  const KV(this.k, this.v);
+
+  // https://www.dartlang.org/docs/dart-up-and-running/ch03.html#implementing-map-keys
+  int get hashCode {
+    int result = 17;
+    result = 37 * result + k.hashCode;
+    result = 37 * result + v.hashCode;
+    return result;
+  }
+
+  bool operator ==(other) {
+    if (other is! KV) return false;
+    KV kv = other;
+    return (kv.k == k && kv.v == v);
+  }
+}
+
+putMany(SyncbaseTable tb, Iterable<KV> kvs) async {
+  await Future.forEach(kvs, (kv) => tb.put(kv.k, UTF8.encode(kv.v)));
+}
+
+Future<Iterable<KV>> scan(SyncbaseTable tb, String prefix) async {
+  var rows = await tb.scan(new RowRange.prefix(prefix)).toList();
+  return rows.map((x) => new KV(x.key, UTF8.decode(x.value)));
 }

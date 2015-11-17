@@ -9,7 +9,7 @@ class SyncbaseTable extends NamedResource {
       : super._internal(_ctx, _parentFullName, relativeName,
             naming.join(_parentFullName, escape(relativeName)));
 
-  // row returns a row with the given key.
+  // Returns a row with the given key.
   SyncbaseRow row(String key) {
     return new SyncbaseRow._internal(_ctx, fullName, key);
   }
