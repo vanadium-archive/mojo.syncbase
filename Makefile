@@ -177,6 +177,19 @@ publish: veryclean update-mojo packages
 	-pub publish $(PUBLISH_FLAGS)
 	rm -rf $(PACKAGE_MOJO_BIN_DIR)
 
+# Prepares a local version of the syncbase package that can be accessed via a
+# pubspec path. For example, if this is release/projects/croupier, its
+# pubspec.yaml will include a syncbase path dependency pointing at
+# ../../mojo/syncbase.
+# This is helpful when testing local changes to syncbase or a version that has
+# not been published on pub yet.
+.PHONY: local-publish
+local-publish: veryclean packages
+	$(MAKE) build  # Build on Linux.
+	ANDROID=1 $(MAKE) build  # Cross-compile for Android.
+	mkdir -p $(PACKAGE_MOJO_BIN_DIR)
+	cp -r gen/mojo/* $(PACKAGE_MOJO_BIN_DIR)
+
 # TODO(aghassemi): Why does mojo generate dart-pkg and mojom dirs?
 .PHONY: clean
 clean:
