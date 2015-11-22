@@ -8322,8 +8322,8 @@ class ExecStreamStub extends bindings.Stub {
 
 
   ExecStreamOnResultResponseParams _ExecStreamOnResultResponseParamsFactory() {
-    var result = new ExecStreamOnResultResponseParams();
-    return result;
+    var mojo_factory_result = new ExecStreamOnResultResponseParams();
+    return mojo_factory_result;
   }
 
   dynamic handleMessage(bindings.ServiceMessage message) {
@@ -8554,8 +8554,8 @@ class ScanStreamStub extends bindings.Stub {
 
 
   ScanStreamOnKeyValueResponseParams _ScanStreamOnKeyValueResponseParamsFactory() {
-    var result = new ScanStreamOnKeyValueResponseParams();
-    return result;
+    var mojo_factory_result = new ScanStreamOnKeyValueResponseParams();
+    return mojo_factory_result;
   }
 
   dynamic handleMessage(bindings.ServiceMessage message) {
@@ -8786,8 +8786,8 @@ class WatchGlobStreamStub extends bindings.Stub {
 
 
   WatchGlobStreamOnChangeResponseParams _WatchGlobStreamOnChangeResponseParamsFactory() {
-    var result = new WatchGlobStreamOnChangeResponseParams();
-    return result;
+    var mojo_factory_result = new WatchGlobStreamOnChangeResponseParams();
+    return mojo_factory_result;
   }
 
   dynamic handleMessage(bindings.ServiceMessage message) {
@@ -10375,247 +10375,247 @@ class SyncbaseStub extends bindings.Stub {
 
 
   SyncbaseServiceGetPermissionsResponseParams _SyncbaseServiceGetPermissionsResponseParamsFactory(Error err, Perms perms, String version) {
-    var result = new SyncbaseServiceGetPermissionsResponseParams();
-    result.err = err;
-    result.perms = perms;
-    result.version = version;
-    return result;
+    var mojo_factory_result = new SyncbaseServiceGetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.perms = perms;
+    mojo_factory_result.version = version;
+    return mojo_factory_result;
   }
   SyncbaseServiceSetPermissionsResponseParams _SyncbaseServiceSetPermissionsResponseParamsFactory(Error err) {
-    var result = new SyncbaseServiceSetPermissionsResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseServiceSetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseServiceListAppsResponseParams _SyncbaseServiceListAppsResponseParamsFactory(Error err, List<String> apps) {
-    var result = new SyncbaseServiceListAppsResponseParams();
-    result.err = err;
-    result.apps = apps;
-    return result;
+    var mojo_factory_result = new SyncbaseServiceListAppsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.apps = apps;
+    return mojo_factory_result;
   }
   SyncbaseAppCreateResponseParams _SyncbaseAppCreateResponseParamsFactory(Error err) {
-    var result = new SyncbaseAppCreateResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseAppCreateResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseAppDestroyResponseParams _SyncbaseAppDestroyResponseParamsFactory(Error err) {
-    var result = new SyncbaseAppDestroyResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseAppDestroyResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseAppExistsResponseParams _SyncbaseAppExistsResponseParamsFactory(Error err, bool exists) {
-    var result = new SyncbaseAppExistsResponseParams();
-    result.err = err;
-    result.exists = exists;
-    return result;
+    var mojo_factory_result = new SyncbaseAppExistsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.exists = exists;
+    return mojo_factory_result;
   }
   SyncbaseAppGetPermissionsResponseParams _SyncbaseAppGetPermissionsResponseParamsFactory(Error err, Perms perms, String version) {
-    var result = new SyncbaseAppGetPermissionsResponseParams();
-    result.err = err;
-    result.perms = perms;
-    result.version = version;
-    return result;
+    var mojo_factory_result = new SyncbaseAppGetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.perms = perms;
+    mojo_factory_result.version = version;
+    return mojo_factory_result;
   }
   SyncbaseAppListDatabasesResponseParams _SyncbaseAppListDatabasesResponseParamsFactory(Error err, List<String> databases) {
-    var result = new SyncbaseAppListDatabasesResponseParams();
-    result.err = err;
-    result.databases = databases;
-    return result;
+    var mojo_factory_result = new SyncbaseAppListDatabasesResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.databases = databases;
+    return mojo_factory_result;
   }
   SyncbaseAppSetPermissionsResponseParams _SyncbaseAppSetPermissionsResponseParamsFactory(Error err) {
-    var result = new SyncbaseAppSetPermissionsResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseAppSetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbCreateResponseParams _SyncbaseDbCreateResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbCreateResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbCreateResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbDestroyResponseParams _SyncbaseDbDestroyResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbDestroyResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbDestroyResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbExistsResponseParams _SyncbaseDbExistsResponseParamsFactory(Error err, bool exists) {
-    var result = new SyncbaseDbExistsResponseParams();
-    result.err = err;
-    result.exists = exists;
-    return result;
+    var mojo_factory_result = new SyncbaseDbExistsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.exists = exists;
+    return mojo_factory_result;
   }
   SyncbaseDbExecResponseParams _SyncbaseDbExecResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbExecResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbExecResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbBeginBatchResponseParams _SyncbaseDbBeginBatchResponseParamsFactory(Error err, String batchSuffix) {
-    var result = new SyncbaseDbBeginBatchResponseParams();
-    result.err = err;
-    result.batchSuffix = batchSuffix;
-    return result;
+    var mojo_factory_result = new SyncbaseDbBeginBatchResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.batchSuffix = batchSuffix;
+    return mojo_factory_result;
   }
   SyncbaseDbCommitResponseParams _SyncbaseDbCommitResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbCommitResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbCommitResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbAbortResponseParams _SyncbaseDbAbortResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbAbortResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbAbortResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbGetPermissionsResponseParams _SyncbaseDbGetPermissionsResponseParamsFactory(Error err, Perms perms, String version) {
-    var result = new SyncbaseDbGetPermissionsResponseParams();
-    result.err = err;
-    result.perms = perms;
-    result.version = version;
-    return result;
+    var mojo_factory_result = new SyncbaseDbGetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.perms = perms;
+    mojo_factory_result.version = version;
+    return mojo_factory_result;
   }
   SyncbaseDbSetPermissionsResponseParams _SyncbaseDbSetPermissionsResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbSetPermissionsResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbSetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbWatchGlobResponseParams _SyncbaseDbWatchGlobResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbWatchGlobResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbWatchGlobResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbGetResumeMarkerResponseParams _SyncbaseDbGetResumeMarkerResponseParamsFactory(Error err, List<int> resumeMarker) {
-    var result = new SyncbaseDbGetResumeMarkerResponseParams();
-    result.err = err;
-    result.resumeMarker = resumeMarker;
-    return result;
+    var mojo_factory_result = new SyncbaseDbGetResumeMarkerResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.resumeMarker = resumeMarker;
+    return mojo_factory_result;
   }
   SyncbaseDbListTablesResponseParams _SyncbaseDbListTablesResponseParamsFactory(Error err, List<String> tables) {
-    var result = new SyncbaseDbListTablesResponseParams();
-    result.err = err;
-    result.tables = tables;
-    return result;
+    var mojo_factory_result = new SyncbaseDbListTablesResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.tables = tables;
+    return mojo_factory_result;
   }
   SyncbaseDbGetSyncgroupNamesResponseParams _SyncbaseDbGetSyncgroupNamesResponseParamsFactory(Error err, List<String> names) {
-    var result = new SyncbaseDbGetSyncgroupNamesResponseParams();
-    result.err = err;
-    result.names = names;
-    return result;
+    var mojo_factory_result = new SyncbaseDbGetSyncgroupNamesResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.names = names;
+    return mojo_factory_result;
   }
   SyncbaseDbCreateSyncgroupResponseParams _SyncbaseDbCreateSyncgroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbCreateSyncgroupResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbCreateSyncgroupResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbJoinSyncgroupResponseParams _SyncbaseDbJoinSyncgroupResponseParamsFactory(Error err, SyncgroupSpec spec) {
-    var result = new SyncbaseDbJoinSyncgroupResponseParams();
-    result.err = err;
-    result.spec = spec;
-    return result;
+    var mojo_factory_result = new SyncbaseDbJoinSyncgroupResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.spec = spec;
+    return mojo_factory_result;
   }
   SyncbaseDbLeaveSyncgroupResponseParams _SyncbaseDbLeaveSyncgroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbLeaveSyncgroupResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbLeaveSyncgroupResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbDestroySyncgroupResponseParams _SyncbaseDbDestroySyncgroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbDestroySyncgroupResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbDestroySyncgroupResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbEjectFromSyncgroupResponseParams _SyncbaseDbEjectFromSyncgroupResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbEjectFromSyncgroupResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbEjectFromSyncgroupResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbGetSyncgroupSpecResponseParams _SyncbaseDbGetSyncgroupSpecResponseParamsFactory(Error err, SyncgroupSpec spec, String version) {
-    var result = new SyncbaseDbGetSyncgroupSpecResponseParams();
-    result.err = err;
-    result.spec = spec;
-    result.version = version;
-    return result;
+    var mojo_factory_result = new SyncbaseDbGetSyncgroupSpecResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.spec = spec;
+    mojo_factory_result.version = version;
+    return mojo_factory_result;
   }
   SyncbaseDbSetSyncgroupSpecResponseParams _SyncbaseDbSetSyncgroupSpecResponseParamsFactory(Error err) {
-    var result = new SyncbaseDbSetSyncgroupSpecResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseDbSetSyncgroupSpecResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseDbGetSyncgroupMembersResponseParams _SyncbaseDbGetSyncgroupMembersResponseParamsFactory(Error err, Map<String, SyncgroupMemberInfo> infos) {
-    var result = new SyncbaseDbGetSyncgroupMembersResponseParams();
-    result.err = err;
-    result.infos = infos;
-    return result;
+    var mojo_factory_result = new SyncbaseDbGetSyncgroupMembersResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.infos = infos;
+    return mojo_factory_result;
   }
   SyncbaseTableCreateResponseParams _SyncbaseTableCreateResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableCreateResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableCreateResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseTableDestroyResponseParams _SyncbaseTableDestroyResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableDestroyResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableDestroyResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseTableExistsResponseParams _SyncbaseTableExistsResponseParamsFactory(Error err, bool exists) {
-    var result = new SyncbaseTableExistsResponseParams();
-    result.err = err;
-    result.exists = exists;
-    return result;
+    var mojo_factory_result = new SyncbaseTableExistsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.exists = exists;
+    return mojo_factory_result;
   }
   SyncbaseTableGetPermissionsResponseParams _SyncbaseTableGetPermissionsResponseParamsFactory(Error err, Perms perms) {
-    var result = new SyncbaseTableGetPermissionsResponseParams();
-    result.err = err;
-    result.perms = perms;
-    return result;
+    var mojo_factory_result = new SyncbaseTableGetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.perms = perms;
+    return mojo_factory_result;
   }
   SyncbaseTableSetPermissionsResponseParams _SyncbaseTableSetPermissionsResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableSetPermissionsResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableSetPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseTableDeleteRangeResponseParams _SyncbaseTableDeleteRangeResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableDeleteRangeResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableDeleteRangeResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseTableScanResponseParams _SyncbaseTableScanResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableScanResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableScanResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseTableGetPrefixPermissionsResponseParams _SyncbaseTableGetPrefixPermissionsResponseParamsFactory(Error err, List<PrefixPerms> permsArr) {
-    var result = new SyncbaseTableGetPrefixPermissionsResponseParams();
-    result.err = err;
-    result.permsArr = permsArr;
-    return result;
+    var mojo_factory_result = new SyncbaseTableGetPrefixPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.permsArr = permsArr;
+    return mojo_factory_result;
   }
   SyncbaseTableSetPrefixPermissionsResponseParams _SyncbaseTableSetPrefixPermissionsResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableSetPrefixPermissionsResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableSetPrefixPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseTableDeletePrefixPermissionsResponseParams _SyncbaseTableDeletePrefixPermissionsResponseParamsFactory(Error err) {
-    var result = new SyncbaseTableDeletePrefixPermissionsResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseTableDeletePrefixPermissionsResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseRowExistsResponseParams _SyncbaseRowExistsResponseParamsFactory(Error err, bool exists) {
-    var result = new SyncbaseRowExistsResponseParams();
-    result.err = err;
-    result.exists = exists;
-    return result;
+    var mojo_factory_result = new SyncbaseRowExistsResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.exists = exists;
+    return mojo_factory_result;
   }
   SyncbaseRowGetResponseParams _SyncbaseRowGetResponseParamsFactory(Error err, List<int> value) {
-    var result = new SyncbaseRowGetResponseParams();
-    result.err = err;
-    result.value = value;
-    return result;
+    var mojo_factory_result = new SyncbaseRowGetResponseParams();
+    mojo_factory_result.err = err;
+    mojo_factory_result.value = value;
+    return mojo_factory_result;
   }
   SyncbaseRowPutResponseParams _SyncbaseRowPutResponseParamsFactory(Error err) {
-    var result = new SyncbaseRowPutResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseRowPutResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
   SyncbaseRowDeleteResponseParams _SyncbaseRowDeleteResponseParamsFactory(Error err) {
-    var result = new SyncbaseRowDeleteResponseParams();
-    result.err = err;
-    return result;
+    var mojo_factory_result = new SyncbaseRowDeleteResponseParams();
+    mojo_factory_result.err = err;
+    return mojo_factory_result;
   }
 
   dynamic handleMessage(bindings.ServiceMessage message) {
