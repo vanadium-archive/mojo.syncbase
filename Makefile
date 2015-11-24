@@ -23,13 +23,15 @@ ifdef ANDROID
 # inside APP_HOME_DIR.) We set syncbase root-dir inside APP_HOME_DIR for the
 # same reason.
 	APP_HOME_DIR = /data/data/org.chromium.mojo.shell/app_home
+	SYNCBASE_ROOT_DIR=$(APP_HOME_DIR)/syncbase_data
 	ANDROID_CREDS_DIR := /sdcard/v23creds
-	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(APP_HOME_DIR)/syncbase_data --v23.credentials=$(ANDROID_CREDS_DIR)
+	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(ANDROID_CREDS_DIR)
 else
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
 	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/amd64_linux
 
-	V23_MOJO_FLAGS += --root-dir=$(PWD)/tmp/syncbase_data --v23.credentials=$(PWD)/creds
+	SYNCBASE_ROOT_DIR=$(PWD)/tmp/syncbase_data
+	V23_MOJO_FLAGS += --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(PWD)/creds
 endif
 
 # NOTE(nlacasse): Running Go Mojo services requires passing the
@@ -111,6 +113,7 @@ lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
 # https://github.com/domokit/mojo/issues/386
 	rm -f lib/gen/mojom/$(notdir $@)
 
+# TODO(sadovsky): Wipe any existing Syncbase data, as done in test-integration.
 .PHONY: run-syncbase-example
 run-syncbase-example: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo packages lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check creds
 ifdef ANDROID
@@ -138,6 +141,12 @@ endif
 # TODO(nlacasse): Figure out why tests time out with dev.v.io credentials. Maybe
 # caveat validation?
 	rm -rf $(PWD)/creds
+# Make sure Syncbase starts from a clean slate.
+ifdef ANDROID
+	adb shell run-as org.chromium.mojo.shell rm -rf $(SYNCBASE_ROOT_DIR)
+else
+	rm -rf $(SYNCBASE_ROOT_DIR)
+endif
 # NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS"
 # flags, otherwise mojo_test's argument parser gets confused and exits with an
 # error.
@@ -201,3 +210,4 @@ clean:
 .PHONY: veryclean
 veryclean: clean
 	rm -rf {.packages,pubspec.lock,packages}
+	jiri goext distclean
