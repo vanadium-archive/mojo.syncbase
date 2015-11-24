@@ -14,23 +14,24 @@ MOJOM_FILE := mojom/syncbase.mojom
 
 ifdef ANDROID
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/android
-	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/arm_android_armv7
 
-# NOTE(nlacasse): Trying to write to a directory that the app does not have
-# permission to causes a crash with no stack trace. Because of this, we set
-# logtostderr=true to prevent vlog from writing logs to directories we don't
-# have permissions on. (Alternatively, we could set --log_dir to a directory
-# inside APP_HOME_DIR.) We set syncbase root-dir inside APP_HOME_DIR for the
-# same reason.
+	# NOTE(nlacasse): Trying to write to a directory that the app does not have
+	# permission to causes a crash with no stack trace.  Because of this, we
+	# set logtostderr=true to prevent vlog from writing logs to directories we
+	# don't have permissions on.  (Alternatively, we could set --log_dir to a
+	# directory inside APP_HOME_DIR.)  We set syncbase root-dir inside
+	# APP_HOME_DIR for the same reason.
 	APP_HOME_DIR = /data/data/org.chromium.mojo.shell/app_home
 	SYNCBASE_ROOT_DIR=$(APP_HOME_DIR)/syncbase_data
 	ANDROID_CREDS_DIR := /sdcard/v23creds
 	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(ANDROID_CREDS_DIR)
+
+	# For some reason we need to set the origin flag when running on Android,
+	# but setting it on Linux causes errors.
+	ORIGIN_FLAG := --origin $(MOJO_SERVICES)
 else
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
-	THIRD_PARTY_LIBS := $(JIRI_ROOT)/profiles/cout/amd64_linux
-
-	SYNCBASE_ROOT_DIR=$(PWD)/tmp/syncbase_data
+	SYNCBASE_ROOT_DIR := $(PWD)/tmp/syncbase_data
 	V23_MOJO_FLAGS += --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(PWD)/creds
 endif
 
@@ -39,10 +40,12 @@ endif
 # very large, and can interfere with C++ memory if they are in the same
 # process.
 MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
+	--enable-multiprocess \
 	--config-alias SYNCBASE_DIR=$(PWD) \
 	--config-alias SYNCBASE_BUILD_DIR=$(SYNCBASE_BUILD_DIR) \
 	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)" \
-	"--args-for=mojo:dart_content_handler --enable-strict-mode"
+	"--args-for=mojo:dart_content_handler --enable-strict-mode" \
+	$(ORIGIN_FLAG)
 
 .DELETE_ON_ERROR:
 
@@ -52,7 +55,7 @@ all: test
 build: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom
 
 # Builds mounttabled, principal, and syncbased.
-bin: $(V23_GO_FILES) | syncbase-env-check
+bin: $(V23_GO_FILES) | mojo-env-check
 	jiri go build -a -o $@/mounttabled v.io/x/ref/services/mounttable/mounttabled
 	jiri go build -a -o $@/principal v.io/x/ref/cmd/principal
 	jiri go build -a -o $@/syncbased v.io/x/ref/services/syncbase/syncbased
@@ -68,10 +71,7 @@ creds: | bin
 # variables have their original value, so everything works.  Once we have a
 # prereq that requires the original value, we will need to re-work these
 # variables.
-$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: CGO_CFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
-$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: CGO_CXXFLAGS := -I$(THIRD_PARTY_LIBS)/leveldb/include
-$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: CGO_LDFLAGS := -L$(THIRD_PARTY_LIBS)/leveldb/lib -lleveldb -L$(THIRD_PARTY_LIBS)/snappy/lib -lsnappy
-$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) $(MOJO_SHARED_LIB) gen/go/src/mojom/syncbase/syncbase.mojom.go | syncbase-env-check
+$(SYNCBASE_BUILD_DIR)/syncbase_server.mojo: $(V23_GO_FILES) gen/go/src/mojom/syncbase/syncbase.mojom.go | mojo-env-check
 	$(call MOGO_BUILD,v.io/x/ref/services/syncbase/syncbased,$@)
 
 # Formats dart files to follow dart style conventions.
@@ -101,12 +101,12 @@ gen-mojom: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/
 # compiler stabilizes, we can remove the .PHONY label and avoid recompiling our
 # mojom files unnecessarily.
 .PHONY: gen/go/src/mojom/syncbase/syncbase.mojom.go
-gen/go/src/mojom/syncbase/syncbase.mojom.go: | syncbase-env-check
+gen/go/src/mojom/syncbase/syncbase.mojom.go: | mojo-env-check
 	$(call MOJOM_GEN,$(MOJOM_FILE),.,gen,go)
 	gofmt -w $@
 
 .PHONY: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart
-lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
+lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | mojo-env-check
 	$(call MOJOM_GEN,$(MOJOM_FILE),.,lib/gen,dart)
 # TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart files,
 # so we delete them. Stop doing this once the generator is fixed. See
@@ -115,7 +115,7 @@ lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | syncbase-env-check
 
 # TODO(sadovsky): Wipe any existing Syncbase data, as done in test-integration.
 .PHONY: run-syncbase-example
-run-syncbase-example: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo packages lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | syncbase-env-check creds
+run-syncbase-example: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo packages lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | mojo-env-check creds
 ifdef ANDROID
 	adb push -p $(PWD)/creds $(ANDROID_CREDS_DIR)
 endif
@@ -132,7 +132,7 @@ test-unit: packages
 	pub run test test/unit/*.dart
 
 .PHONY: test-integration
-test-integration: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom | syncbase-env-check
+test-integration: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom | mojo-env-check
 ifdef MOUNTTABLE_ADDR
 	$(error please unset MOUNTTABLE_ADDR before running the tests)
 endif
@@ -150,22 +150,7 @@ endif
 # NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS"
 # flags, otherwise mojo_test's argument parser gets confused and exits with an
 # error.
-	$(MOJO_DIR)/src/mojo/devtools/common/mojo_test tests --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL_PATH) $(MOJO_ANDROID_FLAGS) $(MOJO_SHELL_FLAGS)
-
-.PHONY: syncbase-env-check
-syncbase-env-check: | mojo-env-check
-ifeq ($(wildcard $(THIRD_PARTY_LIBS)),)
-ifdef ANDROID
-	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "jiri v23-profile install --target=arm-android syncbase")
-else
-	$(error ERROR: $(THIRD_PARTY_LIBS) does not exist or is empty.  Please run "jiri v23-profile install syncbase")
-endif
-endif
-
-.PHONY: update-mojo
-update-mojo:
-	DESKTOP=1 ANDROID=1 ./tool/sync_repos.sh
-
+	$(MOJO_DEVTOOLS)/mojo_test tests --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL) $(MOJO_ANDROID_FLAGS) $(MOJO_SHELL_FLAGS)
 
 .PHONY: publish
 # NOTE(aghassemi): This must be inside lib in order to be accessible.
@@ -176,7 +161,9 @@ endif
 # NOTE(aghassemi): Publishing will fail unless you increment the version number
 # in pubspec.yaml. See https://www.dartlang.org/tools/pub/versioning.html for
 # guidelines.
-publish: veryclean update-mojo packages
+# TODO(nlacasse): Generate a MOJO_VERSION file and publish that as part of the
+# package.
+publish: veryclean packages
 	$(MAKE) test  # Build and test on Linux.
 	ANDROID=1 $(MAKE) build  # Cross-compile for Android.
 	mkdir -p $(PACKAGE_MOJO_BIN_DIR)
