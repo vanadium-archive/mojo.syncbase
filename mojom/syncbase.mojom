@@ -54,6 +54,7 @@ struct Result {
 // In this model, the server pushes one stream item to the client, then waits
 // for an ack from the client before sending the next item, thus providing
 // flow control.
+[ServiceName="v23::syncbase::ExecStream"]
 interface ExecStream {
   OnResult(Result result) => ();
   OnDone(Error err);
@@ -67,6 +68,7 @@ struct KeyValue {
 // In this model, the server pushes one stream item to the client, then waits
 // for an ack from the client before sending the next item, thus providing
 // flow control.
+[ServiceName="v23::syncbase::ScanStream"]
 interface ScanStream {
   OnKeyValue(KeyValue key_value) => ();
   OnDone(Error err);
@@ -90,6 +92,7 @@ struct GlobRequest {
 // In this model, the server pushes one stream item to the client, then waits
 // for an ack from the client before sending the next item, thus providing
 // flow control.
+[ServiceName="v23::syncbase::WatchGlobStream"]
 interface WatchGlobStream {
   OnChange(WatchChange change) => ();
   OnError(Error err);
@@ -100,6 +103,7 @@ interface WatchGlobStream {
 
 // Error handling modeled after:
 // https://github.com/domokit/mojo/blob/master/mojo/services/files/public/interfaces/file.mojom
+[ServiceName="v23::syncbase::Syncbase"]
 interface Syncbase {
   ////////////////////////////////////////
   // Service

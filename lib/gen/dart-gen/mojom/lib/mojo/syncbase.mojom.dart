@@ -8152,9 +8152,7 @@ class SyncbaseRowDeleteResponseParams extends bindings.Struct {
 
 const int kExecStream_onResult_name = 0;
 const int kExecStream_onDone_name = 1;
-
-const String ExecStreamName =
-      'mojo::ExecStream';
+const String ExecStreamName = "v23::syncbase::ExecStream";
 
 abstract class ExecStream {
   dynamic onResult(Result result,[Function responseFactory = null]);
@@ -8268,9 +8266,9 @@ class ExecStreamProxy implements bindings.ProxyBase {
   }
 
   factory ExecStreamProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     ExecStreamProxy p = new ExecStreamProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 
@@ -8384,9 +8382,7 @@ class ExecStreamStub extends bindings.Stub {
 
 const int kScanStream_onKeyValue_name = 0;
 const int kScanStream_onDone_name = 1;
-
-const String ScanStreamName =
-      'mojo::ScanStream';
+const String ScanStreamName = "v23::syncbase::ScanStream";
 
 abstract class ScanStream {
   dynamic onKeyValue(KeyValue keyValue,[Function responseFactory = null]);
@@ -8500,9 +8496,9 @@ class ScanStreamProxy implements bindings.ProxyBase {
   }
 
   factory ScanStreamProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     ScanStreamProxy p = new ScanStreamProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 
@@ -8616,9 +8612,7 @@ class ScanStreamStub extends bindings.Stub {
 
 const int kWatchGlobStream_onChange_name = 0;
 const int kWatchGlobStream_onError_name = 1;
-
-const String WatchGlobStreamName =
-      'mojo::WatchGlobStream';
+const String WatchGlobStreamName = "v23::syncbase::WatchGlobStream";
 
 abstract class WatchGlobStream {
   dynamic onChange(WatchChange change,[Function responseFactory = null]);
@@ -8732,9 +8726,9 @@ class WatchGlobStreamProxy implements bindings.ProxyBase {
   }
 
   factory WatchGlobStreamProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     WatchGlobStreamProxy p = new WatchGlobStreamProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 
@@ -8890,9 +8884,7 @@ const int kSyncbase_rowExists_name = 40;
 const int kSyncbase_rowGet_name = 41;
 const int kSyncbase_rowPut_name = 42;
 const int kSyncbase_rowDelete_name = 43;
-
-const String SyncbaseName =
-      'mojo::Syncbase';
+const String SyncbaseName = "v23::syncbase::Syncbase";
 
 abstract class Syncbase {
   dynamic serviceGetPermissions([Function responseFactory = null]);
@@ -10321,9 +10313,9 @@ class SyncbaseProxy implements bindings.ProxyBase {
   }
 
   factory SyncbaseProxy.connectToService(
-      bindings.ServiceConnector s, String url) {
+      bindings.ServiceConnector s, String url, [String serviceName]) {
     SyncbaseProxy p = new SyncbaseProxy.unbound();
-    s.connectToService(url, p);
+    s.connectToService(url, p, serviceName);
     return p;
   }
 
