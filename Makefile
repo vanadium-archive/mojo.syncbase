@@ -35,12 +35,7 @@ else
 	V23_MOJO_FLAGS += --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(PWD)/creds
 endif
 
-# NOTE(nlacasse): Running Go Mojo services requires passing the
-# --enable-multiprocess flag to mojo_shell.  This is because the Go runtime is
-# very large, and can interfere with C++ memory if they are in the same
-# process.
 MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
-	--enable-multiprocess \
 	--config-alias SYNCBASE_DIR=$(PWD) \
 	--config-alias SYNCBASE_BUILD_DIR=$(SYNCBASE_BUILD_DIR) \
 	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)" \
