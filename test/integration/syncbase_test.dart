@@ -34,6 +34,7 @@ main(List args) async {
     app.resetConnections();
   });
 
+
   // Run imported tests.
   runAppTests(c);
   runDatabaseTests(c);
@@ -42,10 +43,7 @@ main(List args) async {
   runTableTests(c);
   runRowTests(c);
 
-  // Append a final test to terminate shell connection.
-  // TODO(nlacasse): Remove this once package 'test' supports a global tearDown
-  // callback.  See https://github.com/dart-lang/test/issues/18.
-  test('terminate shell connection', () async {
+  tearDownAll(() async {
     await c.close();
 
     // TODO(aghassemi): mojo_test does not exit gracefully when
