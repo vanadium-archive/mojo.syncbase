@@ -2,7 +2,7 @@ author: Vanadium Authors
 description: Syncbase is a storage system for developers that makes it easy to synchronize app data between devices. It works even when devices are not connected to the Internet.
 homepage: https://github.com/vanadium/mojo.syncbase
 name: syncbase
-version: 0.0.28
+version: 0.0.29
 dependencies:
   mojo_sdk: 0.2.11
 dev_dependencies:

@@ -8,6 +8,8 @@ import 'dart:async';
 
 import 'package:mojo/bindings.dart' as bindings;
 import 'package:mojo/core.dart' as core;
+import 'package:mojo/mojo/bindings/types/mojom_types.mojom.dart' as mojom_types;
+import 'package:mojo/mojo/bindings/types/service_describer.mojom.dart' as service_describer;
 
 
 
@@ -96,6 +98,8 @@ class Error extends bindings.Struct {
 }
 
 
+
+
 class Perms extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -161,6 +165,8 @@ class Perms extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class BatchOptions extends bindings.Struct {
@@ -237,6 +243,8 @@ class BatchOptions extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class PrefixPerms extends bindings.Struct {
@@ -316,6 +324,8 @@ class PrefixPerms extends bindings.Struct {
 }
 
 
+
+
 class TableRow extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -390,6 +400,8 @@ class TableRow extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncgroupSpec extends bindings.Struct {
@@ -529,6 +541,8 @@ class SyncgroupSpec extends bindings.Struct {
 }
 
 
+
+
 class SyncgroupMemberInfo extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -594,6 +608,8 @@ class SyncgroupMemberInfo extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class Result extends bindings.Struct {
@@ -679,6 +695,8 @@ class Result extends bindings.Struct {
 }
 
 
+
+
 class KeyValue extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -753,6 +771,8 @@ class KeyValue extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class WatchChange extends bindings.Struct {
@@ -876,6 +896,8 @@ class WatchChange extends bindings.Struct {
 }
 
 
+
+
 class GlobRequest extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -952,6 +974,8 @@ class GlobRequest extends bindings.Struct {
 }
 
 
+
+
 class _ExecStreamOnResultParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -1020,6 +1044,8 @@ class _ExecStreamOnResultParams extends bindings.Struct {
 }
 
 
+
+
 class ExecStreamOnResultResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -1076,6 +1102,8 @@ class ExecStreamOnResultResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _ExecStreamOnDoneParams extends bindings.Struct {
@@ -1146,6 +1174,8 @@ class _ExecStreamOnDoneParams extends bindings.Struct {
 }
 
 
+
+
 class _ScanStreamOnKeyValueParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -1214,6 +1244,8 @@ class _ScanStreamOnKeyValueParams extends bindings.Struct {
 }
 
 
+
+
 class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -1270,6 +1302,8 @@ class ScanStreamOnKeyValueResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _ScanStreamOnDoneParams extends bindings.Struct {
@@ -1340,6 +1374,8 @@ class _ScanStreamOnDoneParams extends bindings.Struct {
 }
 
 
+
+
 class _WatchGlobStreamOnChangeParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -1408,6 +1444,8 @@ class _WatchGlobStreamOnChangeParams extends bindings.Struct {
 }
 
 
+
+
 class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -1464,6 +1502,8 @@ class WatchGlobStreamOnChangeResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _WatchGlobStreamOnErrorParams extends bindings.Struct {
@@ -1534,6 +1574,8 @@ class _WatchGlobStreamOnErrorParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseServiceGetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -1590,6 +1632,8 @@ class _SyncbaseServiceGetPermissionsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseServiceGetPermissionsResponseParams extends bindings.Struct {
@@ -1679,6 +1723,8 @@ class SyncbaseServiceGetPermissionsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseServiceSetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -1756,6 +1802,8 @@ class _SyncbaseServiceSetPermissionsParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseServiceSetPermissionsResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -1824,6 +1872,8 @@ class SyncbaseServiceSetPermissionsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseServiceListAppsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(8, 0)
@@ -1880,6 +1930,8 @@ class _SyncbaseServiceListAppsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseServiceListAppsResponseParams extends bindings.Struct {
@@ -1975,6 +2027,8 @@ class SyncbaseServiceListAppsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseAppCreateParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -2052,6 +2106,8 @@ class _SyncbaseAppCreateParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseAppCreateResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -2120,6 +2176,8 @@ class SyncbaseAppCreateResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseAppDestroyParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -2185,6 +2243,8 @@ class _SyncbaseAppDestroyParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseAppDestroyResponseParams extends bindings.Struct {
@@ -2255,6 +2315,8 @@ class SyncbaseAppDestroyResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseAppExistsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -2320,6 +2382,8 @@ class _SyncbaseAppExistsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseAppExistsResponseParams extends bindings.Struct {
@@ -2399,6 +2463,8 @@ class SyncbaseAppExistsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseAppGetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -2464,6 +2530,8 @@ class _SyncbaseAppGetPermissionsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseAppGetPermissionsResponseParams extends bindings.Struct {
@@ -2553,6 +2621,8 @@ class SyncbaseAppGetPermissionsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseAppListDatabasesParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -2618,6 +2688,8 @@ class _SyncbaseAppListDatabasesParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseAppListDatabasesResponseParams extends bindings.Struct {
@@ -2713,6 +2785,8 @@ class SyncbaseAppListDatabasesResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseAppSetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
@@ -2799,6 +2873,8 @@ class _SyncbaseAppSetPermissionsParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseAppSetPermissionsResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -2865,6 +2941,8 @@ class SyncbaseAppSetPermissionsResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbCreateParams extends bindings.Struct {
@@ -2944,6 +3022,8 @@ class _SyncbaseDbCreateParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbCreateResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3012,6 +3092,8 @@ class SyncbaseDbCreateResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbDestroyParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3077,6 +3159,8 @@ class _SyncbaseDbDestroyParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbDestroyResponseParams extends bindings.Struct {
@@ -3147,6 +3231,8 @@ class SyncbaseDbDestroyResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbExistsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3212,6 +3298,8 @@ class _SyncbaseDbExistsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbExistsResponseParams extends bindings.Struct {
@@ -3289,6 +3377,8 @@ class SyncbaseDbExistsResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbExecParams extends bindings.Struct {
@@ -3373,6 +3463,8 @@ class _SyncbaseDbExecParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbExecResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3439,6 +3531,8 @@ class SyncbaseDbExecResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbBeginBatchParams extends bindings.Struct {
@@ -3518,6 +3612,8 @@ class _SyncbaseDbBeginBatchParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -3595,6 +3691,8 @@ class SyncbaseDbBeginBatchResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbCommitParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3660,6 +3758,8 @@ class _SyncbaseDbCommitParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbCommitResponseParams extends bindings.Struct {
@@ -3730,6 +3830,8 @@ class SyncbaseDbCommitResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbAbortParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3795,6 +3897,8 @@ class _SyncbaseDbAbortParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbAbortResponseParams extends bindings.Struct {
@@ -3865,6 +3969,8 @@ class SyncbaseDbAbortResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbGetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -3930,6 +4036,8 @@ class _SyncbaseDbGetPermissionsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbGetPermissionsResponseParams extends bindings.Struct {
@@ -4019,6 +4127,8 @@ class SyncbaseDbGetPermissionsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbSetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
@@ -4105,6 +4215,8 @@ class _SyncbaseDbSetPermissionsParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbSetPermissionsResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -4171,6 +4283,8 @@ class SyncbaseDbSetPermissionsResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbWatchGlobParams extends bindings.Struct {
@@ -4256,6 +4370,8 @@ class _SyncbaseDbWatchGlobParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbWatchGlobResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -4324,6 +4440,8 @@ class SyncbaseDbWatchGlobResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbGetResumeMarkerParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -4389,6 +4507,8 @@ class _SyncbaseDbGetResumeMarkerParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
@@ -4468,6 +4588,8 @@ class SyncbaseDbGetResumeMarkerResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbListTablesParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -4533,6 +4655,8 @@ class _SyncbaseDbListTablesParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbListTablesResponseParams extends bindings.Struct {
@@ -4628,6 +4752,8 @@ class SyncbaseDbListTablesResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -4693,6 +4819,8 @@ class _SyncbaseDbGetSyncgroupNamesParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbGetSyncgroupNamesResponseParams extends bindings.Struct {
@@ -4786,6 +4914,8 @@ class SyncbaseDbGetSyncgroupNamesResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbCreateSyncgroupParams extends bindings.Struct {
@@ -4884,6 +5014,8 @@ class _SyncbaseDbCreateSyncgroupParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbCreateSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -4950,6 +5082,8 @@ class SyncbaseDbCreateSyncgroupResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbJoinSyncgroupParams extends bindings.Struct {
@@ -5038,6 +5172,8 @@ class _SyncbaseDbJoinSyncgroupParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbJoinSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -5116,6 +5252,8 @@ class SyncbaseDbJoinSyncgroupResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseDbLeaveSyncgroupParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -5192,6 +5330,8 @@ class _SyncbaseDbLeaveSyncgroupParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbLeaveSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -5258,6 +5398,8 @@ class SyncbaseDbLeaveSyncgroupResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbDestroySyncgroupParams extends bindings.Struct {
@@ -5336,6 +5478,8 @@ class _SyncbaseDbDestroySyncgroupParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbDestroySyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -5402,6 +5546,8 @@ class SyncbaseDbDestroySyncgroupResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbEjectFromSyncgroupParams extends bindings.Struct {
@@ -5489,6 +5635,8 @@ class _SyncbaseDbEjectFromSyncgroupParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbEjectFromSyncgroupResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -5555,6 +5703,8 @@ class SyncbaseDbEjectFromSyncgroupResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbGetSyncgroupSpecParams extends bindings.Struct {
@@ -5631,6 +5781,8 @@ class _SyncbaseDbGetSyncgroupSpecParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbGetSyncgroupSpecResponseParams extends bindings.Struct {
@@ -5718,6 +5870,8 @@ class SyncbaseDbGetSyncgroupSpecResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbSetSyncgroupSpecParams extends bindings.Struct {
@@ -5815,6 +5969,8 @@ class _SyncbaseDbSetSyncgroupSpecParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseDbSetSyncgroupSpecResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -5881,6 +6037,8 @@ class SyncbaseDbSetSyncgroupSpecResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseDbGetSyncgroupMembersParams extends bindings.Struct {
@@ -5957,6 +6115,8 @@ class _SyncbaseDbGetSyncgroupMembersParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseDbGetSyncgroupMembersResponseParams extends bindings.Struct {
@@ -6091,6 +6251,8 @@ class SyncbaseDbGetSyncgroupMembersResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseTableCreateParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -6168,6 +6330,8 @@ class _SyncbaseTableCreateParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseTableCreateResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -6236,6 +6400,8 @@ class SyncbaseTableCreateResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseTableDestroyParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -6301,6 +6467,8 @@ class _SyncbaseTableDestroyParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseTableDestroyResponseParams extends bindings.Struct {
@@ -6371,6 +6539,8 @@ class SyncbaseTableDestroyResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseTableExistsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -6436,6 +6606,8 @@ class _SyncbaseTableExistsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseTableExistsResponseParams extends bindings.Struct {
@@ -6515,6 +6687,8 @@ class SyncbaseTableExistsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseTableGetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -6580,6 +6754,8 @@ class _SyncbaseTableGetPermissionsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseTableGetPermissionsResponseParams extends bindings.Struct {
@@ -6660,6 +6836,8 @@ class SyncbaseTableGetPermissionsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseTableSetPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -6737,6 +6915,8 @@ class _SyncbaseTableSetPermissionsParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseTableSetPermissionsResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -6803,6 +6983,8 @@ class SyncbaseTableSetPermissionsResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseTableDeleteRangeParams extends bindings.Struct {
@@ -6890,6 +7072,8 @@ class _SyncbaseTableDeleteRangeParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseTableDeleteRangeResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -6956,6 +7140,8 @@ class SyncbaseTableDeleteRangeResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseTableScanParams extends bindings.Struct {
@@ -7048,6 +7234,8 @@ class _SyncbaseTableScanParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseTableScanResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -7114,6 +7302,8 @@ class SyncbaseTableScanResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseTableGetPrefixPermissionsParams extends bindings.Struct {
@@ -7190,6 +7380,8 @@ class _SyncbaseTableGetPrefixPermissionsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseTableGetPrefixPermissionsResponseParams extends bindings.Struct {
@@ -7286,6 +7478,8 @@ class SyncbaseTableGetPrefixPermissionsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseTableSetPrefixPermissionsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(32, 0)
@@ -7372,6 +7566,8 @@ class _SyncbaseTableSetPrefixPermissionsParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseTableSetPrefixPermissionsResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -7438,6 +7634,8 @@ class SyncbaseTableSetPrefixPermissionsResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseTableDeletePrefixPermissionsParams extends bindings.Struct {
@@ -7516,6 +7714,8 @@ class _SyncbaseTableDeletePrefixPermissionsParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseTableDeletePrefixPermissionsResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -7584,6 +7784,8 @@ class SyncbaseTableDeletePrefixPermissionsResponseParams extends bindings.Struct
 }
 
 
+
+
 class _SyncbaseRowExistsParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -7649,6 +7851,8 @@ class _SyncbaseRowExistsParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseRowExistsResponseParams extends bindings.Struct {
@@ -7728,6 +7932,8 @@ class SyncbaseRowExistsResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseRowGetParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -7793,6 +7999,8 @@ class _SyncbaseRowGetParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class SyncbaseRowGetResponseParams extends bindings.Struct {
@@ -7872,6 +8080,8 @@ class SyncbaseRowGetResponseParams extends bindings.Struct {
 }
 
 
+
+
 class _SyncbaseRowPutParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(24, 0)
@@ -7948,6 +8158,8 @@ class _SyncbaseRowPutParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseRowPutResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -8014,6 +8226,8 @@ class SyncbaseRowPutResponseParams extends bindings.Struct {
     return map;
   }
 }
+
+
 
 
 class _SyncbaseRowDeleteParams extends bindings.Struct {
@@ -8083,6 +8297,8 @@ class _SyncbaseRowDeleteParams extends bindings.Struct {
 }
 
 
+
+
 class SyncbaseRowDeleteResponseParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
     const bindings.StructDataHeader(16, 0)
@@ -8150,8 +8366,21 @@ class SyncbaseRowDeleteResponseParams extends bindings.Struct {
   }
 }
 
+
+
+
 const int _ExecStream_onResultName = 0;
 const int _ExecStream_onDoneName = 1;
+
+
+
+class _ExecStreamServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class ExecStream {
   static const String serviceName = "v23::syncbase::ExecStream";
@@ -8174,6 +8403,9 @@ class _ExecStreamProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ExecStreamProxyImpl"));
     return new _ExecStreamProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ExecStreamServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -8373,10 +8605,23 @@ class ExecStreamStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ExecStreamServiceDescription();
 }
 
 const int _ScanStream_onKeyValueName = 0;
 const int _ScanStream_onDoneName = 1;
+
+
+
+class _ScanStreamServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class ScanStream {
   static const String serviceName = "v23::syncbase::ScanStream";
@@ -8399,6 +8644,9 @@ class _ScanStreamProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _ScanStreamProxyImpl"));
     return new _ScanStreamProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ScanStreamServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -8598,10 +8846,23 @@ class ScanStreamStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _ScanStreamServiceDescription();
 }
 
 const int _WatchGlobStream_onChangeName = 0;
 const int _WatchGlobStream_onErrorName = 1;
+
+
+
+class _WatchGlobStreamServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class WatchGlobStream {
   static const String serviceName = "v23::syncbase::WatchGlobStream";
@@ -8624,6 +8885,9 @@ class _WatchGlobStreamProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _WatchGlobStreamProxyImpl"));
     return new _WatchGlobStreamProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _WatchGlobStreamServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -8823,6 +9087,9 @@ class WatchGlobStreamStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _WatchGlobStreamServiceDescription();
 }
 
 const int _Syncbase_serviceGetPermissionsName = 0;
@@ -8869,6 +9136,16 @@ const int _Syncbase_rowExistsName = 40;
 const int _Syncbase_rowGetName = 41;
 const int _Syncbase_rowPutName = 42;
 const int _Syncbase_rowDeleteName = 43;
+
+
+
+class _SyncbaseServiceDescription implements service_describer.ServiceDescription {
+  dynamic getTopLevelInterface([Function responseFactory]) => null;
+
+  dynamic getTypeDefinition(String typeKey, [Function responseFactory]) => null;
+
+  dynamic getAllTypeDefinitions([Function responseFactory]) => null;
+}
 
 abstract class Syncbase {
   static const String serviceName = "v23::syncbase::Syncbase";
@@ -8933,6 +9210,9 @@ class _SyncbaseProxyImpl extends bindings.Proxy {
     assert(endpoint.setDescription("For _SyncbaseProxyImpl"));
     return new _SyncbaseProxyImpl.fromEndpoint(endpoint);
   }
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _SyncbaseServiceDescription();
 
   void handleResponse(bindings.ServiceMessage message) {
     switch (message.header.type) {
@@ -11586,6 +11866,10 @@ class SyncbaseStub extends bindings.Stub {
   }
 
   int get version => 0;
+
+  service_describer.ServiceDescription get serviceDescription =>
+    new _SyncbaseServiceDescription();
 }
+
 
 
