@@ -13,6 +13,14 @@ V23_MOJO_FLAGS := --v=0
 MOJOM_FILE := mojom/syncbase.mojom
 
 ifdef ANDROID
+	# Parse the adb devices output to obtain the correct device id.
+	# sed takes out the ANDROID_PLUS_ONE'th row of the output
+	# awk takes just the first bit of the line (before whitespace).
+	ANDROID_PLUS_ONE := $(shell echo $(ANDROID) \+ 1 | bc)
+	DEVICE_ID := $(shell adb devices | sed -n $(ANDROID_PLUS_ONE)p | awk '{ print $$1; }')
+	TARGET_DEVICE_FLAG +=  --target-device $(DEVICE_ID)
+	MOJO_ANDROID_FLAGS += $(TARGET_DEVICE_FLAG)
+
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/android
 
 	# NOTE(nlacasse): Trying to write to a directory that the app does not have
@@ -31,8 +39,19 @@ ifdef ANDROID
 	ORIGIN_FLAG := --origin $(MOJO_SERVICES)
 else
 	SYNCBASE_BUILD_DIR := $(PWD)/gen/mojo/linux_amd64
-	SYNCBASE_ROOT_DIR := $(PWD)/tmp/syncbase_data
+	SYNCBASE_ROOT_DIR := $(PWD)/tmp/syncbase_data$(SYNC_SUFFIX)
 	V23_MOJO_FLAGS += --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(PWD)/creds
+endif
+
+# If this is not the first mojo shell, then you must reuse the dev servers
+# to avoid a "port in use" error.
+ifneq ($(shell fuser 31500/tcp),)
+	REUSE_FLAG := --reuse-servers
+endif
+
+# Use BENCHMARK = the suffix of the syncbase instance (e.g., pingpong/s1)
+ifdef BENCHMARK
+	V23_MOJO_FLAGS += --name=/ns.dev.v.io:8101/tmp/benchmark/$(BENCHMARK)
 endif
 
 MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
@@ -40,6 +59,7 @@ MOJO_SHELL_FLAGS := $(MOJO_SHELL_FLAGS) \
 	--config-alias SYNCBASE_BUILD_DIR=$(SYNCBASE_BUILD_DIR) \
 	"--args-for=https://mojo.v.io/syncbase_server.mojo $(V23_MOJO_FLAGS)" \
 	"--args-for=mojo:dart_content_handler --enable-strict-mode" \
+	$(REUSE_FLAG) \
 	$(ORIGIN_FLAG)
 
 .DELETE_ON_ERROR:
@@ -80,11 +100,10 @@ dartanalyzer: packages gen-mojom
 # TODO(nlacasse): Fix dart mojom binding generator so it does not produce files
 # that violate dartanalyzer. For now, we use "grep -v" to hide all hints and
 # warnings from *.mojom.dart files.
-	dartanalyzer example/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
+	dartanalyzer benchmark/**/*.dart example/*.dart lib/*.dart test/**/*.dart | grep -v "\.mojom\.dart, line"
 
 # Installs dart dependencies.
-.PHONY: packages
-packages:
+packages: pubspec.yaml
 	pub upgrade
 
 .PHONY: gen-mojom
@@ -95,12 +114,12 @@ gen-mojom: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart gen/go/src/mojom/
 # order to force recompilation of mojom files with every build. Once the mojom
 # compiler stabilizes, we can remove the .PHONY label and avoid recompiling our
 # mojom files unnecessarily.
-.PHONY: gen/go/src/mojom/syncbase/syncbase.mojom.go
+#.PHONY: gen/go/src/mojom/syncbase/syncbase.mojom.go
 gen/go/src/mojom/syncbase/syncbase.mojom.go: | mojo-env-check
 	$(call MOJOM_GEN,$(MOJOM_FILE),.,gen,go)
 	gofmt -w $@
 
-.PHONY: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart
+#.PHONY: lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart
 lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | mojo-env-check
 	$(call MOJOM_GEN,$(MOJOM_FILE),.,lib/gen,dart)
 # TODO(nlacasse): mojom_bindings_generator creates bad symlinks on dart files,
@@ -112,9 +131,42 @@ lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart: | mojo-env-check
 .PHONY: run-syncbase-example
 run-syncbase-example: $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo packages lib/gen/dart-gen/mojom/lib/mojo/syncbase.mojom.dart | mojo-env-check creds
 ifdef ANDROID
-	adb push -p $(PWD)/creds $(ANDROID_CREDS_DIR)
+	adb -s $(DEVICE_ID) push -p $(PWD)/creds $(ANDROID_CREDS_DIR)
 endif
 	$(call MOJO_RUN,"https://mojo.v.io/syncbase_example.dart")
+
+# The pingpong benchmark is meant to run on N devices.
+# Pass testID peerID numPeers pattern numTimes as $(ARGS) to this call.
+#
+# For example, for a 2 Android ping pong benchmark:
+# ANDROID=1 BENCHMARK=pingpong/s0 make ARGS="MyTest 0 2 PingPong 100" benchmark-pingpong
+# ANDROID=2 BENCHMARK=pingpong/s1 make ARGS="MyTest 1 2 PingPong 100" benchmark-pingpong
+#
+# You can also run this on Linux, but be sure to use different HOME dirs.
+# Note: The first one shouldn't set a HOME dir.
+# BENCHMARK=pingpong/s0 SYNC_SUFFIX=s0 make ARGS="MyTest 0 3 Cycle 200" benchmark-pingpong
+# HOME=/tmp/test/s1 BENCHMARK=pingpong/s1 SYNC_SUFFIX=s1 make ARGS="MyTest 1 3 Cycle 200" benchmark-pingpong
+# HOME=/tmp/test/s2 BENCHMARK=pingpong/s2 SYNC_SUFFIX=s2 make ARGS="MyTest 2 3 Cycle 200" benchmark-pingpong
+#
+# TODO(alexfandrianto): I think it would be easier if we had a script call the benchmark.
+# Note: The Syncbase Creator (peer 0) should be created first; it may even take a minute to be ready.
+.PHONY: benchmark-pingpong
+benchmark-pingpong: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom test-preparation | mojo-env-check creds
+	#$(MOJO_DEVTOOLS)/mojo_run --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL) \
+	#  $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) "https://benchmark.mojo.v.io/pingpong/pingpong.dart $(ARGS)"
+	$(call MOJO_RUN,"https://benchmark.mojo.v.io/pingpong/pingpong.dart $(ARGS)")
+
+.PHONY: test-preparation
+test-preparation:
+ifdef MOUNTTABLE_ADDR
+	$(error please unset MOUNTTABLE_ADDR before running the tests)
+endif
+# Make sure Syncbase starts from a clean slate.
+ifdef ANDROID
+	adb -s $(DEVICE_ID) shell run-as org.chromium.mojo.shell rm -rf $(SYNCBASE_ROOT_DIR)
+else
+	rm -rf $(SYNCBASE_ROOT_DIR)
+endif
 
 # Note: If "make test" fails with "Connection error to the shell" messages, it
 # could be that the Dart VM has crashed (e.g. due to a missing import). In this
@@ -127,21 +179,12 @@ test-unit: packages
 	pub run test test/unit/*.dart
 
 .PHONY: test-integration
-test-integration: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom | mojo-env-check
-ifdef MOUNTTABLE_ADDR
-	$(error please unset MOUNTTABLE_ADDR before running the tests)
-endif
+test-integration: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom test-preparation | mojo-env-check
 # Delete the 'creds' dir to make sure we are running with in-memory credentials.
 # Otherwise tests time out.
 # TODO(nlacasse): Figure out why tests time out with dev.v.io credentials. Maybe
 # caveat validation?
 	rm -rf $(PWD)/creds
-# Make sure Syncbase starts from a clean slate.
-ifdef ANDROID
-	adb shell run-as org.chromium.mojo.shell rm -rf $(SYNCBASE_ROOT_DIR)
-else
-	rm -rf $(SYNCBASE_ROOT_DIR)
-endif
 # NOTE(nlacasse): The "tests" argument must come before the "MOJO_SHELL_FLAGS"
 # flags, otherwise mojo_test's argument parser gets confused and exits with an
 # error.

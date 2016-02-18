@@ -4,6 +4,7 @@
   'dev_servers': [
     {
       'host': 'https://mojo.v.io/',
+      'port': 31500,
       'mappings': [
         ('', [
           # For syncbase_server.mojo.
@@ -15,8 +16,16 @@
     },
     {
       'host': 'https://test.mojo.v.io/',
+      'port': 31501,
       'mappings': [
         ('', ['@{SYNCBASE_DIR}/test']),
+      ],
+    },
+    {
+      'host': 'https://benchmark.mojo.v.io/',
+      'port': 31502,
+      'mappings': [
+        ('', ['@{SYNCBASE_DIR}/benchmark']),
       ],
     },
   ],
