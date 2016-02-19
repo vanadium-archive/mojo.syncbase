@@ -37,8 +37,8 @@ class SyncbaseDatabase extends AbstractDatabase {
     if (isError(v.err)) throw v.err;
   }
 
-  Stream<mojom.WatchChange> watch(
-      String tableName, String prefix, List<int> resumeMarker) {
+  Stream<mojom.WatchChange> watch(String tableName, String prefix,
+      [List<int> resumeMarker = const []]) {
     StreamController<mojom.WatchChange> sc = new StreamController();
 
     mojom.WatchGlobStreamStub stub = new mojom.WatchGlobStreamStub.unbound();
