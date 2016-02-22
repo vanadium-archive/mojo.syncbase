@@ -30,7 +30,7 @@ ifdef ANDROID
 	# directory inside APP_HOME_DIR.)  We set syncbase root-dir inside
 	# APP_HOME_DIR for the same reason.
 	APP_HOME_DIR = /data/data/org.chromium.mojo.shell/app_home
-	SYNCBASE_ROOT_DIR=$(APP_HOME_DIR)/syncbase_data
+	SYNCBASE_ROOT_DIR=$(APP_HOME_DIR)/mojo_syncbase_data
 	ANDROID_CREDS_DIR := /sdcard/v23creds
 	V23_MOJO_FLAGS += --logtostderr=true --root-dir=$(SYNCBASE_ROOT_DIR) --v23.credentials=$(ANDROID_CREDS_DIR)
 
@@ -152,6 +152,9 @@ endif
 # Note: The Syncbase Creator (peer 0) should be created first; it may even take a minute to be ready.
 .PHONY: benchmark-pingpong
 benchmark-pingpong: packages $(SYNCBASE_BUILD_DIR)/syncbase_server.mojo gen-mojom test-preparation | mojo-env-check creds
+ifdef ANDROID
+	adb -s $(DEVICE_ID) push -p $(PWD)/creds $(ANDROID_CREDS_DIR)
+endif
 	#$(MOJO_DEVTOOLS)/mojo_run --config-file $(PWD)/mojoconfig --shell-path $(MOJO_SHELL) \
 	#  $(MOJO_SHELL_FLAGS) $(MOJO_ANDROID_FLAGS) "https://benchmark.mojo.v.io/pingpong/pingpong.dart $(ARGS)"
 	$(call MOJO_RUN,"https://benchmark.mojo.v.io/pingpong/pingpong.dart $(ARGS)")

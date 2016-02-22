@@ -91,6 +91,11 @@ Future runPingPongTest(List<String> args, sc.SyncbaseClient c) async {
     await tb.create(openPerms);
   }
 
+  // TODO(alexfandrianto): We should add a now resume marker constant.
+  // https://github.com/vanadium/issues/issues/1155
+  Stream<sc.WatchChange> watchStream =
+      db.watch(tbName, syncPrefix, UTF8.encode('now'));
+
   // Devices will find each other at this sgName.
   // Note: We can also accomplish this via discovery, but for simplicity, we
   // will use a common location on the global mount table.
@@ -116,15 +121,26 @@ Future runPingPongTest(List<String> args, sc.SyncbaseClient c) async {
     await sg.create(syncSpec, syncInfo);
   } else {
     print('Joining Syncgroup ${sgName} as peer ${peerID}.');
-    await sg.join(syncInfo);
+
+    // TODO(alexfandrianto): Why does the first join fail so often?
+    // Same problem as create (except that join doesn't retry)?
+    // Is something slowly trying to mount? Or is it something else?
+    // https://github.com/vanadium/issues/issues/1162
+    bool success = false;
+    while (!success) {
+      try {
+        await sg.join(syncInfo);
+        success = true;
+      } catch(e) {
+        print('Failed to join. Waiting...');
+        await new Future.delayed(new Duration(seconds: 5));
+        print('Trying again...');
+      }
+    }
   }
 
   // After entering the syncgroup, we should watch the table.
   print('Ready to time sync!');
-  // TODO(alexfandrianto): We should add a now resume marker constant.
-  // https://github.com/vanadium/issues/issues/1155
-  Stream<sc.WatchChange> watchStream =
-      db.watch(tbName, syncPrefix, UTF8.encode('now'));
 
   // During this phase, there will be numPeers * (numPeers - 1) watch updates.
   // Everybody will write a value to everyone else.
