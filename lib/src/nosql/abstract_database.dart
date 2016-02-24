@@ -22,7 +22,7 @@ abstract class AbstractDatabase extends NamedResource {
   }
 
   // Executes a syncQL query.
-  Stream<mojom.Result> exec(String query) {
+  Stream<mojom.Result> exec(String query, [List<List<int>> params = const []]) {
     StreamController<mojom.Result> sc = new StreamController();
 
     mojom.ExecStreamStub stub = new mojom.ExecStreamStub.unbound();
@@ -31,7 +31,7 @@ abstract class AbstractDatabase extends NamedResource {
     _ctx.unclosedStubsManager.register(stub);
 
     // Call dbExec asynchronously.
-    _ctx.syncbase.dbExec(fullName, query, stub).then((v) {
+    _ctx.syncbase.dbExec(fullName, query, params, stub).then((v) {
       // TODO(nlacasse): Same question regarding throwing behavior as TableScan.
       if (isError(v.err)) throw v.err;
     });

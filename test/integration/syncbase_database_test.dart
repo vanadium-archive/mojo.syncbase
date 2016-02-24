@@ -217,5 +217,36 @@ runDatabaseTests(SyncbaseClient c) {
     expect(decodeStrs(results[2].values), equals(['yyz', 'Toronto']));
   });
 
+  test('parameterized exec', () async {
+    var app = c.app(utils.uniqueName('app'));
+    await app.create(utils.emptyPerms());
+    var db = app.noSqlDatabase(utils.uniqueName('db'));
+    await db.create(utils.emptyPerms());
+    var table = db.table('airports');
+    await table.create(utils.emptyPerms());
+
+    await table.put('jfk', UTF8.encode('New York'));
+    await table.put('lga', UTF8.encode('New York'));
+    await table.put('ord', UTF8.encode('Chicago'));
+    await table.put('sfo', UTF8.encode('San Francisco'));
+
+    // TODO(ivanpi): Once VDL types are in, add parameterized key comparison
+    // and non-string parameters in where clause.
+    var query = 'select k as code, v as cityname from airports where v = ? or v = ?';
+    var resultStream = db.exec(query, [UTF8.encode('Chicago'), UTF8.encode('New York')]);
+
+    var results = await resultStream.toList();
+    // Expect column headers plus three rows.
+    expect(results.length, 4);
+
+    // Check column headers.
+    expect(decodeStrs(results[0].values), equals(['code', 'cityname']));
+
+    // Check rows.
+    expect(decodeStrs(results[1].values), equals(['jfk', 'New York']));
+    expect(decodeStrs(results[2].values), equals(['lga', 'New York']));
+    expect(decodeStrs(results[3].values), equals(['ord', 'Chicago']));
+  });
+
   // TODO(nlacasse): Test database.get/setPermissions.
 }

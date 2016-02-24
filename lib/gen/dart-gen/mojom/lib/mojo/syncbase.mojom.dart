@@ -3383,10 +3383,11 @@ class SyncbaseDbExistsResponseParams extends bindings.Struct {
 
 class _SyncbaseDbExecParams extends bindings.Struct {
   static const List<bindings.StructDataHeader> kVersions = const [
-    const bindings.StructDataHeader(32, 0)
+    const bindings.StructDataHeader(40, 0)
   ];
   String name = null;
   String query = null;
+  List<List<int>> parameters = null;
   Object stream = null;
 
   _SyncbaseDbExecParams() : super(kVersions.last.size);
@@ -3434,7 +3435,19 @@ class _SyncbaseDbExecParams extends bindings.Struct {
     }
     if (mainDataHeader.version >= 0) {
       
-      result.stream = decoder0.decodeServiceInterface(24, false, ExecStreamProxy.newFromEndpoint);
+      var decoder1 = decoder0.decodePointer(24, false);
+      {
+        var si1 = decoder1.decodeDataHeaderForPointerArray(bindings.kUnspecifiedArrayLength);
+        result.parameters = new List<List<int>>(si1.numElements);
+        for (int i1 = 0; i1 < si1.numElements; ++i1) {
+          
+          result.parameters[i1] = decoder1.decodeUint8Array(bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i1, bindings.kNothingNullable, bindings.kUnspecifiedArrayLength);
+        }
+      }
+    }
+    if (mainDataHeader.version >= 0) {
+      
+      result.stream = decoder0.decodeServiceInterface(32, false, ExecStreamProxy.newFromEndpoint);
     }
     return result;
   }
@@ -3446,13 +3459,24 @@ class _SyncbaseDbExecParams extends bindings.Struct {
     
     encoder0.encodeString(query, 16, false);
     
-    encoder0.encodeInterface(stream, 24, false);
+    if (parameters == null) {
+      encoder0.encodeNullPointer(24, false);
+    } else {
+      var encoder1 = encoder0.encodePointerArray(parameters.length, 24, bindings.kUnspecifiedArrayLength);
+      for (int i0 = 0; i0 < parameters.length; ++i0) {
+        
+        encoder1.encodeUint8Array(parameters[i0], bindings.ArrayDataHeader.kHeaderSize + bindings.kPointerSize * i0, bindings.kNothingNullable, bindings.kUnspecifiedArrayLength);
+      }
+    }
+    
+    encoder0.encodeInterface(stream, 32, false);
   }
 
   String toString() {
     return "_SyncbaseDbExecParams("
            "name: $name" ", "
            "query: $query" ", "
+           "parameters: $parameters" ", "
            "stream: $stream" ")";
   }
 
@@ -9161,7 +9185,7 @@ abstract class Syncbase {
   dynamic dbCreate(String name,Perms perms,[Function responseFactory = null]);
   dynamic dbDestroy(String name,[Function responseFactory = null]);
   dynamic dbExists(String name,[Function responseFactory = null]);
-  dynamic dbExec(String name,String query,Object stream,[Function responseFactory = null]);
+  dynamic dbExec(String name,String query,List<List<int>> parameters,Object stream,[Function responseFactory = null]);
   dynamic dbBeginBatch(String name,BatchOptions bo,[Function responseFactory = null]);
   dynamic dbCommit(String name,[Function responseFactory = null]);
   dynamic dbAbort(String name,[Function responseFactory = null]);
@@ -10225,10 +10249,11 @@ class _SyncbaseProxyCalls implements Syncbase {
           -1,
           bindings.MessageHeader.kMessageExpectsResponse);
     }
-    dynamic dbExec(String name,String query,Object stream,[Function responseFactory = null]) {
+    dynamic dbExec(String name,String query,List<List<int>> parameters,Object stream,[Function responseFactory = null]) {
       var params = new _SyncbaseDbExecParams();
       params.name = name;
       params.query = query;
+      params.parameters = parameters;
       params.stream = stream;
       return _proxyImpl.sendMessageWithRequestId(
           params,
@@ -11146,7 +11171,7 @@ class SyncbaseStub extends bindings.Stub {
       case _Syncbase_dbExecName:
         var params = _SyncbaseDbExecParams.deserialize(
             message.payload);
-        var response = _impl.dbExec(params.name,params.query,params.stream,_SyncbaseDbExecResponseParamsFactory);
+        var response = _impl.dbExec(params.name,params.query,params.parameters,params.stream,_SyncbaseDbExecResponseParamsFactory);
         if (response is Future) {
           return response.then((response) {
             if (response != null) {
