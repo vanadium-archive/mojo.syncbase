@@ -7,6 +7,7 @@ library syncbase_database_test;
 import 'dart:async';
 import 'dart:convert' show UTF8;
 
+import 'package:async/async.dart' show StreamSplitter;
 import 'package:test/test.dart';
 
 import 'package:syncbase/src/testing_instrumentation.dart' as testing;
@@ -109,7 +110,12 @@ runDatabaseTests(SyncbaseClient c) {
     var watchStream = db.watch(table.name, prefix, resumeMarker);
 
     // Also start watching with empty resume marker.
-    var watchStreamWithInitialState = db.watch(table.name, prefix);
+    // Split into two streams to allow verifying at different times.
+    var watchStreamsWithInitialState = StreamSplitter.splitFrom(
+        db.watch(table.name, prefix), 2);
+
+    // Wait for the empty resume marker watch to see initial changes.
+    await checkWatch(watchStreamsWithInitialState[0], initialChanges);
 
     // Perform some operations after we've started watching.
     var expectedChanges = new List<WatchChange>();
@@ -130,7 +136,7 @@ runDatabaseTests(SyncbaseClient c) {
     // Check that we see all changes made since we started watching.
     await checkWatch(watchStream, expectedChanges);
     // Check that the empty resume marker watch also sees initial changes.
-    await checkWatch(watchStreamWithInitialState,
+    await checkWatch(watchStreamsWithInitialState[1],
         []..addAll(initialChanges)..addAll(expectedChanges));
   });
 
