@@ -20,11 +20,11 @@ import './syncbase_row_test.dart' show runRowTests;
 import './syncbase_syncgroup_test.dart' show runSyncgroupTests;
 import './syncbase_table_test.dart' show runTableTests;
 
-main(List args) async {
+main(List args, Object handleToken) async {
   // Enable testing instrumentation.
   testing.isTesting = true;
 
-  InitializedApplication app = new InitializedApplication.fromHandle(args[0]);
+  InitializedApplication app = new InitializedApplication.fromHandle(handleToken);
   await app.initialized;
 
   SyncbaseClient c = new SyncbaseClient(

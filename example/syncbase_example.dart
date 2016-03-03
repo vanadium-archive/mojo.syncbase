@@ -12,12 +12,12 @@ import 'package:syncbase/initialized_application.dart'
 import 'package:syncbase/src/naming/util.dart' as naming;
 import 'package:syncbase/syncbase_client.dart' as sb;
 
-main(List args) async {
+main(List args, Object handleToken) async {
   // mojo_shell does not print a stack trace when the dart program crashes.
   // Hence, we must wrap everything in a try/catch if we want to see the
   // errors. :(
   try {
-    InitializedApplication app = new InitializedApplication.fromHandle(args[0]);
+    InitializedApplication app = new InitializedApplication.fromHandle(handleToken);
     await app.initialized;
 
     const String mtAddr = '/ns.dev.v.io:8101';

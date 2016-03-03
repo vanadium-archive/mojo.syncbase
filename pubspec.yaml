@@ -4,7 +4,7 @@ homepage: https://github.com/vanadium/mojo.syncbase
 name: syncbase
 version: 0.0.31
 dependencies:
-  mojo_sdk: 0.2.15
+  mojo_sdk: 0.2.17
 dev_dependencies:
   dart_style: any
   test: any
