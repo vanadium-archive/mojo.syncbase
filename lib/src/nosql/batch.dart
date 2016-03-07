@@ -20,23 +20,29 @@ class SyncbaseBatchDatabase extends AbstractDatabase {
   }
 }
 
+typedef Future RunInBatchFunction(SyncbaseBatchDatabase b);
+
 Future runInBatch(
-    SyncbaseDatabase db, mojom.BatchOptions bo, Function fn) async {
+    SyncbaseDatabase db, mojom.BatchOptions bo, RunInBatchFunction fn) async {
   Future attempt() async {
     var b = await db.beginBatch(bo);
     try {
-      fn(b);
+      await fn(b);
     } catch (err) {
       try {
         await b.abort();
       } catch (ignoredErr) {}
       throw err; // throw fn error, not abort error
     }
-    // TODO(sadovsky): commit() can fail for a number of reasons, e.g. RPC
-    // failure or ErrConcurrentTransaction. Depending on the cause of
-    // failure, it may be desirable to retry the commit() and/or to call
-    // abort().
-    await b.commit();
+    if (bo.readOnly) {
+      await b.abort();
+    } else {
+      // TODO(sadovsky): commit() can fail for a number of reasons, e.g. RPC
+      // failure or ErrConcurrentTransaction. Depending on the cause of
+      // failure, it may be desirable to retry the commit() and/or to call
+      // abort().
+      await b.commit();
+    }
   }
 
   Future retryLoop(int i) async {
@@ -44,13 +50,13 @@ Future runInBatch(
       await attempt();
     } catch (err) {
       // TODO(sadovsky): Only retry if err is ErrConcurrentTransaction.
-      if (err && i < 2) {
-        retryLoop(i + 1);
+      if (i < 2) {
+        await retryLoop(i + 1);
       } else {
         throw err;
       }
     }
   }
 
-  retryLoop(0);
+  await retryLoop(0);
 }
