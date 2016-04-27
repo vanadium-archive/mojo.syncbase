@@ -205,8 +205,9 @@ endif
 # TODO(nlacasse): Generate a MOJO_VERSION file and publish that as part of the
 # package.
 publish: veryclean packages
-	$(MAKE) test  # Build and test on Linux.
-	ANDROID=1 $(MAKE) build  # Cross-compile for Android.
+	$(MAKE) test  # Test on Linux.
+	RELEASE=1 $(MAKE) build  # Build on Linux.
+	RELEASE=1 ANDROID=1 $(MAKE) build  # Cross-compile for Android.
 	mkdir -p $(PACKAGE_MOJO_BIN_DIR)
 	cp -r gen/mojo/* $(PACKAGE_MOJO_BIN_DIR)
 # Note: The '-' at the beginning of the following command tells make to ignore
