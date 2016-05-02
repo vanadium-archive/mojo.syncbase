@@ -2,7 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// TODO(sadovsky): Finish updating to reflect new, simplified API. Some, but not
+// all, has been updated.
+
 // TODO(sadovsky): Copy struct and interface comments from VDL files.
+// TODO(sadovsky): Add BlobManager, ConflictManager, and SchemaManager
+// methods.
 
 // TODO(sadovsky): This should probably be something else.
 module mojo;
@@ -20,25 +25,25 @@ struct Perms {
   string json;
 };
 
+struct Id {
+  string blessing;
+  string name;
+};
+
 struct BatchOptions {
   string hint;
   bool read_only;
 };
 
-struct PrefixPerms {
-  string prefix;
-  Perms perms;
-};
-
-struct TableRow {
-  string table_name;
+struct CollectionRow {
+  Id collection_id;
   string row;
 };
 
 struct SyncgroupSpec {
   string description;
   Perms perms;
-  array<TableRow> prefixes;
+  array<CollectionRow> prefixes;
   array<string> mount_tables;
   bool is_private;
 };
@@ -75,7 +80,7 @@ interface ScanStream {
 };
 
 struct WatchChange {
-  string table_name;
+  Id collection_id;
   string row_key;
   uint32 change_type;
   array<uint8> value_bytes;
@@ -98,7 +103,6 @@ interface WatchGlobStream {
   OnError(Error err);
 };
 
-// TODO(sadovsky): Add schema version to all RPCs. See v.io/c/13734.
 // All 'name' params are service-relative object names.
 
 // Error handling modeled after:
@@ -110,40 +114,35 @@ interface Syncbase {
 
   ServiceGetPermissions() => (Error err, Perms perms, string version);
   ServiceSetPermissions(Perms perms, string version) => (Error err);
-  ServiceListApps() => (Error err, array<string> apps);
+  ServiceListDatabases() => (Error err, array<Id> databases);
 
   ////////////////////////////////////////
-  // App
+  // Database
 
-  AppCreate(string name, Perms perms) => (Error err);
-  AppDestroy(string name) => (Error err);
-  AppExists(string name) => (Error err, bool exists);
-  AppGetPermissions(string name) => (Error err, Perms perms, string version);
-  AppListDatabases(string name) => (Error err, array<string> databases);
-  AppSetPermissions(string name, Perms perms, string version) => (Error err);
-
-  ////////////////////////////////////////
-  // nosql.Database
-
-  // TODO(sadovsky): Add SchemaMetadata argument.
   DbCreate(string name, Perms perms) => (Error err);
   DbDestroy(string name) => (Error err);
   DbExists(string name) => (Error err, bool exists);
-  DbExec(string name, string query, array<array<uint8>> parameters, ExecStream stream) => (Error err);
-  DbBeginBatch(string name, BatchOptions? bo) => (Error err, string batch_suffix);
-  DbCommit(string name) => (Error err);
-  DbAbort(string name) => (Error err);
+  DbListCollections(string name, string batch_handle)
+      => (Error err, array<Id> collections);
+  DbExec(
+      string name, string batch_handle, string query,
+      array<array<uint8>> parameters, ExecStream stream)
+      => (Error err);
+  DbBeginBatch(string name, BatchOptions? bo)
+      => (Error err, string batch_handle);
+  DbCommit(string name, string batch_handle) => (Error err);
+  DbAbort(string name, string batch_handle) => (Error err);
+  DbPauseSync(string name) => (Error err);
+  DbResumeSync(string name) => (Error err);
   DbGetPermissions(string name) => (Error err, Perms perms, string version);
   DbSetPermissions(string name, Perms perms, string version) => (Error err);
-  DbWatchGlob(string name, GlobRequest req, WatchGlobStream stream) => (Error err);
-  DbGetResumeMarker(string name) => (Error err, array<uint8> resumeMarker);
-  DbListTables(string name) => (Error err, array<string> tables);
-
-  // TODO(sadovsky): Add DatabaseWatcher, BlobManager, and SchemaManager
-  // methods.
+  DbWatchGlob(string name, GlobRequest req, WatchGlobStream stream)
+      => (Error err);
+  DbGetResumeMarker(string name, string batch_handle)
+      => (Error err, array<uint8> resume_marker);
 
   ////////////////////////////////////////
-  // nosql.Database:SyncgroupManager
+  // SyncgroupManager
 
   DbGetSyncgroupNames(string name) => (Error err, array<string> names);
   DbCreateSyncgroup(
@@ -165,28 +164,30 @@ interface Syncbase {
       => (Error err, map<string, SyncgroupMemberInfo> infos);
 
   ////////////////////////////////////////
-  // nosql.Table
+  // Collection
 
-  TableCreate(string name, Perms perms) => (Error err);
-  TableDestroy(string name) => (Error err);
-  TableExists(string name) => (Error err, bool exists);
-  TableGetPermissions(string name) => (Error err, Perms perms);
-  TableSetPermissions(string name, Perms perms) => (Error err);
-  TableDeleteRange(string name, array<uint8> start, array<uint8> limit)
+  CollectionCreate(string name, string batch_handle, Perms perms)
       => (Error err);
-  TableScan(
-      string name, array<uint8> start, array<uint8> limit, ScanStream stream)
+  CollectionDestroy(string name, string batch_handle) => (Error err);
+  CollectionExists(string name, string batch_handle)
+      => (Error err, bool exists);
+  CollectionGetPermissions(string name, string batch_handle)
+      => (Error err, Perms perms);
+  CollectionSetPermissions(string name, string batch_handle, Perms perms)
       => (Error err);
-  TableGetPrefixPermissions(string name, string key)
-      => (Error err, array<PrefixPerms> perms_arr);
-  TableSetPrefixPermissions(string name, string prefix, Perms perms) => (Error err);
-  TableDeletePrefixPermissions(string name, string prefix) => (Error err);
+  CollectionDeleteRange(
+      string name, string batch_handle, array<uint8> start, array<uint8> limit)
+      => (Error err);
+  CollectionScan(
+      string name, string batch_handle, array<uint8> start, array<uint8> limit,
+      ScanStream stream)
+      => (Error err);
 
   ////////////////////////////////////////
-  // nosql.Row
+  // Row
 
-  RowExists(string name) => (Error err, bool exists);
-  RowGet(string name) => (Error err, array<uint8> value);
-  RowPut(string name, array<uint8> value) => (Error err);
-  RowDelete(string name) => (Error err);
+  RowExists(string name, string batch_handle) => (Error err, bool exists);
+  RowGet(string name, string batch_handle) => (Error err, array<uint8> value);
+  RowPut(string name, string batch_handle, array<uint8> value) => (Error err);
+  RowDelete(string name, string batch_handle) => (Error err);
 };
