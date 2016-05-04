@@ -21,7 +21,7 @@ struct Error {
 };
 
 // TODO(sadovsky): Decide how to represent perms.
-struct Perms {
+struct Permissions {
   string json;
 };
 
@@ -42,7 +42,7 @@ struct CollectionRow {
 
 struct SyncgroupSpec {
   string description;
-  Perms perms;
+  Permissions perms;
   array<CollectionRow> prefixes;
   array<string> mount_tables;
   bool is_private;
@@ -112,14 +112,14 @@ interface Syncbase {
   ////////////////////////////////////////
   // Service
 
-  ServiceGetPermissions() => (Error err, Perms perms, string version);
-  ServiceSetPermissions(Perms perms, string version) => (Error err);
+  ServiceGetPermissions() => (Error err, Permissions perms, string version);
+  ServiceSetPermissions(Permissions perms, string version) => (Error err);
   ServiceListDatabases() => (Error err, array<Id> databases);
 
   ////////////////////////////////////////
   // Database
 
-  DbCreate(string name, Perms perms) => (Error err);
+  DbCreate(string name, Permissions perms) => (Error err);
   DbDestroy(string name) => (Error err);
   DbExists(string name) => (Error err, bool exists);
   DbListCollections(string name, string batch_handle)
@@ -128,14 +128,16 @@ interface Syncbase {
       string name, string batch_handle, string query,
       array<array<uint8>> parameters, ExecStream stream)
       => (Error err);
-  DbBeginBatch(string name, BatchOptions? bo)
+  DbBeginBatch(string name, BatchOptions opts)
       => (Error err, string batch_handle);
   DbCommit(string name, string batch_handle) => (Error err);
   DbAbort(string name, string batch_handle) => (Error err);
   DbPauseSync(string name) => (Error err);
   DbResumeSync(string name) => (Error err);
-  DbGetPermissions(string name) => (Error err, Perms perms, string version);
-  DbSetPermissions(string name, Perms perms, string version) => (Error err);
+  DbGetPermissions(string name)
+      => (Error err, Permissions perms, string version);
+  DbSetPermissions(string name, Permissions perms, string version)
+      => (Error err);
   DbWatchGlob(string name, GlobRequest req, WatchGlobStream stream)
       => (Error err);
   DbGetResumeMarker(string name, string batch_handle)
@@ -166,14 +168,14 @@ interface Syncbase {
   ////////////////////////////////////////
   // Collection
 
-  CollectionCreate(string name, string batch_handle, Perms perms)
+  CollectionCreate(string name, string batch_handle, Permissions perms)
       => (Error err);
   CollectionDestroy(string name, string batch_handle) => (Error err);
   CollectionExists(string name, string batch_handle)
       => (Error err, bool exists);
   CollectionGetPermissions(string name, string batch_handle)
-      => (Error err, Perms perms);
-  CollectionSetPermissions(string name, string batch_handle, Perms perms)
+      => (Error err, Permissions perms);
+  CollectionSetPermissions(string name, string batch_handle, Permissions perms)
       => (Error err);
   CollectionDeleteRange(
       string name, string batch_handle, array<uint8> start, array<uint8> limit)
