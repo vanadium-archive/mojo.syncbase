@@ -35,21 +35,17 @@ struct BatchOptions {
   bool read_only;
 };
 
-struct CollectionRow {
-  Id collection_id;
-  string row;
-};
-
 struct SyncgroupSpec {
   string description;
   Permissions perms;
-  array<CollectionRow> prefixes;
+  array<Id> collections;
   array<string> mount_tables;
   bool is_private;
 };
 
 struct SyncgroupMemberInfo {
   uint8 sync_priority;
+  uint8 blob_dev_type;
 };
 
 struct Result {
@@ -146,23 +142,22 @@ interface Syncbase {
   ////////////////////////////////////////
   // SyncgroupManager
 
-  DbGetSyncgroupNames(string name) => (Error err, array<string> names);
+  DbListSyncgroups(string name) => (Error err, array<Id> ids);
   DbCreateSyncgroup(
-      string name, string sg_name, SyncgroupSpec spec,
+      string name, Id sg_id, SyncgroupSpec spec,
       SyncgroupMemberInfo my_info)
       => (Error err);
-  DbJoinSyncgroup(string name, string sg_name, SyncgroupMemberInfo my_info)
+  DbJoinSyncgroup(string name, Id sg_id, SyncgroupMemberInfo my_info)
       => (Error err, SyncgroupSpec spec);
-  DbLeaveSyncgroup(string name, string sg_name) => (Error err);
-  DbDestroySyncgroup(string name, string sg_name) => (Error err);
-  DbEjectFromSyncgroup(string name, string sg_name, string member)
+  DbLeaveSyncgroup(string name, Id sg_id) => (Error err);
+  DbDestroySyncgroup(string name, Id sg_id) => (Error err);
+  DbEjectFromSyncgroup(string name, Id sg_id, string member)
       => (Error err);
-  DbGetSyncgroupSpec(string name, string sg_name)
+  DbGetSyncgroupSpec(string name, Id sg_id)
       => (Error err, SyncgroupSpec spec, string version);
-  DbSetSyncgroupSpec(
-      string name, string sg_name, SyncgroupSpec spec, string version)
+  DbSetSyncgroupSpec(string name, Id sg_id, SyncgroupSpec spec, string version)
       => (Error err);
-  DbGetSyncgroupMembers(string name, string sg_name)
+  DbGetSyncgroupMembers(string name, Id sg_id)
       => (Error err, map<string, SyncgroupMemberInfo> infos);
 
   ////////////////////////////////////////
